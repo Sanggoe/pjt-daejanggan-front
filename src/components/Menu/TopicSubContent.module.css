@@ -1,0 +1,24 @@
+.content {
+    width: 20rem;
+    border: 1px solid black;
+    background-color: lightcoral;
+    text-align: left;
+    padding: 0.1rem;
+    margin: auto;
+}
+
+.label {
+    color: black;
+}
+.label_clicked {
+    color: black;
+    font-weight: bold;
+}
+.label:hover,
+.label_clicked:hover {
+    color: #FFE181;
+}
+.label:active
+.label_clicked:active {
+    color: #fdd550;
+}

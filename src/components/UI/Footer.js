@@ -2,10 +2,10 @@ import React from "react";
 
 import Button from "../UI/Button";
 
-import styles from "./MenuFooter.module.css";
+import styles from "./Footer.module.css";
 import styles2 from "../UI/Button.module.css";
 
-const MenuFooter = (props) => {
+const Footer = (props) => {
   const onClickHander1 = () => {
     props.pageLink(props.links[0]);
   };
@@ -37,4 +37,4 @@ const MenuFooter = (props) => {
   );
 };
 
-export default MenuFooter;
+export default Footer;

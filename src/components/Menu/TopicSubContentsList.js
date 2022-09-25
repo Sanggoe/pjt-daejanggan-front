@@ -7,7 +7,7 @@ const TopicSubContentsList = (props) => {
   return (
     <div className={styles.content}>
       {props.subLabels.map((subLabel) => (
-        <TopicSubContent key={subLabel} label={subLabel} />
+        <TopicSubContent key={subLabel} label={subLabel} verses={props.verses[0]}/>
       ))}
     </div>
   );

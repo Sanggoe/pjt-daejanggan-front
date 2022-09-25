@@ -8,6 +8,20 @@ import PracticingPage from "./pages/PracticingPage";
 import PrepareCheckingPage from "./pages/PrepareCheckingPage";
 import StatisticsPage from "./pages/StatisticsPage";
 
+const verses = [
+  {
+    label: "LOA",
+    subLabel: "그리스도인의 확신",
+    titles: [
+      "요한일서 5:11~12",
+      "요한복음 16:24",
+      "고린도전서 10:13",
+      "요한일서 1:9",
+      "잠언 3:5~6",
+    ],
+  }
+];
+
 const topics = [
   { label: "LOA", subLabel: ["그리스도인의 확신"] },
   { label: "LOC", subLabel: ["그리스도인의 생활지침"] },
@@ -51,11 +65,11 @@ const topics = [
 ];
 
 const statisticTypes = [
-  {label: "전체 통계"},
-  {label: "기간별 통계"},
-  {label: "목록별 통계"},
-  {label: "구절별 통계"}
-]
+  { label: "전체 통계" },
+  { label: "기간별 통계" },
+  { label: "목록별 통계" },
+  { label: "구절별 통계" },
+];
 
 function App() {
   const [pageLink, setPageLink] = useState("LoginPage");
@@ -78,6 +92,7 @@ function App() {
           topicsSelected={changeSelected}
           topics={topics}
           types={statisticTypes}
+          verses={verses}
         />
       )}
       {pageLink === "ManageUsersPage" && (

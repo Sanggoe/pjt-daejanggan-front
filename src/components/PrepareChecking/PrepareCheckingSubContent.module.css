@@ -1,0 +1,50 @@
+.div_container {
+    margin: auto;
+    padding: 1rem;
+}
+.div_toggle1 {
+    width: 9rem;
+    height: 2.5rem;
+    text-align: left;
+    margin: auto;
+    background-color: #E6E6E6;
+    border-radius: 2rem;
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.4);
+}
+.div_toggle2 {
+    width: 9rem;
+    height: 2.5rem;
+    text-align: right;
+    margin: auto;
+    background-color: #E6E6E6;
+    border-radius: 2rem;
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.4);
+}
+
+.input {
+    width: 2.5rem;
+    border: none;
+    color: gray;
+    font-size: 1rem;
+    font-weight: bold;
+    text-align: center;
+    background-color: lightskyblue;
+}
+.inputSelected {
+    width: 2.5rem;
+    border: none;
+    color: black;
+    text-align: center;
+    font-size: 1rem;
+    font-weight: bold;
+    background-color: lightskyblue;
+}
+
+.label {
+    color: gray;
+    font-weight: bold;
+}
+.labelSelected {
+    color: black;
+    font-weight: bold;
+}
