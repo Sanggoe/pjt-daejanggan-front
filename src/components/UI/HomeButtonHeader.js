@@ -1,11 +1,11 @@
 import React from "react";
 
-import Button from "../UI/Button";
+import Button from "./Button";
 
-import styles from "./PrepareCheckingHeader.module.css";
-import styles2 from "../UI/Button.module.css";
+import styles from "./HomeButtonHeader.module.css";
+import styles2 from "./Button.module.css";
 
-const PrepareCheckingHeader = (props) => {
+const HomeButtonHeader = (props) => {
   const onClickHander = () => {
     props.pageLink("MainMenuPage");
   };
@@ -17,10 +17,10 @@ const PrepareCheckingHeader = (props) => {
         type="button"
         onClick={onClickHander}
       >
-        뒤로가기
+        {props.label}
       </Button>
     </div>
   );
 };
 
-export default PrepareCheckingHeader;
+export default HomeButtonHeader;

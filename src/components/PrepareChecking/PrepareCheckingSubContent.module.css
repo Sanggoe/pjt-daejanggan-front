@@ -1,6 +1,9 @@
 .div_container {
+    width: 20rem;
     margin: auto;
-    padding: 1rem;
+    display: flex;
+    padding: 1rem 0rem;
+    /* background-color: aquamarine; */
 }
 .div_toggle1 {
     width: 9rem;
@@ -21,6 +24,11 @@
     box-shadow: 0 1px 8px rgba(0, 0, 0, 0.4);
 }
 
+.div_content {
+    /* background-color: aquamarine; */
+    margin: 0.3rem;
+}
+
 .input {
     width: 2.5rem;
     border: none;
@@ -28,7 +36,7 @@
     font-size: 1rem;
     font-weight: bold;
     text-align: center;
-    background-color: lightskyblue;
+    /* background-color: lightskyblue; */
 }
 .inputSelected {
     width: 2.5rem;
@@ -37,7 +45,7 @@
     text-align: center;
     font-size: 1rem;
     font-weight: bold;
-    background-color: lightskyblue;
+    /* background-color: lightskyblue; */
 }
 
 .label {
@@ -47,4 +55,9 @@
 .labelSelected {
     color: black;
     font-weight: bold;
+}
+
+.img {
+    width: 20rem;
+    margin: 0.3rem 0rem;
 }

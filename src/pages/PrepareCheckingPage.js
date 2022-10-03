@@ -1,19 +1,20 @@
 import React from "react";
 
+import HomeButtonHeader from "../components/UI/HomeButtonHeader";
 import PrepareCheckingContentsList from "../components/PrepareChecking/PrepareCheckingContentsList";
 import Footer from "../components/UI/Footer";
-import PrepareCheckingHeader from "../components/PrepareChecking/PrepareCheckingHeader";
 
 const PrepareCheckingPage = (props) => {
 
   return (
     <>
-      <PrepareCheckingHeader pageLink={props.pageLink} />
+      <HomeButtonHeader label={'뒤로가기'} pageLink={props.pageLink} />
       <PrepareCheckingContentsList len={94}/>
+      <h3>&nbsp;</h3>
       <Footer
         len={1}
         labels={["암송점검 시작"]}
-        links={["MainMenuPage"]}
+        links={["CheckingPage"]}
         pageLink={props.pageLink}
       />
     </>

@@ -18,7 +18,7 @@ const PrepareCheckingSubContent1 = (props) => {
 
   return (
     <>
-      <div className={styles.div}>
+      <div className={styles.div_container}>
         <div className={toggle ? styles.div_toggle1 : styles.div_toggle2}>
           <Button
             styles={
@@ -32,7 +32,6 @@ const PrepareCheckingSubContent1 = (props) => {
             {toggle ? "랜덤" : "순서대로"}
           </Button>
         </div>
-        <p></p>
         <div className={toggle2 ? styles.div_toggle1 : styles.div_toggle2}>
           <Button
             styles={

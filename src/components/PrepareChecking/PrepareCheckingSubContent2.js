@@ -5,7 +5,7 @@ import styles from "./PrepareCheckingSubContent.module.css";
 const PrepareCheckingSubContent2 = (props) => {
   return (
     <>
-      <p>
+      <div className={styles.div_content}>
         장절 [
         <input
           className={
@@ -25,7 +25,7 @@ const PrepareCheckingSubContent2 = (props) => {
           defaultValue={8}
         />
         ] 개
-      </p>
+      </div>
     </>
   );
 };

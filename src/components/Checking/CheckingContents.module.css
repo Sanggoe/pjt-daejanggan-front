@@ -1,0 +1,42 @@
+.contents {
+    background-color: bisque;
+    padding: 0.5rem;
+}
+
+.input {
+    background-color: blueviolet;
+    padding: 0.3rem 0rem;
+}
+
+.inputTitle {
+    width: 95%;
+    border: none;
+    font-weight: bold;
+    font-size: 18px;
+    color: rgba(0,0,139,0.7);
+    background-color: lightblue;
+}
+
+.inputBible {
+    width: 40%;
+    border: none;
+    font-weight: bold;
+    font-size: 18px;
+    color: rgba(0,0,0,0.5);
+    background-color: lightblue;
+}
+
+.inputChapter {
+    width: 25%;
+    border: none;
+    font-weight: bold;
+    font-size: 18px;
+    color: rgba(0,0,0,0.5);
+    background-color: lightblue;
+}
+
+.label {
+    background-color: aqua;
+    font-size: 18px;
+    padding: 1rem 0rem;
+}

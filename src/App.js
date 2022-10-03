@@ -7,6 +7,7 @@ import LoginPage from "./pages/LoginPage";
 import PracticingPage from "./pages/PracticingPage";
 import PrepareCheckingPage from "./pages/PrepareCheckingPage";
 import StatisticsPage from "./pages/StatisticsPage";
+import CheckingPage from "./pages/CheckingPage";
 
 const verses = [
   {
@@ -19,7 +20,7 @@ const verses = [
       "요한일서 1:9",
       "잠언 3:5~6",
     ],
-  }
+  },
 ];
 
 const topics = [
@@ -104,6 +105,9 @@ function App() {
       )}
       {pageLink === "PrepareCheckingPage" && (
         <PrepareCheckingPage pageLink={changePageLink} />
+      )}
+      {pageLink === "CheckingPage" && (
+        <CheckingPage pageLink={changePageLink} />
       )}
       {pageLink === "StatisticsPage" && (
         <StatisticsPage pageLink={changePageLink} />

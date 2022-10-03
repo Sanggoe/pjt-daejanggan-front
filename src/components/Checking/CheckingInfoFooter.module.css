@@ -1,0 +1,66 @@
+.footer {
+    width: 20rem;
+    margin: 1rem auto;
+    padding: 0.5rem;
+    /* background-color: aquamarine; */
+    display: flex;
+}
+
+.hintButton {
+    width: 8.5rem; 
+    height: 2.5rem;
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+    margin: 0.5rem;
+    background-color: white;
+    border-radius: 3rem;
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.4);
+}
+.hintButtonDisabled {
+    width: 8.5rem; 
+    height: 2.5rem;
+    font-size: 20px;
+    font-weight: bold;
+    color: gray;
+    text-align: center;
+    margin: 0.5rem;
+    background-color: white;
+    border-radius: 3rem;
+}
+.hintButton:hover {
+    background-color: #FFE181;
+}
+.hintButton:active {
+    background-color: #fdd550;
+}
+
+.info {
+    width: 5rem; 
+    height: 2.5rem;
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+    margin: 0.5rem;
+    background-color: white;
+    border-radius: 3rem;
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.4);
+    display: flex;
+}
+.infoDisabled {
+    width: 5rem;
+    height: 2.5rem;
+    font-size: 20px;
+    font-weight: bold;
+    color: gray;
+    text-align: center;
+    margin: 0.5rem;
+    background-color: white;
+    border-radius: 3rem;
+    display: flex;
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.4);
+}
+
+.label {
+    margin: auto;
+}
