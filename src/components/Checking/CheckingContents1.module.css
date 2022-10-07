@@ -1,42 +1,41 @@
-.contents {
-    background-color: bisque;
-    padding: 0.5rem;
-}
-
 .input {
-    background-color: blueviolet;
-    padding: 0.3rem 0rem;
+    display: flex;
 }
 
-.inputTitle {
+.inputHead {
     width: 95%;
     border: none;
     font-weight: bold;
     font-size: 18px;
+    margin: 0.2rem;
+    padding: 0.2rem;
     color: rgba(0,0,139,0.7);
-    background-color: lightblue;
+    border-radius: 0.3rem;
 }
 
-.inputBible {
+.inputChapterName {
     width: 40%;
     border: none;
     font-weight: bold;
     font-size: 18px;
+    margin: 0.2rem;
+    padding: 0.2rem;
     color: rgba(0,0,0,0.5);
-    background-color: lightblue;
+    border-radius: 0.3rem;
 }
 
 .inputChapter {
-    width: 25%;
+    width: 23%;
     border: none;
     font-weight: bold;
     font-size: 18px;
+    margin: 0.2rem;
+    padding: 0.2rem;
     color: rgba(0,0,0,0.5);
-    background-color: lightblue;
+    border-radius: 0.3rem;
 }
 
 .label {
-    background-color: aqua;
     font-size: 18px;
-    padding: 1rem 0rem;
+    margin-top: 0.5rem;
 }

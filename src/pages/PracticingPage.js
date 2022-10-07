@@ -1,25 +1,20 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 import Button from "../components/UI/Button";
 
 import styles from "../components/UI/Button.module.css";
 
-const PracticingPage = (props) => {
-  const onClickHandler = () => {
-    props.pageLink("MainMenuPage");
-  };
-
+const PracticingPage = () => {
   return (
     <div>
       <form>
         <h1>Practicing Page</h1>
-        <Button
-          styles={styles.button_nav}
-          type="button"
-          onClick={onClickHandler}
-        >
-          Home
-        </Button>
+        <Link to="/menu">
+          <Button styles={styles.button_nav} type="button">
+            Home
+          </Button>
+        </Link>
       </form>
     </div>
   );

@@ -6,20 +6,30 @@ import styles from "./PrepareCheckingSubContent.module.css";
 import styles2 from "../UI/Button.module.css";
 
 const PrepareCheckingSubContent1 = (props) => {
-  const [toggle, setToggle] = useState(false);
+  const [toggle1, setToggle1] = useState(false);
   const [toggle2, setToggle2] = useState(false);
 
-  const onClickHandler = () => {
-    setToggle(!toggle);
+  const onClickHandler1 = () => {
+    if (toggle1) {
+      props.setOrder('랜덤');
+    } else {
+      props.setOrder('순서대로');
+    }
+    setToggle1(!toggle1);
   };
   const onClickHandler2 = () => {
+    if (toggle2) {
+      props.setVerseType('내용');
+    } else {
+      props.setVerseType('장절');
+    }
     setToggle2(!toggle2);
   };
 
   return (
     <>
       <div className={styles.div_container}>
-        <div className={toggle ? styles.div_toggle1 : styles.div_toggle2}>
+        <div className={toggle1 ? styles.div_toggle1 : styles.div_toggle2}>
           <Button
             styles={
               props.select === "전체 점검"
@@ -27,9 +37,9 @@ const PrepareCheckingSubContent1 = (props) => {
                 : styles2.button_toggle
             }
             type={props.select === "전체 점검" ? "button" : "disabled"}
-            onClick={onClickHandler}
+            onClick={onClickHandler1}
           >
-            {toggle ? "랜덤" : "순서대로"}
+            {toggle1 ? "순서대로" : "랜덤"}
           </Button>
         </div>
         <div className={toggle2 ? styles.div_toggle1 : styles.div_toggle2}>

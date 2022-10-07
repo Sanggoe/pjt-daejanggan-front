@@ -10,6 +10,11 @@ const TopicContent = (props) => {
   const [toggle, setToggle] = useState(false);
 
   const onClickHandler = () => {
+    if (toggle) {
+      props.headList.map(head => {
+        props.onRemoveHeadList(head);
+      })
+    }
     setToggle(!toggle);
   };
 
@@ -20,9 +25,15 @@ const TopicContent = (props) => {
         type="button"
         onClick={onClickHandler}
       >
-        {props.label}
+        {props.theme}
       </Button>
-      {toggle && <TopicSubContentsList subLabels={props.subLabels} verses={props.verses}/>}
+      {toggle && (
+        <TopicSubContentsList
+          headList={props.headList}
+          onAddHeadList={props.onAddHeadList}
+          onRemoveHeadList={props.onRemoveHeadList}
+        />
+      )}
     </div>
   );
 };

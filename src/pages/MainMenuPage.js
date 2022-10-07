@@ -8,46 +8,43 @@ import Footer from "../components/UI/Footer";
 import MenuHeader from "../components/Menu/MenuHeader";
 import MenuNav from "../components/Menu/MenuNav";
 
-const MainMenuPage = (props) => {
-  const [contents, setContents] = useState("Menu1");
+const navLabel = ["암송", "통계", "업적"];
+
+const MainMenuPage = () => {
+  const [contents, setContents] = useState(navLabel[0]);
 
   const changeContents = (menu) => {
     setContents(menu);
   };
 
   return (
-    <div>
-      <MenuHeader pageLink={props.pageLink} />
-      <MenuNav contentsSelect={changeContents} />
-      {contents === "Menu1" && (
+    <>
+      <MenuHeader />
+      <MenuNav navLabel={navLabel} contentsSelect={changeContents} />
+      {contents === navLabel[0] && (
         <>
-          <TopicContentsList topics={props.topics} verses={props.verses} />
+          <TopicContentsList />
           <h3>&nbsp;</h3>
           <Footer
             len={2}
             labels={["암송하러 가기", "점검하러 가기"]}
-            links={["PracticingPage", "PrepareCheckingPage"]}
-            pageLink={props.pageLink}
+            path1={"practicing"}
+            path2={"prepareChecking"}
           />
         </>
       )}
-      {contents === "Menu2" && (
+      {contents === navLabel[1] && (
         <>
-          <TypeContentsList types={props.types} />
-          <Footer
-            len={1}
-            labels={["보러 가기"]}
-            links={["StatisticsPage"]}
-            pageLink={props.pageLink}
-          />
+          <TypeContentsList />
+          <Footer len={1} labels={["보러 가기"]} path1={"/statistics"} />
         </>
       )}
-      {contents === "Menu3" && (
+      {contents === navLabel[2] && (
         <>
           <AchievementContentsList />
         </>
       )}
-    </div>
+    </>
   );
 };
 

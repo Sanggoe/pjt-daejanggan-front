@@ -6,8 +6,13 @@ import TopicSubContent from "./TopicSubContent";
 const TopicSubContentsList = (props) => {
   return (
     <div className={styles.content}>
-      {props.subLabels.map((subLabel) => (
-        <TopicSubContent key={subLabel} label={subLabel} verses={props.verses[0]}/>
+      {props.headList.map((head) => (
+        <TopicSubContent
+          key={head}
+          head={head}
+          onAddHeadList={props.onAddHeadList}
+          onRemoveHeadList={props.onRemoveHeadList}
+        />
       ))}
     </div>
   );

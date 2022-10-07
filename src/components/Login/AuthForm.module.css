@@ -1,0 +1,79 @@
+.auth {
+    margin: 3rem auto;
+    width: 85%;
+    max-width: 25rem;
+    border-radius: 0.6rem;
+    background-color: #FFE181;
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.5);
+    padding: 0.6rem;
+    text-align: center;
+  }
+  
+  .auth h1 {
+    text-align: center;
+    font-size: 2rem;
+    margin: 1.5rem;
+    color: black;
+  }
+  
+  .control {
+    margin-top: 1rem;
+  }
+  
+  .control label {
+    display: block;
+    color: black;
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+  }
+  
+  .control input {
+    background-color: #fffbec;
+    color: black;
+    font-size: 1.2rem;
+    border-radius: 0.6rem;
+    border: 0.1rem solid #fdd550;
+    width: 85%;
+    text-align: left;
+    padding: 0.5rem;
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.5);
+  }
+  
+  .actions {
+    margin-top: 2.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .actions button {
+    cursor: pointer;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: black;
+    background-color: #E6E6E6;
+    border-radius: 1.5rem;
+    padding: 0.6rem 3.5rem;
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.5);
+  }
+  
+  .actions button:hover {
+    background-color: #fdd550;
+    border-color: #fdd550;
+  }
+  
+  .actions .toggle {
+    margin-top: 1rem;
+    background-color: transparent;
+    color: black;
+    border: none;
+    padding: 1rem;
+    box-shadow: none;
+    font-size: 1.2rem;
+  }
+  
+  .actions .toggle:hover {
+    background-color: transparent;
+    color: white;
+  }

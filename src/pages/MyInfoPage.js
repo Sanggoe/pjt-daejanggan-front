@@ -1,27 +1,15 @@
 import React from "react";
+import ProfileForm from "../components/MyInfo/ProfileForm";
 
-import Button from "../components/UI/Button";
+import styles from "./MyInfoPage.module.css";
+import HomeButtonHeader from "../components/UI/HomeButtonHeader";
 
-import styles from "../components/UI/Button.module.css";
-
-const MyInfoPage = (props) => {
-  const onClickHandler = () => {
-    props.pageLink("MainMenuPage");
-  };
-
+const MyInfoPage = () => {
   return (
-    <div>
-      <form>
-        <h1>MyInfo Page</h1>
-        <Button
-          styles={styles.button_nav}
-          type="button"
-          onClick={onClickHandler}
-        >
-          Home
-        </Button>
-      </form>
-    </div>
+    <section className={styles.profile}>
+      <HomeButtonHeader label="돌아가기" path="/menu" />
+      <ProfileForm />
+    </section>
   );
 };
 

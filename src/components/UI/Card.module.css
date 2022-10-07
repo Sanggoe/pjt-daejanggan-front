@@ -4,7 +4,6 @@
     padding: 0.5rem;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
     border-radius: 0.8rem;
-    background-color: aquamarine;
 }
 
 @media (min-width: 410px) {

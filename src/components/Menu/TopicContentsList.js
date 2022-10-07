@@ -1,29 +1,36 @@
-import React from "react";
+import React, { useContext } from "react";
 
 import styles from "./TopicContentsList.module.css";
 import TopicContent from "./TopicContent";
+import VerseContext from "../../store/verses-context";
+import Button from "../UI/Button";
 
-const TopicContentsList = (props) => {
-  // const [title, setTitle] = useState('');
-  // const filterTitleHandler = (title) => {
-  //   console.log(title);
-  //   setTitle(title);
-  // }
-  // const filterTitleVerses = props.verses.filter((verses) => {
-  //   return verses.title === title;
-  // });
+const TopicContentsList = () => {
+  const verseCtx = useContext(VerseContext);
+  
+  /* test code */
+  const showHeadHandler = () => {
+    console.log(verseCtx.checkingInfo.headList);
+  };
+  /************/ 
 
   return (
     <div className={styles.contents}>
-      {props.topics.map((topic) => (
+      {verseCtx.verseInfo.map((verseInfo) => (
         <TopicContent
-          key={topic.label}
-          label={topic.label}
-          subLabels={topic.subLabel}
-          // onChangeFilter={filterTitleHandler}
-          verses={props.verses}
+          key={verseInfo.theme}
+          theme={verseInfo.theme}
+          headList={verseInfo.headList}
+          onAddHeadList={verseCtx.addHeadList}
+          onRemoveHeadList={verseCtx.removeHeadList}
         />
       ))}
+
+      {/* Test code */}
+      <Button type="button" onClick={showHeadHandler}>
+        show head
+      </Button>
+      {/***************/}
     </div>
   );
 };

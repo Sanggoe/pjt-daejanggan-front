@@ -4,10 +4,12 @@ import styles from './TopicSubContent.module.css'
 
 const TopicSubContent = (props) => {
   const [check, setCheck] = useState(false);
-
+  
   const onClickHandler = (e) => {
     if (!check) {
-      console.log(e.target.id)
+      props.onAddHeadList(e.target.id)
+    } else {
+      props.onRemoveHeadList(e.target.id)
     }
     setCheck(!check);
   };
@@ -22,23 +24,16 @@ const TopicSubContent = (props) => {
             type="checkbox"
             checked={check}
             onChange={onChangeHandler}
-            id={props.label}
+            id={props.head}
           />
           <label
             className={!check ? styles.label : styles.label_clicked}
-            id={props.label}
+            id={props.head}
           >
-            {props.label}
+            {props.head}
           </label>
         </span>
-        {/* <Button style={styles2.button_showItems}>펼치기</Button> */}
       </div>
-
-      {/* <div>
-        {props.verses.titles.map((title) => (
-          <li>{title}</li>
-        ))}
-      </div> */}
     </>
   );
 };

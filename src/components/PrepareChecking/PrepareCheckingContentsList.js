@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import VerseContext from "../../store/verses-context";
 
 import PrepareCheckingContent from "./PrepareCheckingContent";
 import PrepareCheckingSubContent1 from "./PrepareCheckingSubContent1";
@@ -12,11 +13,21 @@ const checkingList = [
 ];
 
 const PrepareCheckingContentsList = (props) => {
-  const [select, setToggle] = useState("");
+  const verseCtx = useContext(VerseContext);
+  const [select, setSelect] = useState("");
+  const [order, setOrder] = useState("랜덤");
+  const [verseType, setVerseType] = useState('내용')
 
   const onSelectHandler = (selected) => {
-    console.log(selected);
-    setToggle(selected);
+    setSelect(selected);
+    if(selected === checkingList[0].label) {
+      console.log('전체')
+    } else if (selected === checkingList[1].label) {
+      console.log('일부')
+    } else if (selected === checkingList[2].label) {
+      console.log('체급')
+    }
+    verseCtx.setCheckingType(selected);
   };
 
   let check = {
@@ -77,7 +88,11 @@ const PrepareCheckingContentsList = (props) => {
         onSelect={onSelectHandler}
         select={select}
       >
-        <PrepareCheckingSubContent1 select={select} />
+        <PrepareCheckingSubContent1
+          select={select}
+          setOrder={verseCtx.setOrder}
+          setVerseType={verseCtx.setVerseType}
+        />
       </PrepareCheckingContent>
       <PrepareCheckingContent
         key={checkingList[1].label}

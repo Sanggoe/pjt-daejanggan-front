@@ -4,41 +4,21 @@ import Button from "../UI/Button";
 
 import styles from "./MenuHeader.module.css";
 import styles2 from "../UI/Button.module.css";
+import { Link } from "react-router-dom";
 
-const MenuHeader = (props) => {
-  const onClickHander1 = () => {
-    props.pageLink('ManageUsersPage')
-  };
-  const onClickHander2 = () => {
-    props.pageLink('MyInfoPage')
-  };
-  const onClickHander3 = () => {
-    props.pageLink('LoginPage')
-  };
-
+const MenuHeader = () => {
   return (
     <div className={styles.header}>
-      <Button
-        styles={styles2.button_header}
-        type="button"
-        onClick={onClickHander1}
-      >
-        회원관리
-      </Button>
-      <Button
-        styles={styles2.button_header}
-        type="button"
-        onClick={onClickHander2}
-      >
-        내 정보
-      </Button>
-      <Button
-        styles={styles2.button_header}
-        type="button"
-        onClick={onClickHander3}
-      >
-        로그인
-      </Button>
+      <Link to="/myInfo">
+        <Button styles={styles2.button_header} type="button">
+          내 정보
+        </Button>
+      </Link>
+      <Link to="/">
+        <Button styles={styles2.button_header} type="button">
+          로그아웃
+        </Button>
+      </Link>
     </div>
   );
 };

@@ -108,8 +108,10 @@ button {
 
 .button_home {
     width: auto;
-    padding: 0.5rem;
+    padding: 0.6rem;
     margin: 0.3rem;
+    font-weight: bold;
+    font-size: 1rem;
     background-color: #E6E6E6;
     border-radius: 0.5rem;
     box-shadow: 0 1px 8px rgba(0, 0, 0, 0.4);

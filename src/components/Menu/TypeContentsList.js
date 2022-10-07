@@ -4,17 +4,23 @@ import TypeContent from "./TypeContent";
 
 import styles from "./TypeContentsList.module.css";
 
-const TypeContentsList = (props) => {
+const types = [
+  { label: "일일 통계" },
+  { label: "주별 통계" },
+  { label: "월별 통계" },
+];
+
+const TypeContentsList = () => {
+
   const [select, setToggle] = useState('');
 
   const onSelectHandler = (selected) => {
-    console.log(selected);
     setToggle(selected);
   };
 
   return (
     <div className={styles.contents}>
-      {props.types.map((type) => (
+      {types.map((type) => (
         <TypeContent
           key={type.label}
           label={type.label}

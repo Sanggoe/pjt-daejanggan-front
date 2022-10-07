@@ -1,0 +1,41 @@
+.input {
+    display: flex;
+}
+
+.inputHead {
+    width: 95%;
+    border: none;
+    font-weight: bold;
+    font-size: 18px;
+    margin: 0.2rem;
+    padding: 0.2rem;
+    color: rgba(0,0,139,0.7);
+    border-radius: 0.3rem;
+}
+
+.inputChapterName {
+    width: 40%;
+    border: none;
+    font-weight: bold;
+    font-size: 18px;
+    margin: 0.2rem;
+    padding: 0.2rem;
+    color: rgba(0,0,0,0.5);
+    border-radius: 0.3rem;
+}
+
+.inputChapter {
+    width: 23%;
+    border: none;
+    font-weight: bold;
+    font-size: 18px;
+    margin: 0.2rem;
+    padding: 0.2rem;
+    color: rgba(0,0,0,0.5);
+    border-radius: 0.3rem;
+}
+
+.label {
+    font-size: 18px;
+    margin-top: 0.5rem;
+}
