@@ -43,7 +43,10 @@ const CorrectAnswerContents1 = () => {
         >
           {verseCtx.chapverseResponse.chapter.result}
         </label>
-        <label
+        <label>
+          <b>:</b>
+        </label>
+        <label // 절
           className={`${styles.labelChapter} ${
             verseCtx.chapverseResponse.verse.correct
               ? styles.labelChapter_Correct
@@ -55,7 +58,11 @@ const CorrectAnswerContents1 = () => {
         </label>
       </div>
       <div className={styles.label}>
-        <label>{verseCtx.checkingVerseInfos[0].contents}</label>
+        <label // 내용
+          className={styles.labelContent}
+        >
+          {verseCtx.checkingInfoResponse[0].contents}
+        </label>
       </div>
     </Card>
   );

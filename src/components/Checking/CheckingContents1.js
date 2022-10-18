@@ -106,7 +106,7 @@ const CheckingContents1 = () => {
         />
       </div>
       <div className={styles.label}>
-        <label>{verseCtx.checkingVerseInfos[0].contents}</label>
+        <label className={styles.labelContent}>{verseCtx.checkingInfoResponse[0].contents}</label>
       </div>
     </Card>
   );

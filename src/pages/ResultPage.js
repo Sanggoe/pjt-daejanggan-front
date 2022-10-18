@@ -9,7 +9,7 @@ import CorrectAnswerContents2 from "../components/Checking/CorrectAnswerContents
 import HomeButtonHeader from "../components/UI/HomeButtonHeader";
 import CheckingContents2 from "../components/Checking/CheckingContents2";
 
-const CheckingPage = () => {
+const ResultPage = () => {
   const [isCheckable, setIsCheckable] = useState(true);
 
   const isCheckableHandler = () => {
@@ -42,4 +42,4 @@ const CheckingPage = () => {
   );
 };
 
-export default CheckingPage;
+export default ResultPage;

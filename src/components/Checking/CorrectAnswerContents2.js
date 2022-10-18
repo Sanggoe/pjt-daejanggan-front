@@ -23,39 +23,16 @@ const CorrectAnswerContents2 = () => {
         </label>
       </div>
       <div className={styles.label}>
-        <label // 성경
-          className={`${styles.labelChapterName} ${
-            verseCtx.chapverseResponse.chapterName.correct
-              ? styles.labelChapterName_Correct
-              : styles.labelChapterName_Wrong
-          }`}
-          type="text"
-        >
-          {verseCtx.chapverseResponse.chapterName.result}
-        </label>
-        <label // 장
-          className={`${styles.labelChapter} ${
-            verseCtx.chapverseResponse.chapter.correct
-              ? styles.labelChapter_Correct
-              : styles.labelChapter_Wrong
-          }`}
-          type="text"
-        >
-          {verseCtx.chapverseResponse.chapter.result}
-        </label>
-        <label
-          className={`${styles.labelChapter} ${
-            verseCtx.chapverseResponse.verse.correct
-              ? styles.labelChapter_Correct
-              : styles.labelChapter_Wrong
-          }`}
-          type="text"
-        >
-          {verseCtx.chapverseResponse.verse.result}
+        <label className={styles.labelChapVerse}>
+          {verseCtx.checkingInfoResponse[0].chapverse}
         </label>
       </div>
       <div className={styles.label}>
-        <label>{verseCtx.checkingVerseInfos[0].contents}</label>
+        <label // 내용
+          className={styles.labelContent}
+        >
+          {verseCtx.checkingInfoResponse[0].contents}
+        </label>
       </div>
     </Card>
   );

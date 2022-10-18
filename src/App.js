@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 
 import MainMenuPage from "./pages/MainMenuPage";
 import MyInfoPage from "./pages/MyInfoPage";
@@ -7,34 +7,68 @@ import PracticingPage from "./pages/PracticingPage";
 import PrepareCheckingPage from "./pages/PrepareCheckingPage";
 import StatisticsPage from "./pages/StatisticsPage";
 import CheckingPage from "./pages/CheckingPage";
-import { Route, Switch } from "react-router-dom";
+import { Redirect, Route, Switch } from "react-router-dom";
+import AuthContext from "./store/auth-context";
+import VerseContext from "./store/verses-context";
 
-function App() {
+const App = () => {
+  const authCtx = useContext(AuthContext);
+  const verseCtx = useContext(VerseContext);
+
   return (
     <Switch>
       <Route path="/" exact>
-        <LoginPage />
+        {!authCtx.isLoggedIn && <LoginPage />}
+        {authCtx.isLoggedIn && <Redirect to="/menu" />}
       </Route>
       <Route path="/menu">
-        <MainMenuPage />
+        {authCtx.isLoggedIn && <MainMenuPage />}
+        {!authCtx.isLoggedIn && <Redirect to="/" />}
       </Route>
       <Route path="/myInfo">
-        <MyInfoPage />
+        {authCtx.isLoggedIn && <MyInfoPage />}
+        {!authCtx.isLoggedIn && <Redirect to="/" />}
       </Route>
       <Route path="/practicing">
-        <PracticingPage />
+        {authCtx.isLoggedIn && verseCtx.checkingInfoRequest.headList.length && (
+          <PracticingPage />
+        )}
+        {authCtx.isLoggedIn &&
+          !verseCtx.checkingInfoRequest.headList.length && (
+            <Redirect to="/menu" />
+          )}
+        {!authCtx.isLoggedIn && <Redirect to="/" />}
       </Route>
       <Route path="/prepareChecking">
-        <PrepareCheckingPage />
+        {authCtx.isLoggedIn && verseCtx.checkingInfoRequest.headList.length && (
+          <PrepareCheckingPage />
+        )}
+        {authCtx.isLoggedIn &&
+          !verseCtx.checkingInfoRequest.headList.length && (
+            <Redirect to="/menu" />
+          )}
+        {!authCtx.isLoggedIn && <Redirect to="/" />}
       </Route>
       <Route path="/checking">
-        <CheckingPage />
+        {authCtx.isLoggedIn && verseCtx.checkingInfoRequest.headList.length && (
+          <CheckingPage />
+        )}
+        {authCtx.isLoggedIn &&
+          !verseCtx.checkingInfoRequest.headList.length && (
+            <Redirect to="/menu" />
+          )}
+        {!authCtx.isLoggedIn && <Redirect to="/" />}
       </Route>
       <Route path="/statistics">
-        <StatisticsPage />
+        {authCtx.isLoggedIn && <StatisticsPage />}
+        {!authCtx.isLoggedIn && <Redirect to="/" />}
+      </Route>
+      <Route path="*">
+        {authCtx.isLoggedIn && <Redirect to="/menu" />}
+        {!authCtx.isLoggedIn && <Redirect to="/" />}
       </Route>
     </Switch>
   );
-}
+};
 
 export default App;

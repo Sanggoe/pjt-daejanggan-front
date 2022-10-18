@@ -1,0 +1,33 @@
+{
+    "message": "Request failed with status code 400",
+    "name": "AxiosError",
+    "stack": "AxiosError: Request failed with status code 400\n    at settle (http://localhost:3000/static/js/bundle.js:60275:12)\n    at XMLHttpRequest.onloadend (http://localhost:3000/static/js/bundle.js:58921:66)",
+    "config": {
+      "transitional": {
+        "silentJSONParsing": true,
+        "forcedJSONParsing": true,
+        "clarifyTimeoutError": false
+      },
+      "transformRequest": [
+        null
+      ],
+      "transformResponse": [
+        null
+      ],
+      "timeout": 0,
+      "xsrfCookieName": "XSRF-TOKEN",
+      "xsrfHeaderName": "X-XSRF-TOKEN",
+      "maxContentLength": -1,
+      "maxBodyLength": -1,
+      "env": {},
+      "headers": {
+        "Accept": "application/json, text/plain, */*",
+        "Content-Type": "application/json"
+      },
+      "method": "post",
+      "url": "http://192.168.5.40:8080/api/signup",
+      "data": "{\"username\":\"sanggoe\",\"password\":\"1\",\"nickname\":\"박상민\"}"
+    },
+    "code": "ERR_BAD_REQUEST",
+    "status": 400
+  }

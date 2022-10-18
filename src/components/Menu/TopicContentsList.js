@@ -10,7 +10,7 @@ const TopicContentsList = () => {
   
   /* test code */
   const showHeadHandler = () => {
-    console.log(verseCtx.checkingInfo.headList);
+    console.log(verseCtx.checkingInfoRequest.headList);
   };
   /************/ 
 

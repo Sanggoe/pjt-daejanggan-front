@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import VerseContext from "../../store/verses-context";
 
 import PrepareCheckingContent from "./PrepareCheckingContent";
@@ -12,73 +12,69 @@ const checkingList = [
   { label: "체급별 점검" },
 ];
 
-const PrepareCheckingContentsList = (props) => {
+const PrepareCheckingContentsList = () => {
   const verseCtx = useContext(VerseContext);
-  const [select, setSelect] = useState("");
-  const [order, setOrder] = useState("랜덤");
-  const [verseType, setVerseType] = useState('내용')
+  const [select, setSelect] = useState("전체 점검");
+  const [orderType, setOrderType] = useState(0);
+  const [verseType, setVerseType] = useState(0);
 
+  const [chapterNums, setChapterNums] = useState(2);
+  const [contentsNums, setContentsNums] = useState(8);
+
+  // setIn73ChapterNums: (in73ChapterNums) => {},
+  // setIn73ContentsNums: (in73ContentsNums) => {},
+  // setOut73ChapterNums: (out73ChapterNums) => {},
+  // setOut73ContentsNums: (out73ContentsNums) => {},
+  // checkingInfoRequest.weight.in73Chapter/in73Contents/out73Chapter/out73Contents
   const onSelectHandler = (selected) => {
     setSelect(selected);
-    if(selected === checkingList[0].label) {
-      console.log('전체')
-    } else if (selected === checkingList[1].label) {
-      console.log('일부')
-    } else if (selected === checkingList[2].label) {
-      console.log('체급')
-    }
     verseCtx.setCheckingType(selected);
   };
 
-  let check = {
-    level: "",
-    chapter_in73: 0,
-    verse_in73: 0,
-    chapter_out73: 0,
-    verse_out73: 0,
-  };
+  useEffect(() => {
+    verseCtx.setOrderType(orderType);
+  }, [orderType]);
 
-  if (props.len < 73) {
-    check.level = "73 이하";
-    check.verse_in73 = 10;
-  } else if (props.len < 100) {
-    let num = Math.floor(Math.random() * 2);
-    console.log(num);
-    check.level = "73 체급";
-    check.chapter_in73 = 4;
-    check.verse_in73 = 5 + num;
-    check.verse_out73 = num;
-  } else if (props.len < 200) {
-    check.level = "100 체급";
-    check.chapter_in73 = 3;
-    check.verse_in73 = 4;
-    check.chapter_out73 = 1;
-    check.verse_out73 = 2;
-  } else if (props.len < 300) {
-    check.level = "200 체급";
-    check.chapter_in73 = 2;
-    check.verse_in73 = 3;
-    check.chapter_out73 = 2;
-    check.verse_out73 = 3;
-  } else if (props.len < 400) {
-    check.level = "300 체급";
-    check.chapter_in73 = 2;
-    check.verse_in73 = 3;
-    check.chapter_out73 = 4;
-    check.verse_out73 = 6;
-  } else if (props.len < 500) {
-    check.level = "400 체급";
-    check.chapter_in73 = 2;
-    check.verse_in73 = 3;
-    check.chapter_out73 = 4;
-    check.verse_out73 = 6;
-  } else if (props.len >= 500) {
-    check.level = "500 이상";
-    check.chapter_in73 = 2;
-    check.verse_in73 = 3;
-    check.chapter_out73 = 4;
-    check.verse_out73 = 6;
-  }
+  useEffect(() => {
+    verseCtx.setVerseType(verseType);
+  }, [verseType]);
+
+  useEffect(() => {
+    verseCtx.setChapterNums(chapterNums);
+  }, [chapterNums]);
+
+  useEffect(() => {
+    verseCtx.setContentsNums(contentsNums);
+  }, [contentsNums]);
+
+  useEffect(() => {
+    let weight = verseCtx.checkingInfoRequest.weight.weightType;
+    if (weight === 0) {
+      verseCtx.setIn73ChapterNums(10);
+    } else if (weight === 73) {
+      let num = Math.floor(Math.random() * 2);
+      verseCtx.setIn73ChapterNums(4);
+      verseCtx.setIn73ContentsNums(5 + num);
+      if (!num) {
+        verseCtx.setOut73ContentsNums(1);
+      }
+    } else if (weight === 100) {
+      verseCtx.setIn73ChapterNums(3);
+      verseCtx.setIn73ContentsNums(4);
+      verseCtx.setOut73ChapterNums(1);
+      verseCtx.setOut73ContentsNums(2);
+    } else if (weight === 200) {
+      verseCtx.setIn73ChapterNums(2);
+      verseCtx.setIn73ContentsNums(3);
+      verseCtx.setOut73ChapterNums(2);
+      verseCtx.setOut73ContentsNums(3);
+    } else if (weight === 300 || weight === 400 || weight === 500) {
+      verseCtx.setIn73ChapterNums(2);
+      verseCtx.setIn73ContentsNums(3);
+      verseCtx.setOut73ChapterNums(4);
+      verseCtx.setOut73ContentsNums(6);
+    }
+  }, []);
 
   return (
     <>
@@ -90,8 +86,8 @@ const PrepareCheckingContentsList = (props) => {
       >
         <PrepareCheckingSubContent1
           select={select}
-          setOrder={verseCtx.setOrder}
-          setVerseType={verseCtx.setVerseType}
+          setOrderType={setOrderType}
+          setVerseType={setVerseType}
         />
       </PrepareCheckingContent>
       <PrepareCheckingContent
@@ -100,7 +96,12 @@ const PrepareCheckingContentsList = (props) => {
         onSelect={onSelectHandler}
         select={select}
       >
-        <PrepareCheckingSubContent2 select={select} />
+        <PrepareCheckingSubContent2
+          select={select}
+          setChapterNums={setChapterNums}
+          setContentsNums={setContentsNums}
+          weight={verseCtx.checkingInfoRequest.weight.weightType}
+        />
       </PrepareCheckingContent>
       <PrepareCheckingContent
         key={checkingList[2].label}
@@ -108,7 +109,10 @@ const PrepareCheckingContentsList = (props) => {
         onSelect={onSelectHandler}
         select={select}
       >
-        <PrepareCheckingSubContent3 select={select} level={check.level} />
+        <PrepareCheckingSubContent3
+          select={select}
+          weight={verseCtx.checkingInfoRequest.weight.weightType}
+        />
       </PrepareCheckingContent>
     </>
   );

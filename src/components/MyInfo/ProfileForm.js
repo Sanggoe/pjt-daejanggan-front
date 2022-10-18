@@ -1,48 +1,54 @@
-import { useContext, useRef } from "react";
-import { useHistory } from "react-router-dom";
+import axios from "axios";
+import { useContext, useEffect, useRef, useState } from "react";
+import authHeader from "../../api/auth-header";
 import AuthContext from "../../store/auth-context";
 import styles from "./ProfileForm.module.css";
 
 const ProfileForm = () => {
-  const history = useHistory();
-  const newPasswordInputRef = useRef();
+  const API_URL = "http://192.168.5.40:8080/api";
+  // const [username, setUsername] = useState("");
+  // const [nickname, setNickname] = useState("");
   const authCtx = useContext(AuthContext);
+  const newPasswordInputRef = useRef();
 
-  const submitHandler = (e) => {
+  const changePassword = (e) => {
     e.preventDefault();
 
     const enteredNewPassword = newPasswordInputRef.current.value;
+    const payload = {
+      username: authCtx.username,
+      password: enteredNewPassword,
+      nickname: authCtx.nickname,
+    };
 
-    // addvalidation
+    axios
+      .post(API_URL + "/change-password", payload, { headers: authHeader() })
+      .then((response) => {
+        /***********************/
+        console.log("response : " + JSON.stringify(response));
 
-    fetch(
-      //"https://identitytoolkit.googleapis.com/v1/accounts:update?key=AIzaSyCX5jBkSYRYEud58rSNaK7xJ_OWCxGpROo",
-      {
-        method: "POST",
-        body: JSON.stringify({
-          idToken: authCtx.token,
-          password: enteredNewPassword,
-          returnSecureToken: false,
-        }),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    ).then((res) => {
-      history.replace("/");
-    });
+        if (response.status === 200) {
+          alert("비밀번호 변경 성공!");
+          return response;
+        }
+      })
+      .catch((err) => {
+        /***********************/
+        console.log(JSON.stringify(err));
+        alert("비밀번호 변경은 아직 에러가 남\n서버에서 DB 저장 쪽 문제인듯. 해결중!!");
+      });
   };
 
   return (
-    <form className={styles.form} onSubmit={submitHandler}>
+    <form className={styles.form} onSubmit={changePassword}>
       <h2>비밀번호 변경</h2>
       <div className={styles.control}>
         <label htmlFor="id">id</label>
-        <label className={styles.control_input}>Sanggoe</label>
+        <label className={styles.control_input}>{authCtx.username}</label>
       </div>
       <div className={styles.control}>
         <label htmlFor="name">name</label>
-        <label className={styles.control_input}>박상민</label>
+        <label className={styles.control_input}>{authCtx.nickname}</label>
       </div>
       <div className={styles.control}>
         <label htmlFor="new-password">New Password</label>

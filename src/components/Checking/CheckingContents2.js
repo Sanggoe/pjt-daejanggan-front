@@ -9,9 +9,7 @@ const CheckingContents2 = () => {
   const verseCtx = useContext(VerseContext);
 
   const head = useRef("");
-  const chapterName = useRef("");
-  const chapter = useRef("");
-  const verse = useRef("");
+  const contents = useRef("");
 
   const onfocusHandler1 = () => {
     if (head.current.value === "| 제목") {
@@ -26,39 +24,15 @@ const CheckingContents2 = () => {
     }
   };
   const onfocusHandler2 = () => {
-    if (chapterName.current.value === "| 성경") {
-      chapterName.current.value = "";
+    if (contents.current.value === "| 내용") {
+      contents.current.value = "";
     }
   };
   const onblurHandler2 = () => {
-    if (chapterName.current.value === "") {
-      chapterName.current.value = "| 성경";
+    if (contents.current.value === "") {
+      contents.current.value = "| 내용";
     } else {
-      verseCtx.setInputChapterName(chapterName.current.value)
-    }
-  };
-  const onfocusHandler3 = () => {
-    if (chapter.current.value === "| 장") {
-      chapter.current.value = "";
-    }
-  };
-  const onblurHandler3 = () => {
-    if (chapter.current.value === "") {
-      chapter.current.value = "| 장";
-    } else {
-      verseCtx.setInputChapter(chapter.current.value)
-    }
-  };
-  const onfocusHandler4 = () => {
-    if (verse.current.value === "| 절") {
-      verse.current.value = "";
-    }
-  };
-  const onblurHandler4 = () => {
-    if (verse.current.value === "") {
-      verse.current.value = "| 절";
-    } else {
-      verseCtx.setInputVerse(verse.current.value)
+      verseCtx.setInputChapterName(contents.current.value)
     }
   };
 
@@ -76,37 +50,21 @@ const CheckingContents2 = () => {
           ref={head}
         />
       </div>
+      <div className={styles.label}>
+        <label className={styles.labelChapVerse}>
+          {verseCtx.checkingInfoResponse[0].chapverse}
+        </label>
+      </div>
       <div className={styles.input}>
-        <input
-          className={styles.inputChapterName}
+        <textarea
+          className={styles.inputContents}
           type="text"
-          defaultValue="| 성경"
-          value={verseCtx.chapterName}
+          defaultValue="| 내용"
+          value={verseCtx.contents}
           onFocus={onfocusHandler2}
           onBlur={onblurHandler2}
-          ref={chapterName}
+          ref={contents}
         />
-        <input
-          className={styles.inputChapter}
-          type="text"
-          defaultValue="| 장"
-          value={verseCtx.chapter}
-          onFocus={onfocusHandler3}
-          onBlur={onblurHandler3}
-          ref={chapter}
-        />
-        <input
-          className={styles.inputChapter}
-          type="text"
-          defaultValue="| 절"
-          value={verseCtx.verse}
-          onFocus={onfocusHandler4}
-          onBlur={onblurHandler4}
-          ref={verse}
-        />
-      </div>
-      <div className={styles.label}>
-        <label>{verseCtx.checkingVerseInfos[0].contents}</label>
       </div>
     </Card>
   );

@@ -1,12 +1,12 @@
 import React from "react";
 
-import Button from "./Button";
+import Button from "../UI/Button";
 
-import styles from "./Footer.module.css";
+import styles from "../UI/Footer.module.css";
 import styles2 from "../UI/Button.module.css";
 import { Link } from "react-router-dom";
 
-const Footer = (props) => {
+const PrepareCheckingFooter = (props) => {
   return (
     <div className={styles.footer}>
       <Link to={props.path1}>
@@ -30,4 +30,4 @@ const Footer = (props) => {
   );
 };
 
-export default Footer;
+export default PrepareCheckingFooter;

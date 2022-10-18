@@ -1,18 +1,19 @@
-import axios from "axios";
-import { useState, useRef, useContext } from "react";
-import { Link, useHistory } from "react-router-dom";
-import AuthContext from "../../store/auth-context";
-import Button from "../UI/Button";
+import { useState, useRef, useContext, useEffect } from "react";
+import { useHistory } from "react-router-dom";
 
 import classes from "./AuthForm.module.css";
+import axios from "axios";
+import AuthContext from "../../store/auth-context";
+import authHeader from "../../api/auth-header";
 
 const AuthForm = () => {
+  const API_URL = "http://192.168.5.40:8080/api";
   const history = useHistory();
+  const authCtx = useContext(AuthContext);
+
   const idInputRef = useRef();
   const passwordInputRef = useRef();
   const nameInputRef = useRef();
-
-  const authCtx = useContext(AuthContext);
 
   const [isLogin, setIsLogin] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
@@ -21,72 +22,108 @@ const AuthForm = () => {
     setIsLogin((prevState) => !prevState);
   };
 
-  const submitHandler = (e) => {
+  // 회원가입
+  const signUp = (e) => {
     e.preventDefault();
 
-    const enteredId = idInputRef.current.value;
-    const enteredPassword = passwordInputRef.current.value;
-    const enteredName = nameInputRef.current.value;
+    setIsLoading(true);
 
-    // setIsLoading(true);
+    const payload = {
+      username: idInputRef.current.value,
+      password: passwordInputRef.current.value,
+      nickname: nameInputRef.current.value,
+    };
 
-    axios.post('http://localhost:8080/api/signup', {
-      username:enteredId,
-      password:enteredPassword,
-      nickname:enteredName
-    }).then(response => {
-      console.log(response)
-    })
-    // if (isLogin) {
-    //   url = "http://localhost:8080/api/authenticate";
-    //   // "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyCX5jBkSYRYEud58rSNaK7xJ_OWCxGpROo";
-    // } else {
-    //   url = "http://localhost:8080/api/signup";
-    //   // "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyCX5jBkSYRYEud58rSNaK7xJ_OWCxGpROo";
-    // }
-    // fetch(url, {
-    //   method: "POST",
-    //   body: JSON.stringify({
-    //     username: enteredId,
-    //     password: enteredPassword,
-    //     nickname: enteredName,
-    //   }),
-    //   header: {
-    //     "Content-Type": "application/json",
-    //   },
-    // })
-    //   .then((res) => {
-    //     setIsLoading(false);
-    //     if (res.ok) {
-    //       return res.json();
-    //     } else {
-    //       return res.json().then((data) => {
-    //         let errorMessage = "Authentication failed!";
-    //         // if (data && data.error && data.error.message) {
-    //         //   errorMessage = data.error.message;
-    //         // }
+    axios
+      .post(API_URL + "/signup", payload)
+      .then((response) => {
+        setIsLoading(false);
 
-    //         throw new Error(errorMessage);
-    //       });
-    //     }
-    //   })
-    //   .then((data) => {
-    //     const expirationTime = new Date(
-    //       new Date().getTime() + +data.expiresIn * 1000
-    //     );
-    //     authCtx.login(data.idToken, expirationTime.toISOString());
-    //     history.replace("/");
-    //   })
-    //   .catch((err) => {
-    //     alert(err.message);
-    //   });
+        /***********************/
+        // console.log("response : " + JSON.stringify(response));
+        if (response.status === 200) {
+          alert("회원가입 성공!");
+          setIsLogin((prevState) => !prevState);
+          return response;
+        }
+      })
+      .catch((err) => {
+        setIsLoading(false);
+
+        /***********************/
+        // console.log(JSON.stringify(err))
+        if (err.response.status === 400) { // valid error 3글자 이상
+          alert(err.response.data.fieldErrors[0].defaultMessage);
+        } else if (err.response.status === 409) { // 중복 회원
+          alert(err.response.data.message);
+        }
+      });
+  };
+
+  // 로그인
+  const authLogin = (e) => {
+    e.preventDefault();
+
+    setIsLoading(true);
+
+    const payload = {
+      username: idInputRef.current.value,
+      password: passwordInputRef.current.value,
+    };
+
+    axios
+      .post(API_URL + "/authenticate", payload)
+      .then((response) => {
+        setIsLoading(false);
+        
+        /***********************/
+        // console.log("response : " + JSON.stringify(response));
+        authCtx.login(JSON.stringify(response.data), 86400)
+        getUserInfo();
+
+        history.replace("/menu");
+
+        return true;
+      })
+      .catch((err) => {
+        setIsLoading(false);
+
+        /***********************/
+        // console.log(JSON.stringify(err))
+        if (err.response.status === 400) { // valid error 3글자 이상
+          alert(err.response.data.fieldErrors[0].defaultMessage);
+        } else if (err.response.status === 401) { // 틀린 인증정보
+          alert("ID 또는 PW를 다시 입력하세요");
+        }
+      });
+  };
+
+  // 정보 요청
+  const getUserInfo = () => {
+    axios
+      .get(API_URL + "/user", {
+        headers: authHeader(),
+      })
+      .then((response) => {
+        /***********************/
+        //console.log("response : " + JSON.stringify(response));
+        authCtx.setUser(response.data.username, response.data.nickname);
+        return response;
+      })
+      .catch((err) => {
+        /***********************/
+        console.log("error : " + JSON.stringify(err));
+        alert(
+          "Error 발생!! 이게 나면 에러 로그를 캡쳐해서 개발자에게 보내주세요"
+        );
+      });
   };
 
   return (
     <>
       <section className={classes.auth}>
         <h1>{isLogin ? "Login" : "Sign Up"}</h1>
-        <form onSubmit={submitHandler}>
+        <form onSubmit={isLogin ? authLogin : signUp}>
           <div className={classes.control}>
             <label htmlFor="id">{isLogin ? "Your Id" : "Make Your Id"}</label>
             <input type="id" id="id" required ref={idInputRef} />
@@ -109,8 +146,11 @@ const AuthForm = () => {
             </div>
           )}
           <div className={classes.actions}>
-            {!isLoading && <button>{isLogin ? "로그인" : "회원 가입"}</button>}
+            {!isLoading && (
+              <button type="submit">{isLogin ? "로그인" : "회원 가입"}</button>
+            )}
             {isLoading && <p>Sending request...</p>}
+
             <button
               type="button"
               className={classes.toggle}
@@ -121,9 +161,6 @@ const AuthForm = () => {
           </div>
         </form>
       </section>
-      <Link to="/menu">
-        <Button>메뉴로 가는 버튼</Button>
-      </Link>
     </>
   );
 };

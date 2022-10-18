@@ -6,7 +6,7 @@ import styles from "../UI/Footer.module.css";
 import styles2 from "../UI/Button.module.css";
 import { Link } from "react-router-dom";
 
-const FooterChecking = (props) => {
+const CheckingFooter = (props) => {
   return (
     <div className={styles.footer}>
         <Button
@@ -29,4 +29,4 @@ const FooterChecking = (props) => {
   );
 };
 
-export default FooterChecking;
+export default CheckingFooter;
