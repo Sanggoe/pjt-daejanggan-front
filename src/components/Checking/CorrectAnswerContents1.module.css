@@ -4,7 +4,7 @@
     display: flex;
 }
 
-.labelHead {
+.labelTitle {
     border: none;
     font-weight: bold;
     font-size: 20px;
@@ -14,10 +14,10 @@
     color: rgba(0,0,139,0.7);
     border-radius: 0.3rem;
 }
-.labelHead_Correct {
+.labelTitle_Correct {
     background-color: #CCFF99;
 }
-.labelHead_Wrong {    
+.labelTitle_Wrong {    
     background-color: #FF9999;
 }
 
@@ -63,6 +63,14 @@
     margin-top: 0.2rem;
     margin-left: 0.2rem;
     padding: 0.2rem;
+    color: rgba(0,0,0);
+    border-radius: 0.3rem;
+}
+.labelTheme {
+    width: 95%;
+    font-size: 15px;
+    margin-top: -1rem;
+    text-align: right;
     color: rgba(0,0,0);
     border-radius: 0.3rem;
 }

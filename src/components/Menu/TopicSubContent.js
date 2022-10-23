@@ -4,35 +4,32 @@ import styles from './TopicSubContent.module.css'
 
 const TopicSubContent = (props) => {
   const [check, setCheck] = useState(false);
-  
-  const onClickHandler = (e) => {
+
+  const onChangeHandler = (e) => {
     if (!check) {
       props.onAddHeadList(e.target.id)
     } else {
       props.onRemoveHeadList(e.target.id)
     }
     setCheck(!check);
-  };
-
-  const onChangeHandler = () => {}
+  }
 
   return (
     <>
       <div className={styles.content}>
-        <span onClick={onClickHandler}>
+        <label
+          className={!check ? styles.label : styles.label_clicked}
+          id={props.head}
+        >
           <input
+            className={styles.input}
             type="checkbox"
             checked={check}
-            onChange={onChangeHandler}
+            onChange={(e) => onChangeHandler(e)}
             id={props.head}
           />
-          <label
-            className={!check ? styles.label : styles.label_clicked}
-            id={props.head}
-          >
-            {props.head}
-          </label>
-        </span>
+          {props.head} ({props.len})
+        </label>
       </div>
     </>
   );

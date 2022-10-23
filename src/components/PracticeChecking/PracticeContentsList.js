@@ -14,6 +14,7 @@ const PracticeContentsList = (props) => {
           chapverse={verse.chapverse}
           contents={verse.contents}
           head={verse.head}
+          subhead={verse.subhead}
         />
       ))}
     </>

@@ -1,4 +1,3 @@
-
 .label {
     font-size: 18px;
     margin: 0.2rem;
@@ -13,7 +12,7 @@
     margin-top: 0.2rem;
     margin-left: 0.2rem;
     padding: 0.2rem;
-    color: rgba(0,0,139,0.7);
+    color: rgba(0, 0, 139, 0.7);
     border-radius: 0.3rem;
 }
 
@@ -25,7 +24,7 @@
     margin-top: 0.2rem;
     margin-left: 0.2rem;
     padding: 0.2rem;
-    color: rgba(0,0,0);
+    color: rgba(0, 0, 0);
     border-radius: 0.3rem;
 }
 
@@ -35,28 +34,105 @@
     font-size: 17px;
     margin-left: 0.2rem;
     padding: 0.2rem;
-    color: rgba(0,0,0);
+    color: rgba(0, 0, 0);
     border-radius: 0.3rem;
 }
 
-.labelHeadBottom {
-    width: 50%;
-    border: none;
-    font-size: 16px;
-    margin-left: 0.2rem;
-    padding: 0.2rem;
-    color: rgba(0,0,0);
-    border-radius: 0.3rem;
-    text-align: left;
-}
 .labelChapVerseBottom {
-    width: 50%;
+    width: 100%;
     border: none;
     font-weight: bold;
     font-size: 16px;
     margin-right: 0.2rem;
     padding: 0.2rem;
-    color: rgba(0,0,0,0.5);
+    color: rgba(0, 0, 0, 0.5);
     border-radius: 0.3rem;
     text-align: right;
+}
+
+.labelHeadBottom {
+    width: 100%;
+    border: none;
+    font-size: 16px;
+    margin-left: 0.2rem;
+    padding: 0.2rem;
+    color: rgba(0, 0, 0);
+    border-radius: 0.3rem;
+    text-align: left;
+}
+
+.labelHeadBottomWithSub {
+    /* width: 50%; */
+    border: none;
+    font-size: 15px;
+    font-weight: bold;
+    margin-left: 0.2rem;
+    padding: 0.2rem;
+    color: rgba(0, 0, 0);
+    border-radius: 0.3rem;
+    text-align: left;
+}
+
+.labelSubHeadBottom {
+    /* width: 50%; */
+    border: none;
+    font-size: 12px;
+    margin-top: 0.2rem;
+    margin-left: 0.2rem;
+    padding: 0.2rem;
+    color: rgba(0, 0, 0);
+    border-radius: 0.3rem;
+    text-align: left;
+}
+
+.labelNoneSubHead {
+    width: 0%;
+}
+
+@media (max-width: 410px) {
+    .labelTitle {
+        font-size: 19px;
+    }
+    .labelChapVerse {
+        font-size: 19px;
+    }
+    .labelContent {
+        font-size: 16px;
+    }
+    .labelChapVerseBottom {
+        font-size: 15px;
+    }
+    .labelHeadBottom {
+        font-size: 15px;
+    }
+    .labelHeadBottomWithSub {
+        font-size: 14px;
+    }
+    .labelSubHeadBottom {
+        font-size: 11px;
+    }
+}
+
+@media (max-width: 380px) {
+    .labelTitle {
+        font-size: 18px;
+    }
+    .labelChapVerse {
+        font-size: 18px;
+    }
+    .labelContent {
+        font-size: 15px;
+    }
+    .labelChapVerseBottom {
+        font-size: 14px;
+    }
+    .labelHeadBottom {
+        font-size: 14px;
+    }
+    .labelHeadBottomWithSub {
+        font-size: 13px;
+    }
+    .labelSubHeadBottom {
+        font-size: 10px;
+    }
 }

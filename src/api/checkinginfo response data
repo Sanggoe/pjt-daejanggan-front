@@ -1,0 +1,65 @@
+{
+  "data": {
+    "checkingType": "전체 점검",
+    "headList": [
+      "그리스도인의 확신",
+      "그리스도인의 생활지침",
+      "A - 새로운 삶",
+      "C - 하나님을 의뢰함",
+      "B - 그리스도를 전파함",
+      "E - 그리스도를 닮아감",
+      "D - 그리스도의 자격",
+      "1. 구원의 확신",
+      "2. Quiet Time"
+    ],
+    "orderType": 0,
+    "verseType": 0,
+    "count": {
+      "chapterNums": 2,
+      "contentsNums": 8
+    },
+    "weight": {
+      "weightType": 100,
+      "in73ChapterNums": 3,
+      "in73ContentsNums": 4,
+      "out73ChapterNums": 1,
+      "out73ContentsNums": 2
+    }
+  },
+  "status": 200,
+  "statusText": "",
+  "headers": {
+    "cache-control": "no-cache, no-store, max-age=0, must-revalidate",
+    "content-type": "application/json",
+    "expires": "0",
+    "pragma": "no-cache"
+  },
+  "config": {
+    "transitional": {
+      "silentJSONParsing": true,
+      "forcedJSONParsing": true,
+      "clarifyTimeoutError": false
+    },
+    "transformRequest": [
+      null
+    ],
+    "transformResponse": [
+      null
+    ],
+    "timeout": 0,
+    "xsrfCookieName": "XSRF-TOKEN",
+    "xsrfHeaderName": "X-XSRF-TOKEN",
+    "maxContentLength": -1,
+    "maxBodyLength": -1,
+    "env": {},
+    "headers": {
+      "Accept": "application/json, text/plain, */*",
+      "Content-Type": "application/json",
+      "Authorization": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzYW5nZ29lIiwiYXV0aCI6IlJPTEVfVVNFUiIsImV4cCI6MTY2NjUwMTIzM30.iCECIKt7GFkxgdz7S8qintcvV9Be2EtM1KlcU2lBRhdVKNVQ7_b5sv0RChlS_eZ5JGmtb8o4kLyrrct4grf6SQ"
+    },
+    "method": "post",
+    "url": "http://192.168.5.40:8080/api/checking-verses",
+    "data": "{\"checkingType\":\"전체 점검\",\"headList\":[\"그리스도인의 확신\",\"그리스도인의 생활지침\",\"A - 새로운 삶\",\"C - 하나님을 의뢰함\",\"B - 그리스도를 전파함\",\"E - 그리스도를 닮아감\",\"D - 그리스도의 자격\",\"1. 구원의 확신\",\"2. Quiet Time\"],\"orderType\":0,\"verseType\":0,\"count\":{\"chapterNums\":\"2\",\"contentsNums\":\"8\"},\"weight\":{\"weightType\":100,\"in73ChapterNums\":3,\"in73ContentsNums\":4,\"out73ChapterNums\":1,\"out73ContentsNums\":2}}"
+  },
+  "request": {}
+}

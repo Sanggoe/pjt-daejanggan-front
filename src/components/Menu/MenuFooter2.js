@@ -7,55 +7,54 @@ import styles2 from "../UI/Button.module.css";
 import { Link } from "react-router-dom";
 import VerseContext from "../../store/verses-context";
 import axios from "axios";
+import authHeader from "../../api/auth-header";
 
 const MenuFooter2 = (props) => {
   const verseCtx = useContext(VerseContext);
+  const API_URL = "http://192.168.5.40:8080/api";
 
-  const actionHandler = () => {
+  const actionHandler1 = () => {
     if (!verseCtx.checkingInfoRequest.headList.length) {
       alert("목록을 선택하세요");
     } else {
       verseCtx.setWeightType();
       verseCtx.clearCheckingInfos();
-      // getVerses(e);
+      getVerses();
     }
   };
 
-  // const getVerses = (e) => {
-  //   e.preventDefault();
+  const actionHandler2 = () => {
+    if (!verseCtx.checkingInfoRequest.headList.length) {
+      alert("목록을 선택하세요");
+    } else {
+      verseCtx.setWeightType();
+      verseCtx.clearCheckingInfos();
+    }
+  };
 
-  //   const payload = {
-  //     checkingType: checkingType,
-  //     headList: headList,
-  //     order: order,
-  //     verseType: verseType,
-  //     count: { chapter: chapter, contents: contents },
-  //     weight: {
-  //       weightType: weightType,
-  //       in73Chapter: in73Chapter,
-  //       in73Contents: in73Contents,
-  //       out73Chapter: out73Chapter,
-  //       out73Contents: out73Contents,
-  //     },
-  //   };
+  const getVerses = () => {
+    const payload = { headList: verseCtx.checkingInfoRequest.headList }
 
-  //   axios
-  //     .post(API_URL + "/change-password", payload, { headers: authHeader() })
-  //     .then((response) => {
-  //       /***********************/
-  //       console.log("response : " + JSON.stringify(response));
+    axios
+      .post(API_URL + "/practice-verses", payload, { headers: authHeader() })
+      .then((response) => {
+        /***********************/
+        //console.log("response : " + JSON.stringify(response));
+        // console.log("\n" + JSON.stringify(response.data));
+        // console.log("\n" + response.status);
+        // console.log("\n" + JSON.stringify(response.statusText));
 
-  //       if (response.status === 200) {
-  //         alert("비밀번호 변경 성공!");
-  //         return response;
-  //       }
-  //     })
-  //     .catch((err) => {
-  //       /***********************/
-  //       console.log(JSON.stringify(err));
-  //       alert("비밀번호 변경은 아직 에러가 남\n서버에서 DB 저장 쪽 문제인듯. 해결중!!");
-  //     });
-  // };
+        if (response.status === 200) {
+          verseCtx.receivePracticeResponse(response);
+          return response;
+        }
+      })
+      .catch((err) => {
+        /***********************/
+        alert("오류! 로그아웃 후 다시 이용해주세요.")
+        console.log(JSON.stringify(err));
+      });
+  };
 
 
   return (
@@ -66,7 +65,7 @@ const MenuFooter2 = (props) => {
             props.len === 1 ? styles2.button_footer1 : styles2.button_footer2
           }
           type="button"
-          onClick={actionHandler}
+          onClick={actionHandler1}
         >
           {props.labels[0]}
         </Button>
@@ -77,7 +76,7 @@ const MenuFooter2 = (props) => {
           <Button
             styles={styles2.button_footer2}
             type="button"
-            onClick={actionHandler}
+            onClick={actionHandler2}
           >
             {props.labels[1]}
           </Button>

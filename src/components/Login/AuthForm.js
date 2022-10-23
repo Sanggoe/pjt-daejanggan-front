@@ -1,4 +1,4 @@
-import { useState, useRef, useContext, useEffect } from "react";
+import { useState, useRef, useContext } from "react";
 import { useHistory } from "react-router-dom";
 
 import classes from "./AuthForm.module.css";
@@ -7,9 +7,10 @@ import AuthContext from "../../store/auth-context";
 import authHeader from "../../api/auth-header";
 
 const AuthForm = () => {
-  const API_URL = "http://192.168.5.40:8080/api";
-  const history = useHistory();
   const authCtx = useContext(AuthContext);
+  const API_URL = "http://192.168.5.40:8080/api";
+
+  const history = useHistory();
 
   const idInputRef = useRef();
   const passwordInputRef = useRef();
@@ -78,7 +79,7 @@ const AuthForm = () => {
         
         /***********************/
         // console.log("response : " + JSON.stringify(response));
-        authCtx.login(JSON.stringify(response.data), 86400)
+        authCtx.login(JSON.stringify(response.data), new Date().getTime() + 1200000*1000); // 기간 2주 
         getUserInfo();
 
         history.replace("/menu");

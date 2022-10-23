@@ -1,0 +1,23 @@
+.lableArea {
+    margin: auto;
+    padding: 0.5rem 1rem;
+    display: flex;
+}
+
+.labelTitle {
+    width: 50%;
+    margin: auto;
+    padding: 0.2rem;
+    font-weight: bold;
+    font-size: 18px;
+    text-align: left;
+}
+
+.labelScore {
+    width: 40%;
+    margin: auto;
+    padding: 0.2rem;
+    font-weight: bold;
+    font-size: 18px;
+    text-align: right;
+}

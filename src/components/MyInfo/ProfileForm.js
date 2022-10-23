@@ -1,13 +1,11 @@
 import axios from "axios";
-import { useContext, useEffect, useRef, useState } from "react";
+import { useContext, useRef } from "react";
 import authHeader from "../../api/auth-header";
 import AuthContext from "../../store/auth-context";
 import styles from "./ProfileForm.module.css";
 
 const ProfileForm = () => {
   const API_URL = "http://192.168.5.40:8080/api";
-  // const [username, setUsername] = useState("");
-  // const [nickname, setNickname] = useState("");
   const authCtx = useContext(AuthContext);
   const newPasswordInputRef = useRef();
 

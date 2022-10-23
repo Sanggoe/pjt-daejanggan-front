@@ -25,6 +25,7 @@ const MainMenuPage = () => {
   useEffect(() => {
     verseCtx.clearHeadList();
     verseCtx.clearWeightType();
+    verseCtx.clearPracticeVerse();
   }, []);
   
   // nav 메뉴 바꿀 시 headList 초기화

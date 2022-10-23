@@ -12,14 +12,14 @@ const CorrectAnswerContents2 = () => {
     <Card>
       <div className={styles.label}>
         <label // 제목
-          className={`${styles.labelHead} ${
-            verseCtx.chapverseResponse.head.correct
-              ? styles.labelHead_Correct
-              : styles.labelHead_Wrong
+          className={`${styles.labelTitle} ${
+            verseCtx.chapverseResponse.title.correct
+              ? styles.labelTitle_Correct
+              : styles.labelTitle_Wrong
           }`}
           type="text"
         >
-          {verseCtx.chapverseResponse.head.result}
+          {verseCtx.chapverseResponse.title.result}
         </label>
       </div>
       <div className={styles.label}>
@@ -32,6 +32,11 @@ const CorrectAnswerContents2 = () => {
           className={styles.labelContent}
         >
           {verseCtx.checkingInfoResponse[0].contents}
+        </label>
+      </div>
+      <div className={styles.label}>
+        <label className={styles.labelTheme}>
+          {verseCtx.checkingInfoResponse[0].theme}
         </label>
       </div>
     </Card>

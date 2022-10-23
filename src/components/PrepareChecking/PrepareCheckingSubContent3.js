@@ -1,10 +1,9 @@
 import React from "react";
 
-import cell from '../../asserts/images/cell.png'
-import styles from './PrepareCheckingSubContent.module.css'
+import cell from "../../asserts/images/cell.png";
+import styles from "./PrepareCheckingSubContent.module.css";
 
 const PrepareCheckingSubContent3 = (props) => {
-    
   return (
     <>
       <div className={styles.div_content}>

@@ -12,15 +12,20 @@ const AuthContext = React.createContext({
   setUser: () => {},
 });
 
+// 유효 인증 기한 계산 함수
 const calculateRemainingTime = (expirationTime) => {
-  const currentTime = new Date().getTime();
-  const adjExpirationTime = new Date(expirationTime).getTime();
+  if (!expirationTime) {
+    return null;
+  }
 
+  const currentTime = (new Date().getTime());
+  const adjExpirationTime = new Date(expirationTime).getTime();
   const remainingDuration = adjExpirationTime - currentTime;
 
   return remainingDuration;
 };
 
+// localStorage로 부터 토큰 및 정보들 받아오는 함수
 const retrieveStoredToken = () => {
   const storedToken = localStorage.getItem("token");
   const storedExpirationDate = localStorage.getItem("expirationTime");
@@ -37,12 +42,16 @@ const retrieveStoredToken = () => {
     return null;
   }
 
-  return {
-    token: storedToken,
-    duration: remainingTime,
-    username: storedUsername,
-    nickname: storedNickname,
-  };
+  if (storedToken) {
+    return {
+      token: storedToken,
+      duration: remainingTime,
+      username: storedUsername,
+      nickname: storedNickname,
+    };
+  } else {
+    return null;
+  }
 };
 
 export const AuthContextProvider = (props) => {
@@ -69,6 +78,7 @@ export const AuthContextProvider = (props) => {
     localStorage.removeItem("nickname");
 
     if (logoutTimer) {
+      // 타이머 존재하면 없애준다.
       clearTimeout(logoutTimer);
     }
   }, []);
@@ -77,8 +87,11 @@ export const AuthContextProvider = (props) => {
     setToken(token);
     localStorage.setItem("token", token);
     localStorage.setItem("expirationTime", expirationTime);
+
     const remainintTime = calculateRemainingTime(expirationTime);
-    logoutTimer = setTimeout(logoutHandler, remainintTime);
+
+    let leftTime = remainintTime < 86400 ? remainintTime : 86400;
+    logoutTimer = setTimeout(logoutHandler, leftTime); // 토큰 만료 시간 기준 자동 로그아웃
   }, []);
 
   const setUserInfo = useCallback((username, nickname) => {
@@ -90,7 +103,11 @@ export const AuthContextProvider = (props) => {
 
   useEffect(() => {
     if (tokenData) {
-      logoutTimer = setTimeout(logoutHandler, tokenData.duration);
+      if (logoutTimer) {
+        clearTimeout(logoutTimer);
+      }
+      let leftTime = tokenData.duration < 86400 ? tokenData.duration : 86400;
+      logoutTimer = setTimeout(logoutHandler, leftTime);
     }
   }, [tokenData]);
 

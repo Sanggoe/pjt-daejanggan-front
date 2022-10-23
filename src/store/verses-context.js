@@ -1,41 +1,80 @@
 import React, { useState } from "react";
 
-// head 비교를 통해 체급 체크를 위한 배열
+/* for weight checking array */
 const verseCheck = [
-  "그리스도인의 확신",
-  "그리스도인의 생활지침",
-  "A - 새로운 삶",
-  "B - 그리스도를 전파함",
-  "C - 하나님을 의뢰함",
-  "D - 그리스도의 자격",
-  "E - 그리스도를 닮아감",
-  "1. 구원의 확신", // 7 선택 : 73체급
-  "2. Quiet Time", // 8 선택부터 : 100체급
-  "3. 말씀",
-  "4. 기도", // 10 선택까지 : 100체급
-  "5. 교제", // 11 선택부터 : 200체급
-  "6. 증거",
-  "7. 그리스도의 주재권", // 13 선택까지 : 200체급
-  "8. 세계 비전", // 14 선택부터 : 300체급
-  "1. 하나님을 알아감",
-  "2. 사랑 안에서 자라감", // 16 선택까지 : 300체급
-  "3. 믿음 안에서 자라감", // 17 선택부터 : 400체급
-  "4. 승리 안에서 자라감",
-  "5. 그리스도를 증거함",
+  { head: "그리스도인의 확신", len: 5 },
+  { head: "그리스도인의 생활지침", len: 8 },
+  { head: "A - 새로운 삶", len: 12 },
+  { head: "B - 그리스도를 전파함", len: 12 },
+  { head: "C - 하나님을 의뢰함", len: 12 },
+  { head: "D - 그리스도의 자격", len: 12 },
+  { head: "E - 그리스도를 닮아감", len: 12 },
+  { head: "1. 구원의 확신", len: 18 }, // 7 선택 : 73체급
+  { head: "2. Quiet Time", len: 26 }, // 8 선택부터 : 100체급
+  { head: "3. 말씀", len: 37 },
+  { head: "4. 기도", len: 32 }, // 10 선택까지 : 100체급
+  { head: "5. 교제", len: 30 }, // 11 선택부터 : 200체급
+  { head: "6. 증거", len: 55 },
+  { head: "7. 그리스도의 주재권", len: 26 }, // 13 선택까지 : 200체급
+  { head: "8. 세계 비전", len: 18 }, // 14 선택부터 : 300체급
+  { head: "1. 하나님을 알아감", len: 36 },
+  { head: "2. 사랑 안에서 자라감", len: 36 }, // 16 선택까지 : 300체급
+  { head: "3. 믿음 안에서 자라감", len: 36 }, // 17 선택부터 : 400체급
+  { head: "4. 승리 안에서 자라감", len: 36 },
+  { head: "5. 그리스도를 증거함", len: 36 },
 ];
 
 const VerseContext = React.createContext({
-  verseInfo: [], // local data
+  /* local data object for menu */
+  verseInfo: [
+    {
+      theme: {},
+      headList: [{ head: {}, len: {} }],
+    },
+  ],
 
-  practiceRequest: {}, // headList 토대로 verses 요청
-  practiceResponse: {}, // 받아온 verses
-
-  checkingInfoRequest: {}, // request data
-  clearCheckingInfos: () => {},
-  setCheckingType: (checkingType) => {},
+  /* for practice, checking */
   addHeadList: (head) => {},
   removeHeadList: (old_head) => {},
   clearHeadList: () => {},
+  setTotalLen: (totalLen) => {},
+
+  /* request data object for verses practice */
+  practiceRequest: {
+    headList: {},
+  },
+
+  /* response data object for verses practice */
+  practiceResponse: {
+    verse: {
+      chapverse: {},
+      theme: {},
+      head: {},
+      subhead: {},
+      title: {},
+      contents: {},
+    },
+  },
+  receivePracticeResponse: (response) => {},
+  clearPracticeVerse: () => {},
+
+  /* request data object for verses checking */
+  checkingInfoRequest: {
+    checkingType: {},
+    headList: {},
+    orderType: {},
+    verseType: {},
+    count: { chapterNums: {}, contentsNums: {} },
+    weight: {
+      weightType: {},
+      in73ChapterNums: {},
+      in73ContentsNums: {},
+      out73ChapterNums: {},
+      out73ContentsNums: {},
+    },
+  },
+  clearCheckingInfos: () => {},
+  setCheckingType: (checkingType) => {},
   setOrderType: (orderType) => {},
   setVerseType: (verseType) => {},
   setChapterNums: (chapterNums) => {},
@@ -46,30 +85,202 @@ const VerseContext = React.createContext({
   setIn73ContentsNums: (in73ContentsNums) => {},
   setOut73ChapterNums: (out73ChapterNums) => {},
   setOut73ContentsNums: (out73ContentsNums) => {},
-  checkingInfoResponse: [], // response data
 
-  chapverseRequest: {}, // request data
-  setInputHead: (inputHead) => {},
+  /* response data object for verses checking */
+  checkingInfoResponse: {
+    verse: {
+      index: {},
+      verseType: {},
+      chapverse: {},
+      theme: {},
+      head: {},
+      subhead: {},
+      title: {},
+      contents: {},
+    },
+  },
+  receiveCheckingResponse: (response) => {},
+  clearCheckingVerse: (verse) => {},
+
+  /* data object for checking process (채점 진행 관련 데이터)  */
+  checkingProcessInfo: {
+    checkingTime: {},
+    numberOfVerse: {
+      total: {},
+      selected: {},
+    },
+    currentVerse: {
+      index: {},
+      verseType: {},
+      chapverse: {},
+      theme: {},
+      head: {},
+      subhead: {},
+      title: {},
+      contents: {},
+    },
+    currentScoreInfo: {
+      currentHint: {},
+      currentMinus: {},
+      currentScore: {},
+    },
+    resultVerses: [
+      {
+        theme: {},
+        chapverse: {},
+        minus: {},
+        score: {},
+      },
+    ],
+    resultScore: {
+      totalScore: {},
+      transformScore: {},
+    },
+  },
+  setCheckingTime: () => {},
+  setCurrentVerse: (index) => {},
+  clearCurrentVerse: () => {},
+  increaseCurrentHint: () => {},
+  increaseCurrentMinus: () => {},
+  setCurrentScore: (score) => {},
+  clearCurrentScoreInfo: () => {},
+  addResultVerse: (currentVerse) => {},
+  setResultTotalScore: (score) => {},
+  setResultTransformScore: (score) => {},
+  clearCheckingProcessInfo: () => {},
+
+  /* request data object for chapverse checking (장절 채점 요청) */
+  checkingChapverseRequest: {
+    title: {},
+    chapterName: {},
+    chapter: {},
+    verse: {},
+  },
+  setInputTitle: (inputTitle) => {},
   setInputChapterName: (inputChapterName) => {},
   setInputChapter: (inputChapter) => {},
   setInputVerse: (inputVerse) => {},
-  chapverseResponse: {}, // response data
+  clearChapverseInput: () => {},
 
-  contentsRequest: {}, // request data
-  //
-  //
-  //
-  contentsResponse: {}, // response data
+  /* request data object for contents checking (내용 채점 요청) */
+  checkingContentsRequest: {
+    title: {},
+    contents: {},
+    hintWord: [],
+    hint: {},
+    minus: {},
+    score: {},
+  },
+  // setInputTitle: (inputTitle) => {}, 중복 사용
+  setInputContents: (inputContents) => {},
+  addHintWord: (hintWord) => {},
+  clearContentsInput: () => {},
+
+  /* response data object for chapverse checking (장절 채점 결과) */
+  chapverseResponse: {
+    title: {
+      result: {},
+      correct: {},
+    },
+    chapterName: {
+      result: {},
+      correct: {},
+    },
+    chapter: {
+      result: {},
+      correct: {},
+    },
+    verse: {
+      result: {},
+      correct: {},
+    },
+  },
+  receiveChapverseResponse: (response) => {},
+  clearChapverseResponse: () => {},
+
+  /* response data object for contents checking (내용 채점 결과) */
+  contentsResponse: {
+    isCheckable: {},
+    title: {
+      result: {},
+      correct: {},
+    },
+    contents: {
+      result: [],
+      correct: [],
+    },
+    hint: {},
+    minus: {},
+    score: {},
+  },
+  receiveContentsResponse: (response) => {},
+  clearContentsResponse: () => {},
 });
 
-export const VerseContextProvider = (props) => {
+///////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////
 
-  /* 점검을 위한 정보의 state들 */
-  const [checkingType, setCheckingType] = useState(""); // 전체 점검, 일부 점검, 체급별 점검
+export const VerseContextProvider = (props) => {
+  /* states for practice, checking */
   const [headList, setHeadList] = useState([]); // {head: __}
+  const [totalLen, setTotalLen] = useState(0);
+  // headList 추가 제거 및 초기화
+  const addHeadListHandler = (head) => {
+    setHeadList((prevHeadList) => {
+      return prevHeadList.concat(head);
+    });
+  };
+  const removeHeadListHandler = (old_head) => {
+    setHeadList((prevHeadList) => {
+      return prevHeadList.filter((head) => head !== old_head);
+    });
+  };
+  const clearHeadListHandler = () => {
+    setHeadList(() => {
+      return [];
+    });
+    clearTotalLenHandler();
+  };
+  const setTotalLenHandler = (totalLen) => {
+    setTotalLen(totalLen);
+  };
+  const clearTotalLenHandler = () => {
+    setTotalLen(0);
+  };
+
+  /* state object for verses practice, checking */
+  const [verse, setVerse] = useState([]);
+
+  /* response data object for verses practice */
+  // practiceResponse에 verse 객체 추가 및 초기화
+  const receivePracticeResponseHandler = (response) => {
+    response.data.verses.map((verse) => addPracticeVerseHandler(verse));
+  };
+  const addPracticeVerseHandler = (verse) => {
+    setVerse((prevVerse) => {
+      return [...prevVerse, verse];
+    });
+  };
+  const clearPracticeVerseHandler = () => {
+    setVerse(() => {
+      return [];
+    });
+  };
+
+  /* states for verses checking (checkingInfoRequest) */
+  const [checkingType, setCheckingType] = useState(""); // 전체 점검, 일부 점검, 체급별 점검
   // 전체 점검
   const [orderType, setOrderType] = useState(0); // random(default):0, sequence:1
-  const [verseType, setVerseType] = useState(0); // content:0, chapter:1
+  const [verseType, setVerseType] = useState(0); // contents:0, chapter:1
   // 일부 점검
   const [chapterNums, setChapterNums] = useState(0); // int
   const [contentsNums, setContentsNums] = useState(0); // int
@@ -90,29 +301,13 @@ export const VerseContextProvider = (props) => {
     clearIn73ContentsNumsHandler();
     clearOut73ChapterNumsHandler();
     clearOut73ContentsNumsHandler();
-  }
+  };
   // 점검 종류
   const setCheckingTypeHandler = (checkingType) => {
     setCheckingType(checkingType);
   };
   const clearCheckingTypeHandler = () => {
     setCheckingType("");
-  };
-  // headList 추가 제거 및 초기화
-  const addHeadListHandler = (head) => {
-    setHeadList((prevHeadList) => {
-      return prevHeadList.concat(head);
-    });
-  };
-  const removeHeadListHandler = (old_head) => {
-    setHeadList((prevHeadList) => {
-      return prevHeadList.filter((head) => head !== old_head);
-    });
-  };
-  const clearHeadListHandler = () => {
-    setHeadList(() => {
-      return [];
-    });
   };
   // 점검 순서
   const setOrderTypeHandler = (orderType) => {
@@ -128,7 +323,7 @@ export const VerseContextProvider = (props) => {
   const clearVerseTypeHandler = () => {
     setVerseType(0);
   };
-// 점검 개수(장절/내용 각각의 개수)
+  // 점검 개수(장절/내용 각각의 개수)
   const setChapterNumsHandler = (chapterNums) => {
     setChapterNums(chapterNums);
   };
@@ -144,66 +339,40 @@ export const VerseContextProvider = (props) => {
   // 선택한 head 정보를 토대로 점검 체급 결정
   const setWeightTypeHandler = () => {
     let len = headList.length;
+    let totalLen = 0;
     let notExist = false;
+    for (let i = 0; i < len; i++) {
+      if (!notExist && i < 7 && !headList.includes(verseCheck[i].head)) {
+        notExist = true;
+      }
+      totalLen += verseCheck[i].len;
+    }
+    setTotalLen(totalLen);
 
-    if (len === 7) {
-      for (let i = 0; i < 7; i++) {
-        if (!headList.includes(verseCheck[i])) {
-          notExist = true;
-          break;
-        }
-      }
+    if (len >= 7) {
+      // 73 이상 선택한 경우
       if (!notExist) {
+        // 73 모두 체크 확인
         setWeightType(() => {
-          return 73;
+          return totalLen <= 100 ? 73 : parseInt(totalLen / 100) * 100;
+        });
+      } else {
+        // 73에서 체크 안한게 있는 경우
+        setWeightType(() => {
+          return "일부 점검";
         });
       }
-    } else if (len >= 8 && len <= 10) {
-      for (let i = 0; i < len; i++) {
-        if (!headList.includes(verseCheck[i])) {
-          notExist = true;
-          break;
-        }
-      }
+    } else {
+      // 73이하의 경우
       if (!notExist) {
+        // 73에서 체크한 것인지 확인
         setWeightType(() => {
-          return 100;
+          return totalLen;
         });
-      }
-    } else if (len >= 11 && len <= 13) {
-      for (let i = 0; i < len; i++) {
-        if (!headList.includes(verseCheck[i])) {
-          notExist = true;
-          break;
-        }
-      }
-      if (!notExist) {
+      } else {
+        // 73이외의 것만 체크한 경우
         setWeightType(() => {
-          return 200;
-        });
-      }
-    } else if (len >= 14 && len <= 16) {
-      for (let i = 0; i < len; i++) {
-        if (!headList.includes(verseCheck[i])) {
-          notExist = true;
-          break;
-        }
-      }
-      if (!notExist) {
-        setWeightType(() => {
-          return 300;
-        });
-      }
-    } else if (len >= 17) {
-      for (let i = 0; i < len; i++) {
-        if (!headList.includes(verseCheck[i])) {
-          notExist = true;
-          break;
-        }
-      }
-      if (!notExist) {
-        setWeightType(() => {
-          return 400;
+          return "일부 점검";
         });
       }
     }
@@ -211,8 +380,8 @@ export const VerseContextProvider = (props) => {
   const clearWeightTypeHandler = () => {
     setWeightType(() => {
       return 0;
-    })
-  }
+    });
+  };
   // 73 장절 개수
   const setIn73ChapterNumsHandler = (in73ChapterNums) => {
     setIn73ChapterNums(in73ChapterNums);
@@ -242,23 +411,137 @@ export const VerseContextProvider = (props) => {
     setOut73ContentsNums(0);
   };
 
-  /* 장절 점검 input값 request를 위해 */
-  const [inputHead, setInputHead] = useState("");
+  /* functions for verses checking */
+  // checkingInfoResponse에 verse 객체 추가 및 초기화
+  const receiveCheckingResponseHandler = (response) => {
+    response.data.verses.map((verse) => addCheckingVerseHandler(verse));
+  };
+  const addCheckingVerseHandler = (verse) => {
+    setVerse((prevVerse) => {
+      return [...prevVerse, verse];
+    });
+  };
+  const clearCheckingVerseHandler = () => {
+    setVerse(() => {
+      return [];
+    });
+  };
+
+  /* states for checking process (checkingProcessInfo) */
+  const [checkingTime, setCheckingTime] = useState("");
+  const [currentVerse, setCurrentVerse] = useState({
+    index: 0,
+    verseType: 0,
+    chapverse: "",
+    theme: "",
+    head: "",
+    subhead: "",
+    title: "",
+    contents: "",
+  });
+  // current checking score info
+  const [currentHint, setCurrentHint] = useState(0);
+  const [currentMinus, setCurrentMinus] = useState(0);
+  const [currentScore, setCurrentScore] = useState(0);
+  // result verses info
+  const [resultVerse, setResultVerse] = useState([]);
+  /*{
+    theme: ,
+    chapverse: ,
+    minus: ,
+    score: ,
+  }*/
+  // result checking score info
+  const [resultTotalScore, setResultTotalScore] = useState(0);
+  const [resultTransformScore, setResultTransformScore] = useState(0);
+  // 점검 날짜 설정 및 초기화
+  const setCheckingTimeHandler = () => {
+    let date = new Date();
+    let todayInfo =
+      date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
+    setCheckingTime(todayInfo);
+  };
+  const clearCheckingTimeHandler = () => {
+    setCheckingTime("");
+  };
+  // 현재 점검 구절 정보 설정 및 초기화
+  const setCurrentVerseHandler = (index) => {
+    setCurrentVerse(() => {
+      return verse[index];
+    });
+  };
+  const clearCurrentVerseHandler = () => {
+    setCurrentVerse(null);
+  };
+  // 채점 점수 관련 정보 설정 및 초기화
+  const increaseCurrentHintHandler = () => {
+    setCurrentHint(currentHint + 1);
+  };
+  const clearCurrentHintHandler = () => {
+    setCurrentHint(0);
+  };
+  const increaseCurrentMinusHandler = () => {
+    setCurrentMinus(currentMinus + 1);
+  };
+  const clearCurrentMinusHandler = () => {
+    setCurrentMinus(0);
+  };
+  const setCurrentScoreHandler = (score) => {
+    setCurrentScore(score);
+  };
+  const clearCurrentScoreHandler = () => {
+    setCurrentScore(0);
+  };
+  const clearCurrentScoreInfoHandler = () => {
+    clearCurrentHintHandler();
+    clearCurrentMinusHandler();
+    clearCurrentScoreHandler();
+  };
+  // 점검 종료 또는 이탈시
+  const clearCheckingProcessInfoHandler = () => {
+    clearCheckingTimeHandler();
+    clearCurrentVerseHandler();
+    clearCurrentScoreInfoHandler();
+    clearResultInfoHandler();
+  };
+  // 점검 결과 정보 추가 및 초기화
+  const addResultVerseHandler = (currentVerse) => {
+    setResultVerse((prevCurrentVerse) => {
+      return [...prevCurrentVerse, currentVerse];
+    });
+  };
+  const clearResultVerseHandler = () => {
+    setResultVerse(null);
+  };
+  const setResultTotalScoreHandler = (score) => {
+    setResultTotalScore();
+  };
+  const clearResultTotalScoreHandler = () => {
+    setResultTotalScore(0);
+  };
+  const setResultTransformScoreHandler = () => {
+    setResultTransformScore((resultTotalScore / verse.length) * 100);
+  };
+  const clearResultTransformScoreHandler = () => {
+    setResultTransformScore(0);
+  };
+  const clearResultInfoHandler = () => {
+    clearResultVerseHandler();
+    clearResultTotalScoreHandler();
+    clearResultTransformScoreHandler();
+  };
+
+  /* for chapverse checking (checkingChapverseRequest) */
+  const [inputTitle, setInputTitle] = useState("");
   const [inputChapterName, setInputChapterName] = useState("");
   const [inputChapter, setInputChapter] = useState("");
   const [inputVerse, setInputVerse] = useState("");
-
-  const clearChapverseInputHandler = () => {
-    clearInputHeadHandler();
-    clearInputChapterNameHandler();
-    clearInputChapterHandler();
-    clearInputVerseHandler();
-  }
-  const setInputHeadHandler = (inputHead) => {
-    setInputHead(inputHead);
+  // 장절 점검 요청 정보들 설정 및 초기화
+  const setInputTitleHandler = (inputTitle) => {
+    setInputTitle(inputTitle);
   };
-  const clearInputHeadHandler = () => {
-    setInputHead(0);
+  const clearInputTitleHandler = () => {
+    setInputTitle(0);
   };
   const setInputChapterNameHandler = (inputChapterName) => {
     setInputChapterName(inputChapterName);
@@ -278,55 +561,154 @@ export const VerseContextProvider = (props) => {
   const clearInputVerseHandler = () => {
     setInputVerse(0);
   };
+  const clearChapverseInputHandler = () => {
+    clearInputTitleHandler();
+    clearInputChapterNameHandler();
+    clearInputChapterHandler();
+    clearInputVerseHandler();
+  };
 
-  /* 내용 점검 input값 request를 위해 */
+  /* for contents checking (checkingContentsRequest) */
+  const [inputContents, setInputContents] = useState("");
+  const [hintWord, setHintWord] = useState([]);
+  // 내용 점검 요청 정보들 설정 및 초기화
+  const setInputContentsHandler = (contents) => {
+    setInputContents(contents);
+  };
+  const clearInputContentsHandler = () => {
+    setInputContents("");
+  };
+  const addHintWordHandler = (hintWord) => {
+    setHintWord((prevHintWord) => {
+      return prevHintWord.concat(hintWord);
+    });
+  };
+  const clearHintWordHandler = () => {
+    setHintWord(() => {
+      return [];
+    });
+  };
+  const clearContentsInputHandler = () => {
+    clearInputContentsHandler();
+    clearHintWordHandler();
+  };
+
+  /* for chapverse response (chapverseResponse) */
+  const [chapverseResponse, setChapverseResponse] = useState({
+    title: {
+      result: "",
+      correct: false,
+    },
+    chapterName: {
+      result: "",
+      correct: false,
+    },
+    chapter: {
+      result: 0,
+      correct: false,
+    },
+    verse: {
+      result: 0,
+      correct: false,
+    },
+  });  
+  const receiveChapverseResponseHandler = (response) => {
+    console.log(response.data);
+    setChapverseResponse(response);
+  };
+  const clearChapverseResponseHandler = () => {
+    setChapverseResponse(null);
+  };
+
+  /* for chapverse response (chapverseResponse) */
+  const [contentsResponse, setContentsResponse] = useState({});
+
+  const receiveContentsResponseHandler = (response) => {
+    console.log(response.data);
+    setContentsResponse(response);
+  };
+  const clearContentsResponseHandler = () => {
+    setContentsResponse(null);
+  };
+
+  ///////////////////////////////////////////////////////////////
+  ///////////////////////////////////////////////////////////////
+  ///////////////////////////////////////////////////////////////
+  ///////////////////////////////////////////////////////////////
+  ///////////////////////////////////////////////////////////////
+  ///////////////////////////////////////////////////////////////
+  ///////////////////////////////////////////////////////////////
+  ///////////////////////////////////////////////////////////////
+  ///////////////////////////////////////////////////////////////
+  ///////////////////////////////////////////////////////////////
+  ///////////////////////////////////////////////////////////////
+
+  /* 전체 정보 객체 데이터 */
   const contextValue = {
-    // 내장 데이터
+    /* local data object for menu */
     verseInfo: [
       {
         theme: "LOA",
-        headList: ["그리스도인의 확신"],
+        headList: [{ head: "그리스도인의 확신", len: 5 }],
       },
       {
         theme: "LOC",
-        headList: ["그리스도인의 생활지침"],
+        headList: [{ head: "그리스도인의 생활지침", len: 8 }],
       },
       {
         theme: "60구절",
         headList: [
-          "A - 새로운 삶",
-          "B - 그리스도를 전파함",
-          "C - 하나님을 의뢰함",
-          "D - 그리스도의 자격",
-          "E - 그리스도를 닮아감", // 까지 선택 : 73 체급
+          { head: "A - 새로운 삶", len: 12 },
+          { head: "B - 그리스도를 전파함", len: 12 },
+          { head: "C - 하나님을 의뢰함", len: 12 },
+          { head: "D - 그리스도의 자격", len: 12 }, // 까지 73이하
+          { head: "E - 그리스도를 닮아감", len: 12 },
         ],
       },
       {
         theme: "DEP",
         headList: [
-          "1. 구원의 확신",
-          "2. Quiet Time", // 까지 선택부터 : 100 체급
-          "3. 말씀",
-          "4. 기도",
-          "5. 교제", // 까지 선택부터 : 200 체급
-          "6. 증거",
-          "7. 그리스도의 주재권",
-          "8. 세계 비전", // 까지 선택부터 : 300 체급 이상
+          { head: "1. 구원의 확신", len: 18 }, // 까지 73
+          { head: "2. Quiet Time", len: 26 }, // 100 체급
+          { head: "3. 말씀", len: 37 },
+          { head: "4. 기도", len: 32 },
+          { head: "5. 교제", len: 30 }, // 200 체급
+          { head: "6. 증거", len: 55 },
+          { head: "7. 그리스도의 주재권", len: 26 },
+          { head: "8. 세계 비전", len: 18 }, // 300 체급
         ],
       },
       {
         theme: "180",
         headList: [
-          "1. 하나님을 알아감",
-          "2. 사랑 안에서 자라감",
-          "3. 믿음 안에서 자라감", // 까지 선택부터 : 400 체급 이상
-          "4. 승리 안에서 자라감",
-          "5. 그리스도를 증거함",
+          { head: "1. 하나님을 알아감", len: 36 },
+          { head: "2. 사랑 안에서 자라감", len: 36 },
+          { head: "3. 믿음 안에서 자라감", len: 36 }, // 400 체급
+          { head: "4. 승리 안에서 자라감", len: 36 },
+          { head: "5. 그리스도를 증거함", len: 36 },
         ],
       },
     ],
 
-    // Request 할 데이터
+    /* for practice, checking */
+    addHeadList: addHeadListHandler,
+    removeHeadList: removeHeadListHandler,
+    clearHeadList: clearHeadListHandler,
+    setTotalLen: setTotalLenHandler,
+
+    /* request data object for verses practice */
+    practiceRequest: {
+      headList: headList,
+    },
+
+    /* response data object for verses practice */
+    practiceResponse: {
+      verse: verse,
+    },
+    receivePracticeResponse: receivePracticeResponseHandler,
+    clearPracticeVerse: clearPracticeVerseHandler,
+
+    /* request data object for verses checking */
     checkingInfoRequest: {
       checkingType: checkingType,
       headList: headList,
@@ -343,9 +725,6 @@ export const VerseContextProvider = (props) => {
     },
     clearCheckingInfos: clearCheckingInfosHandler,
     setCheckingType: setCheckingTypeHandler,
-    addHeadList: addHeadListHandler,
-    removeHeadList: removeHeadListHandler,
-    clearHeadList: clearHeadListHandler,
     setOrderType: setOrderTypeHandler,
     setVerseType: setVerseTypeHandler,
     setChapterNums: setChapterNumsHandler,
@@ -357,36 +736,74 @@ export const VerseContextProvider = (props) => {
     setOut73ChapterNums: setOut73ChapterNumsHandler,
     setOut73ContentsNums: setOut73ContentsNumsHandler,
 
-    checkingInfoResponse: [
-      // Response 받아올 데이터들
-      {
-        chapverse: "요한복음 16:24",
-        theme: "LOA",
-        head: "그리스도인의 확신",
-        subhead: "",
-        title: "2. 기도응답의 확신",
-        contents:
-          "지금까지는 너희가 내 이름으로 아무것도 구하지 아니하였으나 구하라 그리하면 받으리니 너희 기쁨이 충만하리라",
-      },
-      // ...
-    ],
+    /* response data object for verses checking */
+    checkingInfoResponse: {
+      verse: verse,
+    },
+    receiveCheckingResponse: receiveCheckingResponseHandler,
+    clearCheckingVerse: clearCheckingVerseHandler,
 
-    chapverseRequest: {
-      // Request 보낼 데이터
-      head: inputHead,
+    /* data object for checking process (채점 진행 관련 데이터) */
+    checkingProcessInfo: {
+      checkingTime: checkingTime,
+      numberOfVerse: {
+        total: totalLen,
+        selected: verse.length,
+      },
+      currentVerse: currentVerse,
+      currentScoreInfo: {
+        currentHint: currentHint,
+        currentMinus: currentMinus,
+        currentScore: currentScore,
+      },
+      resultVerses: resultVerse,
+      resultScore: {
+        totalScore: resultTotalScore,
+        transformScore: resultTransformScore,
+      },
+    },
+    setCheckingTime: setCheckingTimeHandler,
+    setCurrentVerse: setCurrentVerseHandler,
+    clearCurrentVerse: clearCurrentVerseHandler,
+    increaseCurrentHint: increaseCurrentHintHandler,
+    increaseCurrentMinus: increaseCurrentMinusHandler,
+    setCurrentScore: setCurrentScoreHandler,
+    clearCurrentScoreInfo: clearCurrentScoreInfoHandler,
+    addResultVerse: addResultVerseHandler,
+    setResultTotalScore: setResultTotalScoreHandler,
+    setResultTransformScore: setResultTransformScoreHandler,
+    clearCheckingProcessInfo: clearCheckingProcessInfoHandler,
+
+    /* request data object for chapverse checking (장절 채점 요청) */
+    checkingChapverseRequest: {
+      title: inputTitle,
       chapterName: inputChapterName,
       chapter: inputChapter,
       verse: inputVerse,
     },
-    clearChapverseInput: clearChapverseInputHandler,
-    setInputHead: setInputHeadHandler,
+    setInputTitle: setInputTitleHandler,
     setInputChapterName: setInputChapterNameHandler,
     setInputChapter: setInputChapterHandler,
     setInputVerse: setInputVerseHandler,
+    clearChapverseInput: clearChapverseInputHandler,
 
+    /* request data object for contents checking (내용 채점 요청) */
+    checkingContentsRequest: {
+      // theme
+      title: inputTitle,
+      contents: inputContents,
+      hintWord: hintWord,
+      hint: currentHint,
+      minus: currentMinus,
+      score: currentScore,
+    },
+    setInputContents: setInputContentsHandler,
+    addHintWord: addHintWordHandler,
+    clearContentsInput: clearContentsInputHandler,
+    
+    /* response data object for chapverse checking (장절 채점 결과) */
     chapverseResponse: {
-      // Response 받아올 데이터들
-      head: {
+      title: {
         result: "기도응답의 확신",
         correct: false,
       },
@@ -403,10 +820,43 @@ export const VerseContextProvider = (props) => {
         correct: true,
       },
     },
+    receiveChapverseResponse: receiveChapverseResponseHandler,
+    clearChapverseResponse: clearChapverseResponseHandler,
 
-    contentsRequest: {}, // request data
-
-    contentsResponse: {}, // response data
+    /* response data object for contents checking (내용 채점 결과) */
+    contentsResponse: {
+      isCheckable: {},
+      title: {
+        result: "",
+        correct: false,
+      },
+      contents: {
+        result: [],
+        correct: [],
+      },
+      hint: {},
+      minus: {},
+      score: {},
+    },
+    /*
+    contentsResponse: {
+      isCheckable: {}, // => mode string (check / result)
+      title: {
+        result: "",
+        correct: false,
+      },
+      contents: {
+        result: [],
+        correct: [],
+      },
+      hint: {},
+      minus: {},
+      score: {},
+    },
+    
+    */
+    receiveContentsResponse: receiveContentsResponseHandler,
+    clearContentsResponse: clearContentsResponseHandler,
   };
 
   return (

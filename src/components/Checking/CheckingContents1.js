@@ -1,4 +1,4 @@
-import React, { useContext, useRef } from "react";
+import React, { useContext, useEffect, useRef } from "react";
 import VerseContext from "../../store/verses-context";
 
 import Card from "../UI/Card";
@@ -8,21 +8,21 @@ import styles from "./CheckingContents1.module.css";
 const CheckingContents1 = () => {
   const verseCtx = useContext(VerseContext);
 
-  const head = useRef("");
+  const title = useRef("");
   const chapterName = useRef("");
   const chapter = useRef("");
   const verse = useRef("");
 
   const onfocusHandler1 = () => {
-    if (head.current.value === "| 제목") {
-      head.current.value = "";
+    if (title.current.value === "| 제목") {
+      title.current.value = "";
     }
   };
   const onblurHandler1 = () => {
-    if (head.current.value === "") {
-      head.current.value = "| 제목";
+    if (title.current.value === "") {
+      title.current.value = "| 제목";
     } else {
-      verseCtx.setInputHead(head.current.value)
+      verseCtx.setinputTitle(title.current.value);
     }
   };
   const onfocusHandler2 = () => {
@@ -34,7 +34,7 @@ const CheckingContents1 = () => {
     if (chapterName.current.value === "") {
       chapterName.current.value = "| 성경";
     } else {
-      verseCtx.setInputChapterName(chapterName.current.value)
+      verseCtx.setInputChapterName(chapterName.current.value);
     }
   };
   const onfocusHandler3 = () => {
@@ -46,7 +46,7 @@ const CheckingContents1 = () => {
     if (chapter.current.value === "") {
       chapter.current.value = "| 장";
     } else {
-      verseCtx.setInputChapter(chapter.current.value)
+      verseCtx.setInputChapter(chapter.current.value);
     }
   };
   const onfocusHandler4 = () => {
@@ -58,22 +58,26 @@ const CheckingContents1 = () => {
     if (verse.current.value === "") {
       verse.current.value = "| 절";
     } else {
-      verseCtx.setInputVerse(verse.current.value)
+      verseCtx.setInputVerse(verse.current.value);
     }
   };
+
+  useEffect(() => {
+    console.log(verseCtx.checkingInfoResponse.verse);
+  }, [])
 
   return (
     <Card>
       <div className={styles.input}>
         <input
-          className={styles.inputHead}
+          className={styles.inputTitle}
           type="text"
           defaultValue={"| 제목"}
-          value={verseCtx.head}
+          value={verseCtx.title}
           onFocus={onfocusHandler1}
           onBlur={onblurHandler1}
           required
-          ref={head}
+          ref={title}
         />
       </div>
       <div className={styles.input}>
@@ -106,7 +110,14 @@ const CheckingContents1 = () => {
         />
       </div>
       <div className={styles.label}>
-        <label className={styles.labelContent}>{verseCtx.checkingInfoResponse[0].contents}</label>
+        <label className={styles.labelContent}>
+          {verseCtx.checkingInfoResponse.verse && verseCtx.checkingInfoResponse.verse.contents}
+        </label>
+      </div>
+      <div className={styles.label}>
+        <label className={styles.labelTheme}>
+          {verseCtx.checkingInfoResponse.verse && verseCtx.checkingInfoResponse.verse.theme}
+        </label>
       </div>
     </Card>
   );

@@ -8,8 +8,9 @@ const TopicSubContentsList = (props) => {
     <div className={styles.content}>
       {props.headList.map((head) => (
         <TopicSubContent
-          key={head}
-          head={head}
+          key={head.head}
+          head={head.head}
+          len={head.len}
           onAddHeadList={props.onAddHeadList}
           onRemoveHeadList={props.onRemoveHeadList}
         />

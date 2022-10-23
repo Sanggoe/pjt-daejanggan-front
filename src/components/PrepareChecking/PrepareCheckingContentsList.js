@@ -48,6 +48,8 @@ const PrepareCheckingContentsList = () => {
   }, [contentsNums]);
 
   useEffect(() => {
+    verseCtx.setCheckingType("전체 점검");
+
     let weight = verseCtx.checkingInfoRequest.weight.weightType;
     if (weight === 0) {
       verseCtx.setIn73ChapterNums(10);
@@ -108,6 +110,7 @@ const PrepareCheckingContentsList = () => {
         label={checkingList[2].label}
         onSelect={onSelectHandler}
         select={select}
+        weight={verseCtx.checkingInfoRequest.weight.weightType}
       >
         <PrepareCheckingSubContent3
           select={select}

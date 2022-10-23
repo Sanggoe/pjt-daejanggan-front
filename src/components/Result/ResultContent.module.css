@@ -1,0 +1,29 @@
+.labelArea {
+    margin: auto;
+    padding-top: 0.2rem;
+    display: flex;
+}
+
+.labelChapverse {
+    width: 60%;
+    margin: auto;
+    padding: 0.2rem;
+    font-weight: bold;
+    font-size: 16px;
+}
+.labelMinus {
+    width: 20%;
+    margin: auto;
+    padding: 0.2rem;
+    font-weight: bold;
+    font-size: 16px;
+    text-align: center;
+}
+.labelScore {
+    width: 20%;
+    margin: auto;
+    padding: 0.2rem;
+    font-weight: bold;
+    font-size: 16px;
+    text-align: center;
+}

@@ -6,9 +6,10 @@ import styles from "../UI/Footer.module.css";
 import styles2 from "../UI/Button.module.css";
 import { Link } from "react-router-dom";
 
-const CheckingFooter = (props) => {
+const ResultFooter = (props) => {
   return (
     <div className={styles.footer}>
+      <Link to={props.path}>
         <Button
           styles={
             props.len === 1 ? styles2.button_footer1 : styles2.button_footer2
@@ -18,15 +19,9 @@ const CheckingFooter = (props) => {
         >
           {props.labels[0]}
         </Button>
-      {props.len === 2 && (
-        <Link to={props.path}>
-          <Button styles={styles2.button_footer2} type="button">
-            {props.labels[1]}
-          </Button>
-        </Link>
-      )}
+      </Link>
     </div>
   );
 };
 
-export default CheckingFooter;
+export default ResultFooter;

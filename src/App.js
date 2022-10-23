@@ -10,6 +10,7 @@ import CheckingPage from "./pages/CheckingPage";
 import { Redirect, Route, Switch } from "react-router-dom";
 import AuthContext from "./store/auth-context";
 import VerseContext from "./store/verses-context";
+import ResultPage from "./pages/ResultPage";
 
 const App = () => {
   const authCtx = useContext(AuthContext);
@@ -58,6 +59,9 @@ const App = () => {
             <Redirect to="/menu" />
           )}
         {!authCtx.isLoggedIn && <Redirect to="/" />}
+      </Route>
+      <Route path="/result">
+          <ResultPage />
       </Route>
       <Route path="/statistics">
         {authCtx.isLoggedIn && <StatisticsPage />}

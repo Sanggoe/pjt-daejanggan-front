@@ -16,11 +16,11 @@ const TopicContentsList = () => {
 
   return (
     <div className={styles.contents}>
-      {verseCtx.verseInfo.map((verseInfo) => (
+      {verseCtx.verseInfo.map((info) => (
         <TopicContent
-          key={verseInfo.theme}
-          theme={verseInfo.theme}
-          headList={verseInfo.headList}
+          key={info.theme}
+          theme={info.theme}
+          headList={info.headList}
           onAddHeadList={verseCtx.addHeadList}
           onRemoveHeadList={verseCtx.removeHeadList}
         />

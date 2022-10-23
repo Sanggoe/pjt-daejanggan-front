@@ -11,9 +11,7 @@ const TopicContent = (props) => {
 
   const onClickHandler = () => {
     if (toggle) {
-      props.headList.map(head => {
-        props.onRemoveHeadList(head);
-      })
+      props.headList.map((head) => props.onRemoveHeadList(head.head));
     }
     setToggle(!toggle);
   };
