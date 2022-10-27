@@ -16,17 +16,22 @@ const CheckingInfoFooter = () => {
       <div className={styles.infoArea}>
         <div className={styles.divArea}>
           <Button styles={styles.hintButton} type="button" onClick={setHintHandler}>
-            한 어절 보기
+            힌트
           </Button>
-          <label className={styles.info}>{hint}회</label>
+          <label className={styles.info}>{hint}</label>
         </div>
         <div className={styles.divArea}>
-          <label className={styles.label}>감점</label>
-          <label className={styles.info}>-{hint + 1}</label>
+          <Button styles={styles.button} type="button">
+            감점
+          </Button>
+          <label className={styles.label}></label>
+          <label className={styles.info}>{-hint}</label>
         </div>
         <div className={styles.divArea}>
-          <label className={styles.label}>점수</label>
-          <label className={styles.info}>{10+10-hint}</label>
+          <Button styles={styles.button} type="button">
+            점수
+          </Button>
+          <label className={styles.info}>{10 - hint}</label>
         </div>
       </div>
     </div>

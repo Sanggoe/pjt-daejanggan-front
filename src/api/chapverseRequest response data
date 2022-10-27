@@ -1,0 +1,48 @@
+{
+  "data": {
+    "resultTitle": "경청함",
+    "resultChapterName": "야고보서",
+    "resultChapter": "1",
+    "resultVerse": "19",
+    "correctChapterName": true,
+    "correctTitle": true,
+    "correctVerse": true,
+    "correctChapter": true
+  },
+  "status": 200,
+  "statusText": "",
+  "headers": {
+    "cache-control": "no-cache, no-store, max-age=0, must-revalidate",
+    "content-type": "application/json",
+    "expires": "0",
+    "pragma": "no-cache"
+  },
+  "config": {
+    "transitional": {
+      "silentJSONParsing": true,
+      "forcedJSONParsing": true,
+      "clarifyTimeoutError": false
+    },
+    "transformRequest": [
+      null
+    ],
+    "transformResponse": [
+      null
+    ],
+    "timeout": 0,
+    "xsrfCookieName": "XSRF-TOKEN",
+    "xsrfHeaderName": "X-XSRF-TOKEN",
+    "maxContentLength": -1,
+    "maxBodyLength": -1,
+    "env": {},
+    "headers": {
+      "Accept": "application/json, text/plain, */*",
+      "Content-Type": "application/json",
+      "Authorization": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzYW5nZ29lIiwiYXV0aCI6IlJPTEVfVVNFUiIsImV4cCI6MTY2NjcxMzQ0Nn0.gQBRAcvXVr_w0XoRMGmrQ3OO4IMJUD25sT86udz7LUC9GdfC8pkxQHcZZC0r-gDZOXcyzhIHRNMJLlFADeW7FQ"
+    },
+    "method": "post",
+    "url": "http://192.168.5.40:8080/api/chapverse-checking",
+    "data": "{\"theme\":\"180\",\"chapverse\":\"야고보서 1:19\",\"inputTitle\":\"\",\"inputChapterName\":\"\",\"inputChapter\":\"\",\"inputVerse\":\"\"}"
+  },
+  "request": {}
+}

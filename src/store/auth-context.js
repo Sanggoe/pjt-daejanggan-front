@@ -5,10 +5,12 @@ let logoutTimer;
 const AuthContext = React.createContext({
   token: "",
   isLoggedIn: false,
+  // isGuest: false,
   username: "",
   nickname: "",
   login: (token, expirationTime) => {},
   logout: () => {},
+  // guestin: () => {},
   setUser: () => {},
 });
 
@@ -67,7 +69,8 @@ export const AuthContextProvider = (props) => {
   const [token, setToken] = useState(initialToken);
   const [username, setUsername] = useState(name1);
   const [nickname, setNickname] = useState(name2);
-
+  
+  // const [isGuest, setIsGuest] = useState(false);
   const userIsLoggedIn = !!token; // !!는 isNotEmpty()의 bool 결과값
 
   const logoutHandler = useCallback(() => {
@@ -90,9 +93,14 @@ export const AuthContextProvider = (props) => {
 
     const remainintTime = calculateRemainingTime(expirationTime);
 
-    let leftTime = remainintTime < 86400 ? remainintTime : 86400;
+    let leftTime = remainintTime < 86400000 ? remainintTime : 86400000;
     logoutTimer = setTimeout(logoutHandler, leftTime); // 토큰 만료 시간 기준 자동 로그아웃
-  }, []);
+  }, [logoutHandler]);
+
+  // const guestinHandler = useCallback(() => {
+  //   setIsGuest(true);
+  //   console.log("guest는 " + isGuest)
+  // }, []);
 
   const setUserInfo = useCallback((username, nickname) => {
     setUsername(username);
@@ -106,18 +114,23 @@ export const AuthContextProvider = (props) => {
       if (logoutTimer) {
         clearTimeout(logoutTimer);
       }
-      let leftTime = tokenData.duration < 86400 ? tokenData.duration : 86400;
-      logoutTimer = setTimeout(logoutHandler, leftTime);
+      let calculateTime = calculateRemainingTime(tokenData.duration)
+      if (calculateTime) {
+        let leftTime = calculateTime < 86400000 ? calculateTime : 86400000;
+        logoutTimer = setTimeout(logoutHandler, leftTime);
+      }
     }
-  }, [tokenData]);
+  }, [logoutHandler, tokenData]);
 
   const contextValue = {
     token: token,
     isLoggedIn: userIsLoggedIn,
+    // isGuest: isGuest,
     username: username,
     nickname: nickname,
     login: loginHandler,
     logout: logoutHandler,
+    // guestin: guestinHandler,
     setUser: setUserInfo,
   };
 

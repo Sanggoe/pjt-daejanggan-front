@@ -25,39 +25,59 @@
 }
 
 .div_content {
-    /* background-color: aquamarine; */
-    margin: 0.3rem;
+    width: 20rem;
+    margin: 0.3rem auto;
+    text-align: center;
+    display: flex;
+    
 }
 
 .input {
     width: 2.5rem;
-    border: none;
+    margin: auto;
     color: gray;
     font-size: 1rem;
     font-weight: bold;
     text-align: center;
-    /* background-color: lightskyblue; */
+    border: none;
 }
 .inputSelected {
     width: 2.5rem;
-    border: none;
+    margin: auto;
     color: black;
     text-align: center;
     font-size: 1rem;
     font-weight: bold;
-    /* background-color: lightskyblue; */
+    border: none;
 }
 
 .label {
     color: gray;
     font-weight: bold;
+    margin: auto;
 }
 .labelSelected {
     color: black;
     font-weight: bold;
+    margin: auto;
 }
 
 .img {
     width: 20rem;
     margin: 0.3rem 0rem;
+}
+
+.button_count {
+    width: 2rem;
+    font-size: 1.5zvrem;
+    font-weight: bold;
+    border-radius: 3rem;
+    background-color: #fdd550;
+}
+.button_count_selected {
+    width: 2rem;
+    font-size: 1.5zvrem;
+    font-weight: bold;
+    border-radius: 3rem;
+    background-color: #fdd550;
 }

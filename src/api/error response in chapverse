@@ -1,0 +1,34 @@
+{
+  "message": "Request failed with status code 400",
+  "name": "AxiosError",
+  "stack": "AxiosError: Request failed with status code 400\n    at settle (http://localhost:3000/static/js/bundle.js:62910:12)\n    at XMLHttpRequest.onloadend (http://localhost:3000/static/js/bundle.js:61556:66)",
+  "config": {
+    "transitional": {
+      "silentJSONParsing": true,
+      "forcedJSONParsing": true,
+      "clarifyTimeoutError": false
+    },
+    "transformRequest": [
+      null
+    ],
+    "transformResponse": [
+      null
+    ],
+    "timeout": 0,
+    "xsrfCookieName": "XSRF-TOKEN",
+    "xsrfHeaderName": "X-XSRF-TOKEN",
+    "maxContentLength": -1,
+    "maxBodyLength": -1,
+    "env": {},
+    "headers": {
+      "Accept": "application/json, text/plain, */*",
+      "Content-Type": "application/json",
+      "Authorization": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzYW5nZ29lIiwiYXV0aCI6IlJPTEVfVVNFUiIsImV4cCI6MTY2NjcxMzQ0Nn0.gQBRAcvXVr_w0XoRMGmrQ3OO4IMJUD25sT86udz7LUC9GdfC8pkxQHcZZC0r-gDZOXcyzhIHRNMJLlFADeW7FQ"
+    },
+    "method": "post",
+    "url": "http://192.168.5.40:8080/api/contents-checking",
+    "data": "{\"theme\":\"LOA\",\"chapverse\":\"요한복음 16:24\",\"inputTitle\":\"기도\",\"inputContents\":\"\",\"hintWord\":[],\"currentHint\":0,\"currentMinus\":0,\"currentScore\":0}"
+  },
+  "code": "ERR_BAD_REQUEST",
+  "status": 400
+}

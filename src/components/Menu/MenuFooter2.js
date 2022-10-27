@@ -39,7 +39,7 @@ const MenuFooter2 = (props) => {
       .post(API_URL + "/practice-verses", payload, { headers: authHeader() })
       .then((response) => {
         /***********************/
-        //console.log("response : " + JSON.stringify(response));
+        // console.log("response : " + JSON.stringify(response));
         // console.log("\n" + JSON.stringify(response.data));
         // console.log("\n" + response.status);
         // console.log("\n" + JSON.stringify(response.statusText));

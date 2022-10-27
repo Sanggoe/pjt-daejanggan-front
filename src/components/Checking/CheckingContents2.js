@@ -36,10 +36,6 @@ const CheckingContents2 = () => {
     }
   };
 
-  useEffect(() => {
-    console.log(verseCtx.checkingInfoResponse.verse);
-  }, [])
-
   return (
     <Card>
       <div className={styles.input}>
@@ -47,7 +43,6 @@ const CheckingContents2 = () => {
           className={styles.inputTitle}
           type="text"
           defaultValue={"| 제목"}
-          value={verseCtx.title}
           onFocus={onfocusHandler1}
           onBlur={onblurHandler1}
           required
@@ -56,7 +51,7 @@ const CheckingContents2 = () => {
       </div>
       <div className={styles.label}>
         <label className={styles.labelChapVerse}>
-          {verseCtx.checkingInfoResponse.verse.chapverse}
+          {verseCtx.checkingProcessInfo.currentVerse.chapverse}
         </label>
       </div>
       <div className={styles.input}>
@@ -64,7 +59,6 @@ const CheckingContents2 = () => {
           className={styles.inputContents}
           type="text"
           defaultValue="| 내용"
-          value={verseCtx.contents}
           onFocus={onfocusHandler2}
           onBlur={onblurHandler2}
           ref={contents}

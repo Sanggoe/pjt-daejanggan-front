@@ -14,6 +14,7 @@ const AuthForm = () => {
 
   const idInputRef = useRef();
   const passwordInputRef = useRef();
+  const passwordInputCheckRef = useRef();
   const nameInputRef = useRef();
 
   const [isLogin, setIsLogin] = useState(true);
@@ -21,6 +22,23 @@ const AuthForm = () => {
 
   const switchAuthModeHandler = () => {
     setIsLogin((prevState) => !prevState);
+  };
+
+  const checkingPassword = () => {
+    if (passwordInputRef.current.value === passwordInputCheckRef.current.value) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  const signUpHandler = (e) => {
+    if (checkingPassword()) {
+      signUp(e);
+    } else {
+      e.preventDefault();
+      alert("Password가 다릅니다!");
+    }
   };
 
   // 회원가입
@@ -53,9 +71,11 @@ const AuthForm = () => {
 
         /***********************/
         // console.log(JSON.stringify(err))
-        if (err.response.status === 400) { // valid error 3글자 이상
+        if (err.response.status === 400) {
+          // valid error 3글자 이상
           alert(err.response.data.fieldErrors[0].defaultMessage);
-        } else if (err.response.status === 409) { // 중복 회원
+        } else if (err.response.status === 409) {
+          // 중복 회원
           alert(err.response.data.message);
         }
       });
@@ -76,10 +96,13 @@ const AuthForm = () => {
       .post(API_URL + "/authenticate", payload)
       .then((response) => {
         setIsLoading(false);
-        
+
         /***********************/
         // console.log("response : " + JSON.stringify(response));
-        authCtx.login(JSON.stringify(response.data), new Date().getTime() + 1200000*1000); // 기간 2주 
+        authCtx.login(
+          JSON.stringify(response.data),
+          new Date().getTime() + 2073600000
+        ); // 기간 24days
         getUserInfo();
 
         history.replace("/menu");
@@ -91,9 +114,11 @@ const AuthForm = () => {
 
         /***********************/
         // console.log(JSON.stringify(err))
-        if (err.response.status === 400) { // valid error 3글자 이상
+        if (err.response.status === 400) {
+          // valid error 3글자 이상
           alert(err.response.data.fieldErrors[0].defaultMessage);
-        } else if (err.response.status === 401) { // 틀린 인증정보
+        } else if (err.response.status === 401) {
+          // 틀린 인증정보
           alert("ID 또는 PW를 다시 입력하세요");
         }
       });
@@ -120,20 +145,34 @@ const AuthForm = () => {
       });
   };
 
+  // const guestinHandler = () => {
+  //   console.log(authCtx.isGuest);
+  //   authCtx.guestin();
+  //   console.log(authCtx.isGuest);
+  //   history.replace("/menu");
+  // }
+
   return (
     <>
       <section className={classes.auth}>
         <h1>{isLogin ? "Login" : "Sign Up"}</h1>
-        <form onSubmit={isLogin ? authLogin : signUp}>
+        <form onSubmit={isLogin ? authLogin : signUpHandler}>
           <div className={classes.control}>
             <label htmlFor="id">{isLogin ? "Your Id" : "Make Your Id"}</label>
-            <input type="id" id="id" required ref={idInputRef} />
+            <input
+              className={classes.control_input}
+              type="id"
+              id="id"
+              required
+              ref={idInputRef}
+            />
           </div>
           <div className={classes.control}>
             <label htmlFor="password">
               {isLogin ? "Your Password" : "Make Your Password"}
             </label>
             <input
+              className={classes.control_input}
               type="password"
               id="password"
               required
@@ -141,17 +180,41 @@ const AuthForm = () => {
             />
           </div>
           {!isLogin && (
-            <div className={classes.control}>
-              <label htmlFor="name">Your Name</label>
-              <input type="name" id="name" required ref={nameInputRef} />
-            </div>
+            <>
+              <div className={classes.control}>
+                <label htmlFor="passwordCheck">
+                  {"Input Your Password Again"}
+                </label>
+                <input
+                  className={classes.control_input}
+                  type="password"
+                  id="passwordCheck"
+                  required
+                  ref={passwordInputCheckRef}
+                />
+              </div>
+              <div className={classes.control}>
+                <label htmlFor="name">Your Name</label>
+                <input
+                  className={classes.control_input}
+                  type="name"
+                  id="name"
+                  required
+                  ref={nameInputRef}
+                />
+              </div>
+            </>
           )}
           <div className={classes.actions}>
             {!isLoading && (
               <button type="submit">{isLogin ? "로그인" : "회원 가입"}</button>
             )}
             {isLoading && <p>Sending request...</p>}
-
+            {/* {isLogin && (
+              <button type="button" onClick={guestinHandler}>
+                {"Guest"}
+              </button>
+            )} */}
             <button
               type="button"
               className={classes.toggle}

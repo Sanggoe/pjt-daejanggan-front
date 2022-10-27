@@ -12,9 +12,8 @@ const ResultPage = () => {
       <ResultHeader />
       <ResultContentsList />
       <ResultFooter
-        len={1}
-        labels={["점검한 말씀 보기"]}
-        path={"/practice"}
+        label={"점검한 말씀 보기"}
+        path={"/practicing"}
         />
         <h3>&nbsp;</h3>
     </>

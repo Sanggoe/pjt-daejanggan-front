@@ -28,8 +28,30 @@
     margin-bottom: 0.5rem;
   }
   
-  .control input {
+  .control_input {
     background-color: #fffbec;
+    color: black;
+    font-size: 1.2rem;
+    border-radius: 0.6rem;
+    border: 0.1rem solid #fdd550;
+    width: 85%;
+    text-align: left;
+    padding: 0.5rem;
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.5);
+  }
+  .inputSame {
+    background-color: blue;
+    color: black;
+    font-size: 1.2rem;
+    border-radius: 0.6rem;
+    border: 0.1rem solid #fdd550;
+    width: 85%;
+    text-align: left;
+    padding: 0.5rem;
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.5);
+  }
+  .inputDiff {
+    background-color: red;
     color: black;
     font-size: 1.2rem;
     border-radius: 0.6rem;

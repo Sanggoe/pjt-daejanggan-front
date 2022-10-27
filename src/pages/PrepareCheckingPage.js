@@ -1,10 +1,12 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 
 import HomeButtonHeader from "../components/UI/HomeButtonHeader";
 import PrepareCheckingContentsList from "../components/PrepareChecking/PrepareCheckingContentsList";
 import Button from "../components/UI/Button";
 import VerseContext from "../store/verses-context";
 import PrepareCheckingFooter from "../components/PrepareChecking/PrepareCheckingFooter";
+
+import styles from "./PrepareCheckingPage.module.css"
 
 const PrepareCheckingPage = () => {
   const verseCtx = useContext(VerseContext);
@@ -13,8 +15,8 @@ const PrepareCheckingPage = () => {
   const showHeadHandler = () => {
     console.log(verseCtx.checkingInfoRequest.headList);
     console.log(verseCtx.checkingInfoRequest.checkingType);
-    console.log("랜덤_0, 순서대로_1 : " + verseCtx.checkingInfoRequest.orderType)
-    console.log("내용_0, 장절_1 : " + verseCtx.checkingInfoRequest.verseType)
+    console.log(verseCtx.checkingInfoRequest.orderType)
+    console.log(verseCtx.checkingInfoRequest.verseType)
     console.log("장절 : " + verseCtx.checkingInfoRequest.count.chapterNums
     + " / 내용 : " + verseCtx.checkingInfoRequest.count.contentsNums);
     console.log("체급별일 경우 {");
@@ -30,14 +32,19 @@ const PrepareCheckingPage = () => {
   return (
     <>
       <HomeButtonHeader label={"뒤로가기"} path={"/menu"} />
+      <div className={styles.labelArea}>
+        <label className={styles.headLabel}>
+          점검할 총 구절 수 : {verseCtx.checkingProcessInfo.numberOfVerse.total}
+        </label>
+      </div>
+      <PrepareCheckingContentsList />
 
       {/* Test code */}
       <Button type="button" onClick={showHeadHandler}>
         show head
       </Button>
       {/***************/}
-
-      <PrepareCheckingContentsList />
+      
       <h3>&nbsp;</h3>
       <PrepareCheckingFooter
         len={1}

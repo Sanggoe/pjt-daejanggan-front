@@ -11,17 +11,17 @@ const PrepareCheckingSubContent1 = (props) => {
 
   const onClickHandler1 = () => {
     if (toggle1) {
-      props.setOrderType(0);
+      props.setOrderType("랜덤");
     } else {
-      props.setOrderType(1);
+      props.setOrderType("순서대로");
     }
     setToggle1(!toggle1);
   };
   const onClickHandler2 = () => {
     if (toggle2) {
-      props.setVerseType(0);
+      props.setVerseType("내용");
     } else {
-      props.setVerseType(1);
+      props.setVerseType("장절");
     }
     setToggle2(!toggle2);
   };

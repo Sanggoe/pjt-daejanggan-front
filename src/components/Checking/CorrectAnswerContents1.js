@@ -13,60 +13,60 @@ const CorrectAnswerContents1 = () => {
       <div className={styles.label}>
         <label // 제목
           className={`${styles.labelTitle} ${
-            verseCtx.chapverseResponse.title.correct
+            verseCtx.checkingChapverseResponse.correctTitle
               ? styles.labelTitle_Correct
               : styles.labelTitle_Wrong
           }`}
           type="text"
         >
-          {verseCtx.chapverseResponse.title.result}
+          {verseCtx.checkingChapverseResponse.resultTitle}
         </label>
       </div>
       <div className={styles.label}>
         <label // 성경
           className={`${styles.labelChapterName} ${
-            verseCtx.chapverseResponse.chapterName.correct
+            verseCtx.checkingChapverseResponse.correctChapterName
               ? styles.labelChapterName_Correct
               : styles.labelChapterName_Wrong
           }`}
           type="text"
         >
-          {verseCtx.chapverseResponse.chapterName.result}
+          {verseCtx.checkingChapverseResponse.resultChapterName}
         </label>
         <label // 장
           className={`${styles.labelChapter} ${
-            verseCtx.chapverseResponse.chapter.correct
+            verseCtx.checkingChapverseResponse.correctChapter
               ? styles.labelChapter_Correct
               : styles.labelChapter_Wrong
           }`}
           type="text"
         >
-          {verseCtx.chapverseResponse.chapter.result}
+          {verseCtx.checkingChapverseResponse.resultChapter}
         </label>
         <label>
           <b>:</b>
         </label>
         <label // 절
           className={`${styles.labelChapter} ${
-            verseCtx.chapverseResponse.verse.correct
+            verseCtx.checkingChapverseResponse.correctVerse
               ? styles.labelChapter_Correct
               : styles.labelChapter_Wrong
           }`}
           type="text"
         >
-          {verseCtx.chapverseResponse.verse.result}
+          {verseCtx.checkingChapverseResponse.resultVerse}
         </label>
       </div>
       <div className={styles.label}>
         <label // 내용
           className={styles.labelContent}
         >
-          {verseCtx.checkingInfoResponse[0].contents}
+          {verseCtx.checkingProcessInfo.currentVerse.contents}
         </label>
       </div>
       <div className={styles.label}>
         <label className={styles.labelTheme}>
-          {verseCtx.checkingInfoResponse[0].theme}
+          {verseCtx.checkingProcessInfo.currentVerse.theme}
         </label>
       </div>
     </Card>

@@ -1,0 +1,8 @@
+.labelArea {
+    display: flex;
+}
+
+.headLabel {
+    font-weight: bold;
+    margin: auto;
+}

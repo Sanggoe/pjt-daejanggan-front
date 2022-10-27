@@ -15,8 +15,8 @@ const checkingList = [
 const PrepareCheckingContentsList = () => {
   const verseCtx = useContext(VerseContext);
   const [select, setSelect] = useState("전체 점검");
-  const [orderType, setOrderType] = useState(0);
-  const [verseType, setVerseType] = useState(0);
+  const [orderType, setOrderType] = useState("랜덤");
+  const [verseType, setVerseType] = useState("내용");
 
   const [chapterNums, setChapterNums] = useState(2);
   const [contentsNums, setContentsNums] = useState(8);
@@ -33,19 +33,19 @@ const PrepareCheckingContentsList = () => {
 
   useEffect(() => {
     verseCtx.setOrderType(orderType);
-  }, [orderType]);
+  }, [verseCtx, orderType]);
 
   useEffect(() => {
     verseCtx.setVerseType(verseType);
-  }, [verseType]);
+  }, [verseCtx, verseType]);
 
   useEffect(() => {
     verseCtx.setChapterNums(chapterNums);
-  }, [chapterNums]);
+  }, [verseCtx, chapterNums]);
 
   useEffect(() => {
     verseCtx.setContentsNums(contentsNums);
-  }, [contentsNums]);
+  }, [verseCtx, contentsNums]);
 
   useEffect(() => {
     verseCtx.setCheckingType("전체 점검");
@@ -53,6 +53,10 @@ const PrepareCheckingContentsList = () => {
     let weight = verseCtx.checkingInfoRequest.weight.weightType;
     if (weight === 0) {
       verseCtx.setIn73ChapterNums(10);
+    } else if (weight < 10 ) {
+      verseCtx.setIn73ContentsNums(weight);
+    } else if (weight < 73 ) {
+      verseCtx.setIn73ContentsNums(10);
     } else if (weight === 73) {
       let num = Math.floor(Math.random() * 2);
       verseCtx.setIn73ChapterNums(4);
@@ -102,7 +106,7 @@ const PrepareCheckingContentsList = () => {
           select={select}
           setChapterNums={setChapterNums}
           setContentsNums={setContentsNums}
-          weight={verseCtx.checkingInfoRequest.weight.weightType}
+          total={verseCtx.checkingProcessInfo.numberOfVerse.total}
         />
       </PrepareCheckingContent>
       <PrepareCheckingContent

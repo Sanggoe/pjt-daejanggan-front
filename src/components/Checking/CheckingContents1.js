@@ -22,7 +22,7 @@ const CheckingContents1 = () => {
     if (title.current.value === "") {
       title.current.value = "| 제목";
     } else {
-      verseCtx.setinputTitle(title.current.value);
+      verseCtx.setInputTitle(title.current.value);
     }
   };
   const onfocusHandler2 = () => {
@@ -62,10 +62,6 @@ const CheckingContents1 = () => {
     }
   };
 
-  useEffect(() => {
-    console.log(verseCtx.checkingInfoResponse.verse);
-  }, [])
-
   return (
     <Card>
       <div className={styles.input}>
@@ -73,7 +69,6 @@ const CheckingContents1 = () => {
           className={styles.inputTitle}
           type="text"
           defaultValue={"| 제목"}
-          value={verseCtx.title}
           onFocus={onfocusHandler1}
           onBlur={onblurHandler1}
           required
@@ -85,7 +80,6 @@ const CheckingContents1 = () => {
           className={styles.inputChapterName}
           type="text"
           defaultValue="| 성경"
-          value={verseCtx.chapterName}
           onFocus={onfocusHandler2}
           onBlur={onblurHandler2}
           ref={chapterName}
@@ -94,7 +88,6 @@ const CheckingContents1 = () => {
           className={styles.inputChapter}
           type="text"
           defaultValue="| 장"
-          value={verseCtx.chapter}
           onFocus={onfocusHandler3}
           onBlur={onblurHandler3}
           ref={chapter}
@@ -103,7 +96,6 @@ const CheckingContents1 = () => {
           className={styles.inputChapter}
           type="text"
           defaultValue="| 절"
-          value={verseCtx.verse}
           onFocus={onfocusHandler4}
           onBlur={onblurHandler4}
           ref={verse}
@@ -111,12 +103,12 @@ const CheckingContents1 = () => {
       </div>
       <div className={styles.label}>
         <label className={styles.labelContent}>
-          {verseCtx.checkingInfoResponse.verse && verseCtx.checkingInfoResponse.verse.contents}
+          {verseCtx.checkingProcessInfo.currentVerse && verseCtx.checkingProcessInfo.currentVerse.contents}
         </label>
       </div>
       <div className={styles.label}>
         <label className={styles.labelTheme}>
-          {verseCtx.checkingInfoResponse.verse && verseCtx.checkingInfoResponse.verse.theme}
+          {verseCtx.checkingProcessInfo.currentVerse && verseCtx.checkingProcessInfo.currentVerse.theme}
         </label>
       </div>
     </Card>

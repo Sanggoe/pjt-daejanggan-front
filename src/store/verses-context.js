@@ -105,6 +105,7 @@ const VerseContext = React.createContext({
   /* data object for checking process (채점 진행 관련 데이터)  */
   checkingProcessInfo: {
     checkingTime: {},
+    checkOrResult: {},
     numberOfVerse: {
       total: {},
       selected: {},
@@ -138,6 +139,7 @@ const VerseContext = React.createContext({
     },
   },
   setCheckingTime: () => {},
+  setCheckOrResult: () => {},
   setCurrentVerse: (index) => {},
   clearCurrentVerse: () => {},
   increaseCurrentHint: () => {},
@@ -151,10 +153,12 @@ const VerseContext = React.createContext({
 
   /* request data object for chapverse checking (장절 채점 요청) */
   checkingChapverseRequest: {
-    title: {},
-    chapterName: {},
-    chapter: {},
-    verse: {},
+    theme: {}, // DB 찾기용
+    chapverse: {}, // DB 찾기용
+    inputTitle: {},
+    inputChapterName: {},
+    inputChapter: {},
+    inputVerse: {},
   },
   setInputTitle: (inputTitle) => {},
   setInputChapterName: (inputChapterName) => {},
@@ -164,12 +168,14 @@ const VerseContext = React.createContext({
 
   /* request data object for contents checking (내용 채점 요청) */
   checkingContentsRequest: {
-    title: {},
-    contents: {},
+    theme: {}, // DB 찾기용
+    chapverse: {}, // DB 찾기용
+    inputTitle: {},
+    inputContents: {}, // + 힌트표시?
     hintWord: [],
-    hint: {},
-    minus: {},
-    score: {},
+    currentHint: {},
+    currentMinus: {},
+    currentScore: {},
   },
   // setInputTitle: (inputTitle) => {}, 중복 사용
   setInputContents: (inputContents) => {},
@@ -177,44 +183,32 @@ const VerseContext = React.createContext({
   clearContentsInput: () => {},
 
   /* response data object for chapverse checking (장절 채점 결과) */
-  chapverseResponse: {
-    title: {
-      result: {},
-      correct: {},
-    },
-    chapterName: {
-      result: {},
-      correct: {},
-    },
-    chapter: {
-      result: {},
-      correct: {},
-    },
-    verse: {
-      result: {},
-      correct: {},
-    },
+  checkingChapverseResponse: {
+    resultTitle: {},
+    correctTitle: {},
+    resultChapterName: {},
+    correctChapterName: {},
+    resultChapter: {},
+    correctChapter: {},
+    resultVerse: {},
+    correctVerse: {},
   },
-  receiveChapverseResponse: (response) => {},
-  clearChapverseResponse: () => {},
+  receiveCheckingChapverseResponse: (response) => {},
+  clearCheckingChapverseResponse: () => {},
 
   /* response data object for contents checking (내용 채점 결과) */
-  contentsResponse: {
-    isCheckable: {},
-    title: {
-      result: {},
-      correct: {},
-    },
-    contents: {
-      result: [],
-      correct: [],
-    },
+  checkingContentsResponse: {
+    mode: {},
+    resultTitle: {},  
+    isCorrectTitle: {},
+    resultContents: {},
+    inputContents: {},
     hint: {},
     minus: {},
     score: {},
   },
-  receiveContentsResponse: (response) => {},
-  clearContentsResponse: () => {},
+  receiveCheckingContentsResponse: (response) => {},
+  clearCheckingContentsResponse: () => {},
 });
 
 ///////////////////////////////////////////////////////////////
@@ -279,8 +273,8 @@ export const VerseContextProvider = (props) => {
   /* states for verses checking (checkingInfoRequest) */
   const [checkingType, setCheckingType] = useState(""); // 전체 점검, 일부 점검, 체급별 점검
   // 전체 점검
-  const [orderType, setOrderType] = useState(0); // random(default):0, sequence:1
-  const [verseType, setVerseType] = useState(0); // contents:0, chapter:1
+  const [orderType, setOrderType] = useState("");
+  const [verseType, setVerseType] = useState("");
   // 일부 점검
   const [chapterNums, setChapterNums] = useState(0); // int
   const [contentsNums, setContentsNums] = useState(0); // int
@@ -314,14 +308,14 @@ export const VerseContextProvider = (props) => {
     setOrderType(orderType);
   };
   const clearOrderTypeHandler = () => {
-    setOrderType(0);
+    setOrderType("");
   };
   // 점검 방법(장절/내용)
   const setVerseTypeHandler = (verseType) => {
     setVerseType(verseType);
   };
   const clearVerseTypeHandler = () => {
-    setVerseType(0);
+    setVerseType("");
   };
   // 점검 개수(장절/내용 각각의 개수)
   const setChapterNumsHandler = (chapterNums) => {
@@ -414,6 +408,7 @@ export const VerseContextProvider = (props) => {
   /* functions for verses checking */
   // checkingInfoResponse에 verse 객체 추가 및 초기화
   const receiveCheckingResponseHandler = (response) => {
+    setCurrentVerse(response.data.verses[0]);
     response.data.verses.map((verse) => addCheckingVerseHandler(verse));
   };
   const addCheckingVerseHandler = (verse) => {
@@ -429,9 +424,10 @@ export const VerseContextProvider = (props) => {
 
   /* states for checking process (checkingProcessInfo) */
   const [checkingTime, setCheckingTime] = useState("");
+  const [checkOrResult, setCheckOrResult] = useState(true);
   const [currentVerse, setCurrentVerse] = useState({
     index: 0,
-    verseType: 0,
+    verseType: "",
     chapverse: "",
     theme: "",
     head: "",
@@ -464,6 +460,10 @@ export const VerseContextProvider = (props) => {
   const clearCheckingTimeHandler = () => {
     setCheckingTime("");
   };
+  // 점검-결과 창 판단 state 설정 및 초기화
+  const setCheckOrResultHandler = () => {
+    setCheckOrResult(!checkOrResult);
+  }
   // 현재 점검 구절 정보 설정 및 초기화
   const setCurrentVerseHandler = (index) => {
     setCurrentVerse(() => {
@@ -593,42 +593,35 @@ export const VerseContextProvider = (props) => {
     clearHintWordHandler();
   };
 
-  /* for chapverse response (chapverseResponse) */
-  const [chapverseResponse, setChapverseResponse] = useState({
-    title: {
-      result: "",
-      correct: false,
-    },
-    chapterName: {
-      result: "",
-      correct: false,
-    },
-    chapter: {
-      result: 0,
-      correct: false,
-    },
-    verse: {
-      result: 0,
-      correct: false,
-    },
-  });  
-  const receiveChapverseResponseHandler = (response) => {
+  /* for chapverse response (checkingChapverseResponse) */
+  const [checkingChapverseResponse, setCheckingChapverseResponse] = useState({});
+  /*
+    resultTitle: {},
+    isCorrectTitle: {},
+    resultChapterName: {},
+    isCorrectChapterName: {},
+    resultChapter: {},
+    isCorrectChapter: {},
+    resultVerse: {},
+    isCorrectVerse: {},
+  */
+  const receiveCheckingChapverseResponseHandler = (response) => {
     console.log(response.data);
-    setChapverseResponse(response);
+    setCheckingChapverseResponse(response.data);
   };
-  const clearChapverseResponseHandler = () => {
-    setChapverseResponse(null);
+  const clearCheckingChapverseResponseHandler = () => {
+    setCheckingChapverseResponse(null);
   };
 
   /* for chapverse response (chapverseResponse) */
-  const [contentsResponse, setContentsResponse] = useState({});
+  const [checkingContentsResponse, setCheckingContentsResponse] = useState({});
 
-  const receiveContentsResponseHandler = (response) => {
+  const receiveCheckingContentsResponseHandler = (response) => {
     console.log(response.data);
-    setContentsResponse(response);
+    setCheckingContentsResponse(response.data);
   };
-  const clearContentsResponseHandler = () => {
-    setContentsResponse(null);
+  const clearCheckingContentsResponseHandler = () => {
+    setCheckingContentsResponse(null);
   };
 
   ///////////////////////////////////////////////////////////////
@@ -746,6 +739,7 @@ export const VerseContextProvider = (props) => {
     /* data object for checking process (채점 진행 관련 데이터) */
     checkingProcessInfo: {
       checkingTime: checkingTime,
+      checkOrResult: checkOrResult,
       numberOfVerse: {
         total: totalLen,
         selected: verse.length,
@@ -763,6 +757,7 @@ export const VerseContextProvider = (props) => {
       },
     },
     setCheckingTime: setCheckingTimeHandler,
+    setCheckOrResult: setCheckOrResultHandler,
     setCurrentVerse: setCurrentVerseHandler,
     clearCurrentVerse: clearCurrentVerseHandler,
     increaseCurrentHint: increaseCurrentHintHandler,
@@ -776,10 +771,12 @@ export const VerseContextProvider = (props) => {
 
     /* request data object for chapverse checking (장절 채점 요청) */
     checkingChapverseRequest: {
-      title: inputTitle,
-      chapterName: inputChapterName,
-      chapter: inputChapter,
-      verse: inputVerse,
+      theme: currentVerse.theme, // DB 찾기용
+      chapverse: currentVerse.chapverse, // DB 찾기용
+      inputTitle: inputTitle,
+      inputChapterName: inputChapterName,
+      inputChapter: inputChapter,
+      inputVerse: inputVerse,
     },
     setInputTitle: setInputTitleHandler,
     setInputChapterName: setInputChapterNameHandler,
@@ -789,74 +786,48 @@ export const VerseContextProvider = (props) => {
 
     /* request data object for contents checking (내용 채점 요청) */
     checkingContentsRequest: {
-      // theme
-      title: inputTitle,
-      contents: inputContents,
+      theme: currentVerse.theme, // DB 찾기용
+      chapverse: currentVerse.chapverse, // DB 찾기용
+      inputTitle: inputTitle,
+      inputContents: inputContents,
       hintWord: hintWord,
-      hint: currentHint,
-      minus: currentMinus,
-      score: currentScore,
+      currentHint: currentHint,
+      currentMinus: currentMinus,
+      currentScore: currentScore,
     },
     setInputContents: setInputContentsHandler,
     addHintWord: addHintWordHandler,
     clearContentsInput: clearContentsInputHandler,
-    
+
     /* response data object for chapverse checking (장절 채점 결과) */
-    chapverseResponse: {
-      title: {
-        result: "기도응답의 확신",
-        correct: false,
-      },
-      chapterName: {
-        result: "요한복음",
-        correct: true,
-      },
-      chapter: {
-        result: 16,
-        correct: true,
-      },
-      verse: {
-        result: 24,
-        correct: true,
-      },
-    },
-    receiveChapverseResponse: receiveChapverseResponseHandler,
-    clearChapverseResponse: clearChapverseResponseHandler,
+    checkingChapverseResponse: checkingChapverseResponse,
+    /*
+      resultTitle: {},
+      isCorrectTitle: {},
+      resultChapterName: {},
+      isCorrectChapterName: {},
+      resultChapter: {},
+      isCorrectChapter: {},
+      resultVerse: {},
+      isCorrectVerse: {},
+    */
+    receiveCheckingChapverseResponse: receiveCheckingChapverseResponseHandler,
+    clearCheckingChapverseResponse: clearCheckingChapverseResponseHandler,
 
     /* response data object for contents checking (내용 채점 결과) */
-    contentsResponse: {
-      isCheckable: {},
-      title: {
-        result: "",
-        correct: false,
-      },
-      contents: {
-        result: [],
-        correct: [],
-      },
-      hint: {},
-      minus: {},
-      score: {},
-    },
+    checkingContentsResponse: checkingContentsResponse,
     /*
-    contentsResponse: {
-      isCheckable: {}, // => mode string (check / result)
-      title: {
-        result: "",
-        correct: false,
-      },
-      contents: {
-        result: [],
-        correct: [],
-      },
+      mode: {},
+      resultTitle: {},  
+      isCorrectTitle: {},
+      resultContents: {},
+      inputContents: {},
       hint: {},
       minus: {},
       score: {},
-    },
-    
     */
-    receiveContentsResponse: receiveContentsResponseHandler,
-    clearContentsResponse: clearContentsResponseHandler,
+    receiveCheckingContentsResponse: receiveCheckingContentsResponseHandler,
+    clearCheckingContentsResponse: clearCheckingContentsResponseHandler,
   };
 
   return (

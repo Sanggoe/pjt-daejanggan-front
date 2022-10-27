@@ -3,36 +3,56 @@
     margin: 2rem 0rem;
 }
 .infoArea {
-    width: 20rem;
+    max-width: 25rem;
     margin: auto;
-    padding: 0.1rem;
+    display: flex;
 }
 .divArea {
-    margin: 0.1rem;
-    padding: 0.5rem;
+    width: 33%;
+    margin: auto;
     text-align: center;
     display: flex;
 }
 
-.hintButton {
-    width: 8.5rem;
-    height: 2.5rem;
+.button {
+    width: 4.5rem;
+    height: 2rem;
+    margin-left: 0.5rem;
+    border-radius: 1.2rem;
     font-size: 20px;
     font-weight: bold;
-    margin: 0rem 1rem;
     background-color: white;
-    border-radius: 3rem;
     box-shadow: 0 1px 8px rgba(0, 0, 0, 0.4);
 }
-.hintButtonDisabled {
-    width: 8.5rem;
-    height: 2.5rem;
+.buttonDisabled {
+    width: 5rem;
+    height: 2rem;
+    margin-left: 0.5rem;
+    border-radius: 1.2rem;
     font-size: 20px;
     font-weight: bold;
     color: gray;
-    margin: 0rem 1rem;
     background-color: white;
-    border-radius: 3rem;
+}
+.hintButton {
+    width: 5rem;
+    height: 2rem;
+    margin-left: 0.5rem;
+    border-radius: 1.2rem;
+    font-size: 20px;
+    font-weight: bold;
+    background-color: white;
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.4);
+}
+.hintButtonDisabled {
+    width: 5rem;
+    height: 2rem;
+    margin-left: 0.5rem;
+    border-radius: 1.2rem;
+    font-size: 20px;
+    font-weight: bold;
+    color: gray;
+    background-color: white;
 }
 
 .hintButton:hover {
@@ -47,10 +67,7 @@
     height: 1.8rem;
     font-size: 20px;
     font-weight: bold;
-    margin: 0rem 3rem;
-    padding: 0rem 1rem;
     background-color: white;
-    border-radius: 3rem;
     box-shadow: 0 1px 8px rgba(0, 0, 0, 0.4);
 }
 
@@ -58,16 +75,13 @@
     height: 1.8rem;
     font-size: 20px;
     font-weight: bold;
-    margin: 0rem 3rem;
-    padding: 0rem 1rem;
     color: gray;
     background-color: white;
-    border-radius: 3rem;
     box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
 }
 
 .info {
-    width: 5rem;
+    width: 3rem;
     margin: auto;
     font-size: 1.1rem;
     font-weight: bold;

@@ -1,76 +1,116 @@
-import React, { useEffect, useRef } from "react";
+import React, { useState } from "react";
+import Button from "../UI/Button";
 
 import styles from "./PrepareCheckingSubContent.module.css";
+import styles2 from "../UI/Button.module.css";
 
 const PrepareCheckingSubContent2 = (props) => {
-  const chapterNums = useRef();
-  const contentsNums = useRef();
+  const [chapterNums, setChapterNums] = useState(props.total < 9 ? 0 : 2);
+  const [contentsNums, setContentsNums] = useState(
+    props.total < 8 ? props.total : 8
+  );
+  const [chapterMax, setChapterMax] = useState(0);
+  const [contentsMax, setContentsMax] = useState(0);
+
+  const addChapverseHandler = () => {
+    setChapterNums(chapterNums + 1);
+  };
+  const minusChapverseHandler = () => {
+    setChapterNums(chapterNums - 1);
+  };
+
+  const addContentsHandler = () => {
+    setContentsNums(contentsNums + 1);
+  };
+  const minusContentsHandler = () => {
+    setContentsNums(contentsNums - 1);
+  };
 
   // 구절 수 나중에 추가해서 정확하게 계산하여 수정하기
   const onChangeHandler1 = () => {
-    if (
-      !props.weight |
-      (Number(chapterNums.current.value) + Number(contentsNums.current.value) <=
-        Number(props.weight))
-    ) {
-      props.setChapterNums(chapterNums.current.value);
+    if (chapterNums.current.value <= chapterMax) {
+      props.setChapterNums(chapterNums);
     } else {
-      alert(
-        "점검할 장절과 내용 개수 합이 선택한 구절의 체급(" +
-          props.weight +
-          ")보다 작아야 합니다"
-      );
     }
   };
 
   // 구절 수 나중에 추가해서 정확하게 계산하여 수정하기
   const onChangeHandler2 = () => {
-    if (
-      !props.weight |
-      (Number(chapterNums.current.value) + Number(contentsNums.current.value) <=
-        Number(props.weight))
-    ) {
-      props.setContentsNums(contentsNums.current.value);
+    if (contentsNums.current.value <= contentsMax) {
+      props.setContentsNums(contentsNums);
     } else {
-      alert(
-        "점검할 장절과 내용 개수 합이 선택한 구절의 체급(" +
-          props.weight +
-          ")보다 작아야 합니다 (아직 수정중)"
-      );
+      // alert(
+      //   "장절과 내용 합이 점검할 총 구절의 개수(" +
+      //     props.total +
+      //     ")보다 작아야 합니다"
+      // );
     }
   };
-
-  useEffect(() => {
-    props.setChapterNums(chapterNums.current.value);
-    props.setContentsNums(contentsNums.current.value);
-  });
 
   return (
     <>
       <div className={styles.div_content}>
-        장절 [
-        <input
+        <label
           className={
             props.select === "일부 점검" ? styles.inputSelected : styles.input
           }
-          type="number"
-          min="0"
-          defaultValue={2}
-          ref={chapterNums}
-          onChange={onChangeHandler1}
-        />
-        ] 개 / 내용 [
-        <input
+        >
+          장절
+        </label>
+        <Button
+          styles={styles2.button_count}
+          type="button"
+          onClick={addChapverseHandler}
+        >
+          +
+        </Button>
+        <label
           className={
             props.select === "일부 점검" ? styles.inputSelected : styles.input
           }
-          type="number"
-          min="0"
-          defaultValue={8}
-          ref={contentsNums}
-          onChange={onChangeHandler2}
-        />
-        ] 개
+        >
+          [{chapterNums}]
+        </label>
+        <Button
+          styles={styles2.button_count}
+          type="button"
+          onClick={minusChapverseHandler}
+        >
+          -
+        </Button>
+        <label
+          className={
+            props.select === "일부 점검" ? styles.inputSelected : styles.input
+          }
+        ></label>
+        <label
+          className={
+            props.select === "일부 점검" ? styles.inputSelected : styles.input
+          }
+        >
+          내용
+        </label>
+        <Button
+          styles={styles2.button_count}
+          type="button"
+          onClick={addContentsHandler}
+        >
+          +
+        </Button>
+        <label
+          className={
+            props.select === "일부 점검" ? styles.inputSelected : styles.input
+          }
+        >
+          [{contentsNums}]
+        </label>
+        <Button
+          styles={styles2.button_count}
+          type="button"
+          onClick={minusContentsHandler}
+        >
+          -
+        </Button>
       </div>
     </>
   );

@@ -11,13 +11,11 @@ const ResultFooter = (props) => {
     <div className={styles.footer}>
       <Link to={props.path}>
         <Button
-          styles={
-            props.len === 1 ? styles2.button_footer1 : styles2.button_footer2
-          }
+          styles={styles2.button_footer1}
           type="button"
           onClick={props.onClick}
         >
-          {props.labels[0]}
+          {props.label}
         </Button>
       </Link>
     </div>

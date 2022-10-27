@@ -8,7 +8,7 @@ const PracticeContentsList = (props) => {
     <>
       {props.verses.map((verse) => (
         <PracticeContent
-          key={verse.theme + verse.chapverse}
+          key={verse.theme + verse.chapverse + verse.subhead}
           className={styles.content}
           title={verse.title}
           chapverse={verse.chapverse}

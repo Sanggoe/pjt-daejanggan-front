@@ -14,7 +14,6 @@ const PrepareCheckingFooter = (props) => {
   const API_URL = "http://192.168.5.40:8080/api";
 
   const actionHandler = () => {
-    console.log("action 한다")
     getVerses();
   }
 
@@ -32,7 +31,6 @@ const PrepareCheckingFooter = (props) => {
 
         if (response.status === 200) {
           verseCtx.receiveCheckingResponse(response);
-          console.log("잘 수행됨")
           return response;
         }
       })
