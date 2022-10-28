@@ -26,6 +26,7 @@ const MainMenuPage = () => {
     verseCtx.clearHeadList();
     verseCtx.clearWeightType();
     verseCtx.clearPracticeVerse();
+    verseCtx.clearCheckingProcessInfo();
   }, []);
   
   // nav 메뉴 바꿀 시 headList 초기화

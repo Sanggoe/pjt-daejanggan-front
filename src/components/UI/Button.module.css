@@ -139,34 +139,31 @@ button {
     box-shadow: 0 1px 8px rgba(0, 0, 0, 0.4);
 }
 
-
 .button_count {
     width: 2rem;
+    margin: 0.5rem;
     font-size: 1.5rem;
-    font-weight: bold;
     border-radius: 3rem;
-    background-color: #fdd550;
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.4);
+    color: gray;
+    background-color: #E6E6E6;
 }
-.button_count_selected {
+.button_countSelected {
     width: 2rem;
+    margin: 0.5rem;
     font-size: 1.5rem;
-    font-weight: bold;
     border-radius: 3rem;
-    background-color: #fdd550;
+    font-weight: bold;
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.4);
+    background-color: #E6E6E6;
 }
-
-
-
-
-
-
-
 
 .button_nav:hover,
 .button_item:hover,
 .button_footer1:hover,
 .button_footer2:hover,
-.button_home:hover {
+.button_home:hover,
+.button_countSelected:hover {
     background-color: #FFE181;
 }
 .button_nav:active,
@@ -176,6 +173,8 @@ button {
 .button_footer1:active,
 .button_footer2:active,
 .button_home:active,
-.button_toggleSelected:active {
+.button_toggleSelected:active 
+.button_count:active,
+.button_countSelected:active {
     background-color: #fdd550;
 }

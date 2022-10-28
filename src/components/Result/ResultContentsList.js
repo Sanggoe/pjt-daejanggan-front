@@ -3,10 +3,10 @@ import Card from "../UI/Card";
 import ResultContent from "./ResultContent";
 import ResultScore from "./ResultScore";
 
-import styles from "./ResultContentsList.module.css"
+import styles from "./ResultContentsList.module.css";
 
-const ResultContentsList = () => {
-  
+const ResultContentsList = (props) => {
+
   return (
     <>
       <Card>
@@ -16,17 +16,19 @@ const ResultContentsList = () => {
           <label className={styles.labelScore}>점수</label>
         </div>
         <div className={styles.labelContentsArea}>
-        <ResultContent />
-          <ResultContent /><ResultContent />
-          <ResultContent /><ResultContent />
-          <ResultContent /><ResultContent />
-          <ResultContent /><ResultContent />
-          <ResultContent />
+          {props.verseCtx.checkingProcessInfo.resultVerse.map((resultVerse) => (
+            <ResultContent
+              key={resultVerse.currentVerse.index}
+              resultVerse={resultVerse}
+              onAddIndexList={props.verseCtx.addIndexList}
+              onRemoveIndexList={props.verseCtx.removeIndexList}
+            />
+          ))}
           <p></p>
         </div>
       </Card>
       <Card>
-        <ResultScore />
+        <ResultScore resultScore={props.verseCtx.checkingProcessInfo.resultScore} />
       </Card>
     </>
   );

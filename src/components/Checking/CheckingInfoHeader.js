@@ -9,11 +9,11 @@ const CheckingInfoHeader = () => {
   return (
     <div className={styles.header}>
       <div className={styles.type}>
-        <label className={styles.label}>{verseCtx.checkingProcessInfo.currentVerse.verseType ? "장절" : "내용"}</label>
+        <label className={styles.label}>{verseCtx.checkingProcessInfo.currentVerse.verseType}</label>
       </div>
       <div className={styles.order}>
         <label className={styles.label}>
-          {verseCtx.checkingProcessInfo.currentVerse.index+1} / {verseCtx.checkingProcessInfo.numberOfVerse.total}
+          {verseCtx.checkingProcessInfo.currentVerse.index+1} / {verseCtx.checkingProcessInfo.numberOfVerse.selected}
         </label>
       </div>
     </div>

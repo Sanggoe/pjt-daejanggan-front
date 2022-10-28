@@ -1,19 +1,17 @@
-import React from "react";
+import React, { useContext } from "react";
+import VerseContext from "../../store/verses-context";
 
 import styles from "./ResultHeader.module.css";
 
 const ResultHeader = () => {
-  const date = new Date();
-  const todayInfo =
-    date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
-  const total = 73;
-  const selected = 10;
+  const verseCtx = useContext(VerseContext);
+  
   return (
     <>
       <div className={styles.header}>
-        <label className={styles.label}>{todayInfo}</label>
+        <label className={styles.label}>{verseCtx.checkingProcessInfo.checkingTime}</label>
         <label className={styles.label}>
-          {total}구절 중 {selected}구절
+          {verseCtx.checkingProcessInfo.numberOfVerse.total}구절 중 {verseCtx.checkingProcessInfo.numberOfVerse.selected}구절
         </label>
       </div>
     </>

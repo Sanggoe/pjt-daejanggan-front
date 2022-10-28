@@ -1,25 +1,41 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
-import styles from "./ResultContent.module.css"
+import styles from "./ResultContent.module.css";
 
-const ResultContent = () => {
-  
-  const chapverse = "데살로니가전서 16:24";
-  const minus = 0;
-  const score = 10;
+const ResultContent = (props) => {
+  const [check, setCheck] = useState(true);
 
   const onChangeHandler = (e) => {
-    console.log(e.target)
-  }
+    if (!check) {
+      props.onAddIndexList(Number(e.target.id));
+    } else {
+      props.onRemoveIndexList(Number(e.target.id));
+    }
+    setCheck(!check);
+  };
+
+  useEffect(() => {
+    props.onAddIndexList(props.resultVerse.currentVerse.index);
+  }, [])
 
   return (
     <>
       <div className={styles.labelArea}>
         <label className={styles.labelChapverse}>
-          <input type="checkbox" defaultChecked onChange={onChangeHandler}/> {chapverse}
+          <input
+            type="checkbox"
+            id={props.resultVerse.currentVerse.index}
+            checked={check}
+            onChange={(e) => onChangeHandler(e)}
+          />
+          {props.resultVerse.currentVerse.chapverse}
         </label>
-        <label className={styles.labelMinus}>{minus}</label>
-        <label className={styles.labelScore}>{score}</label>
+        <label className={styles.labelMinus}>
+          {props.resultVerse.currentScoreInfo.currentMinus}
+        </label>
+        <label className={styles.labelScore}>
+          {props.resultVerse.currentScoreInfo.currentScore}
+        </label>
       </div>
     </>
   );

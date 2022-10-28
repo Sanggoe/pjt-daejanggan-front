@@ -14,6 +14,8 @@ const PrepareCheckingFooter = (props) => {
   const API_URL = "http://192.168.5.40:8080/api";
 
   const actionHandler = () => {
+    verseCtx.setCheckingProcessingState("checking");
+    verseCtx.setCheckingTime();
     getVerses();
   }
 

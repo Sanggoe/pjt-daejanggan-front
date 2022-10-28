@@ -13,8 +13,9 @@ const PrepareCheckingPage = () => {
 
   /************************* test code *************************/
   const showHeadHandler = () => {
-    console.log(verseCtx.checkingInfoRequest.headList);
+    console.log(verseCtx.practiceResponse)
     console.log(verseCtx.checkingInfoRequest.checkingType);
+    console.log(verseCtx.checkingInfoRequest.headList);
     console.log(verseCtx.checkingInfoRequest.orderType)
     console.log(verseCtx.checkingInfoRequest.verseType)
     console.log("장절 : " + verseCtx.checkingInfoRequest.count.chapterNums

@@ -31,7 +31,11 @@ const CheckingFooter = (props) => {
       )}
       {props.mode === true && (
         <Link to={props.path}>
-          <Button styles={styles2.button_footer1} type="button">
+          <Button
+            styles={styles2.button_footer1}
+            type="button"
+            onClick={props.onClick}
+          >
             {props.label}
           </Button>
         </Link>

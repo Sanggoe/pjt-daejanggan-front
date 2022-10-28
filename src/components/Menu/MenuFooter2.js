@@ -19,6 +19,7 @@ const MenuFooter2 = (props) => {
     } else {
       verseCtx.setWeightType();
       verseCtx.clearCheckingInfos();
+      verseCtx.clearCheckingVerse();
       getVerses();
     }
   };
@@ -27,8 +28,11 @@ const MenuFooter2 = (props) => {
     if (!verseCtx.checkingInfoRequest.headList.length) {
       alert("목록을 선택하세요");
     } else {
+      verseCtx.setCheckingProcessingState("preparing");
       verseCtx.setWeightType();
       verseCtx.clearCheckingInfos();
+      verseCtx.clearCheckingVerse();
+      verseCtx.resetMode();
     }
   };
 

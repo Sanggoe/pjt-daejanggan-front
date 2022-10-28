@@ -9,7 +9,7 @@ const PrepareCheckingContent = (props) => {
   const onClickHandler = (e) => {
     if (props.weight === "일부 점검") {
       props.onSelect(props.weight);
-      alert("73구절을 다 포함하거나\n73구절 이내에서 선택해야\n체급별 점검이 가능합니다.")
+      alert("73구절을 다 포함하거나\n73구절 이내에서 순차적으로 선택해야\n체급별 점검이 가능합니다.")
     } else {
       props.onSelect(e.target.name);
     }

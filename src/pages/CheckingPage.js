@@ -11,31 +11,38 @@ import CheckingContents2 from "../components/Checking/CheckingContents2";
 import VerseContext from "../store/verses-context";
 import axios from "axios";
 import authHeader from "../api/auth-header";
+import Button from "../components/UI/Button";
 
 const CheckingPage = () => {
   const verseCtx = useContext(VerseContext);
   const API_URL = "http://192.168.5.40:8080/api";
 
-  const [checkOrResult, setCheckOrResult] = useState(true);
   const [isLast, setIsLast] = useState(false);
 
   const changeNextVerseHandler = () => {
-    setCheckOrResult(!checkOrResult);
-    verseCtx.clearCurrentVerse();
-    verseCtx.setCurrentVerse(
-      verseCtx.checkingProcessInfo.currentVerse.index + 1
-    );
+    verseCtx.setMode("check");
+
+    const resultCurrentVerse = {
+      currentVerse: verseCtx.checkingProcessInfo.currentVerse,
+      currentScoreInfo: verseCtx.checkingProcessInfo.currentScoreInfo,
+    };
+    verseCtx.addResultVerse(resultCurrentVerse);
+    verseCtx.clearCurrentScoreInfo();
+
+    if (isLast !== true) {
+      verseCtx.setCurrentVerse(
+        verseCtx.checkingProcessInfo.currentVerse.index + 1
+      );
+    } else {
+      verseCtx.setResultTransformScore()
+      verseCtx.setCheckingProcessingState("none");
+    }
   };
 
   const changeJustNextVerseHandler = () => {
-    if (
-      verseCtx.checkingProcessInfo.currentVerse.index + 1 ===
-      verseCtx.checkingProcessInfo.numberOfVerse.selected
-      ) {
-        setIsLast(true);
-      }
-      setCheckOrResult(!checkOrResult);
-  }
+    checkingRequestHandler();
+    console.log("넘기기~ 뭐 Request에 넘기기 요청 표시하면 무조건 mode result로 반환되도록 하자.")
+  };
 
   const checkingRequestHandler = () => {
     if (verseCtx.checkingProcessInfo.currentVerse.verseType) {
@@ -52,7 +59,7 @@ const CheckingPage = () => {
     }
   };
 
-  const checkingChapverseRequest = async () => {
+  const checkingChapverseRequest = () => {
     const payload = verseCtx.checkingChapverseRequest;
 
     axios
@@ -66,7 +73,6 @@ const CheckingPage = () => {
 
         if (response.status === 200) {
           verseCtx.receiveCheckingChapverseResponse(response);
-          setCheckOrResult(!checkOrResult);
           return response;
         }
       })
@@ -76,7 +82,7 @@ const CheckingPage = () => {
       });
   };
 
-  const checkingContentsRequest = async () => {
+  const checkingContentsRequest = () => {
     const payload = verseCtx.checkingContentsRequest;
 
     axios
@@ -90,7 +96,8 @@ const CheckingPage = () => {
 
         if (response.status === 200) {
           verseCtx.receiveCheckingContentsResponse(response);
-          setCheckOrResult(!checkOrResult);
+          verseCtx.setMode(verseCtx.checkingContentsResponse.mode);
+
           return response;
         }
       })
@@ -101,19 +108,32 @@ const CheckingPage = () => {
       });
   };
 
+  const showCurrentVerseHandler = () => {
+    console.log(verseCtx.checkingProcessInfo.currentVerse);
+    console.log(verseCtx.checkingProcessInfo.currentScoreInfo);
+    console.log(verseCtx.checkingProcessInfo.resultVerses);
+    console.log(verseCtx.practiceRequest);
+    console.log(verseCtx.practiceResponse);
+  };
+
   return (
     <>
       <HomeButtonHeader label={"점검중단"} path={"/menu"} />
+      {/* Test code */}
+      <Button type="button" onClick={showCurrentVerseHandler}>
+        show head
+      </Button>
+      {/***************/}
       <CheckingInfoHeader />
-      {checkOrResult === true &&
-        /*장절*/ verseCtx.checkingProcessInfo.currentVerse.verseType === 1 && (
+      {verseCtx.checkingProcessInfo.mode === "check" &&
+        verseCtx.checkingProcessInfo.currentVerse.verseType === "장절" && (
           <CheckingContents1 />
         )}
-      {checkOrResult === true &&
-        /*내용*/ verseCtx.checkingProcessInfo.currentVerse.verseType === 0 && (
+      {(verseCtx.checkingProcessInfo.mode === "check") === true &&
+        verseCtx.checkingProcessInfo.currentVerse.verseType === "내용" && (
           <CheckingContents2 />
         )}
-      {checkOrResult === true && (
+      {(verseCtx.checkingProcessInfo.mode === "check") === true && (
         <CheckingFooter
           len={2}
           labels={["채점 하기", "넘기기"]}
@@ -122,26 +142,31 @@ const CheckingPage = () => {
         />
       )}
 
-      {!checkOrResult &&
-        verseCtx.checkingProcessInfo.currentVerse.verseType === 1 && (
+      {verseCtx.checkingProcessInfo.mode === "result" &&
+        verseCtx.checkingProcessInfo.currentVerse.verseType === "장절" && (
           <CorrectAnswerContents1 />
         )}
-      {!checkOrResult &&
-        verseCtx.checkingProcessInfo.currentVerse.verseType === 0 && (
+      {verseCtx.checkingProcessInfo.mode === "result" &&
+        verseCtx.checkingProcessInfo.currentVerse.verseType === "내용" && (
           <CorrectAnswerContents2 />
         )}
       {<CheckingInfoFooter type={1} />}
 
       <h3>&nbsp;</h3>
-      {!checkOrResult && (
+      {verseCtx.checkingProcessInfo.mode === "result" && (
         <CheckingFooter
           len={1}
           labels={["다음 구절"]}
           onClick={changeNextVerseHandler}
         />
       )}
-      {!checkOrResult && isLast === true && (
-        <CheckingFooter mode={true} label={"결과 보기"} path={"/result"} />
+      {verseCtx.checkingProcessInfo.mode === "result" && isLast === true && (
+        <CheckingFooter
+          mode={true}
+          label={"결과 보기"}
+          path={"/result"}
+          onClick={changeNextVerseHandler}
+        />
       )}
     </>
   );

@@ -66,7 +66,7 @@ const CheckingContents2 = () => {
       </div>
       <div className={styles.label}>
         <label className={styles.labelTheme}>
-          {verseCtx.checkingInfoResponse.verse.theme}
+          {verseCtx.checkingProcessInfo.currentVerse && verseCtx.checkingProcessInfo.currentVerse.theme}
         </label>
       </div>
     </Card>

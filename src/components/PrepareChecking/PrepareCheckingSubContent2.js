@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Button from "../UI/Button";
 
 import styles from "./PrepareCheckingSubContent.module.css";
@@ -9,56 +9,47 @@ const PrepareCheckingSubContent2 = (props) => {
   const [contentsNums, setContentsNums] = useState(
     props.total < 8 ? props.total : 8
   );
-  const [chapterMax, setChapterMax] = useState(0);
-  const [contentsMax, setContentsMax] = useState(0);
+  const [chapterMax, setChapterMax] = useState(props.total - contentsNums);
+  const [contentsMax, setContentsMax] = useState(props.total - chapterNums);
 
   const addChapverseHandler = () => {
-    setChapterNums(chapterNums + 1);
+    if (chapterNums < chapterMax) {
+      setChapterNums(chapterNums + 1);
+    }
   };
   const minusChapverseHandler = () => {
-    setChapterNums(chapterNums - 1);
+    if (chapterNums > 0) {
+      setChapterNums(chapterNums - 1);
+    }
   };
 
   const addContentsHandler = () => {
-    setContentsNums(contentsNums + 1);
+    if (contentsNums < contentsMax) {
+      setContentsNums(contentsNums + 1);
+    }
   };
   const minusContentsHandler = () => {
-    setContentsNums(contentsNums - 1);
-  };
-
-  // 구절 수 나중에 추가해서 정확하게 계산하여 수정하기
-  const onChangeHandler1 = () => {
-    if (chapterNums.current.value <= chapterMax) {
-      props.setChapterNums(chapterNums);
-    } else {
+    if (contentsNums > 0) {
+      setContentsNums(contentsNums - 1);
     }
   };
 
-  // 구절 수 나중에 추가해서 정확하게 계산하여 수정하기
-  const onChangeHandler2 = () => {
-    if (contentsNums.current.value <= contentsMax) {
-      props.setContentsNums(contentsNums);
-    } else {
-      // alert(
-      //   "장절과 내용 합이 점검할 총 구절의 개수(" +
-      //     props.total +
-      //     ")보다 작아야 합니다"
-      // );
-    }
-  };
+  useEffect(() => {
+    props.setChapterNums(chapterNums);
+    props.setContentsNums(contentsNums);
+    setContentsMax(props.total - chapterNums);
+    setChapterMax(props.total - contentsNums);
+  }, [chapterNums, contentsNums]);
 
   return (
     <>
       <div className={styles.div_content}>
-        <label
-          className={
-            props.select === "일부 점검" ? styles.inputSelected : styles.input
-          }
-        >
-          장절
-        </label>
         <Button
-          styles={styles2.button_count}
+          styles={
+            props.select === "일부 점검"
+              ? styles2.button_countSelected
+              : styles2.button_count
+          }
           type="button"
           onClick={addChapverseHandler}
         >
@@ -69,29 +60,26 @@ const PrepareCheckingSubContent2 = (props) => {
             props.select === "일부 점검" ? styles.inputSelected : styles.input
           }
         >
-          [{chapterNums}]
+          장절 [{chapterNums}]
         </label>
         <Button
-          styles={styles2.button_count}
+          styles={
+            props.select === "일부 점검"
+              ? styles2.button_countSelected
+              : styles2.button_count
+          }
           type="button"
           onClick={minusChapverseHandler}
         >
           -
         </Button>
-        <label
-          className={
-            props.select === "일부 점검" ? styles.inputSelected : styles.input
-          }
-        ></label>
-        <label
-          className={
-            props.select === "일부 점검" ? styles.inputSelected : styles.input
-          }
-        >
-          내용
-        </label>
+
         <Button
-          styles={styles2.button_count}
+          styles={
+            props.select === "일부 점검"
+              ? styles2.button_countSelected
+              : styles2.button_count
+          }
           type="button"
           onClick={addContentsHandler}
         >
@@ -102,10 +90,14 @@ const PrepareCheckingSubContent2 = (props) => {
             props.select === "일부 점검" ? styles.inputSelected : styles.input
           }
         >
-          [{contentsNums}]
+          내용 [{contentsNums}]
         </label>
         <Button
-          styles={styles2.button_count}
+          styles={
+            props.select === "일부 점검"
+              ? styles2.button_countSelected
+              : styles2.button_count
+          }
           type="button"
           onClick={minusContentsHandler}
         >

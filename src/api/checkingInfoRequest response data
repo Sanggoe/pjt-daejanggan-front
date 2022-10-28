@@ -1,0 +1,34 @@
+{
+  "message": "Request failed with status code 400",
+  "name": "AxiosError",
+  "stack": "AxiosError: Request failed with status code 400\n    at settle (http://localhost:3000/static/js/bundle.js:63268:12)\n    at XMLHttpRequest.onloadend (http://localhost:3000/static/js/bundle.js:61914:66)",
+  "config": {
+    "transitional": {
+      "silentJSONParsing": true,
+      "forcedJSONParsing": true,
+      "clarifyTimeoutError": false
+    },
+    "transformRequest": [
+      null
+    ],
+    "transformResponse": [
+      null
+    ],
+    "timeout": 0,
+    "xsrfCookieName": "XSRF-TOKEN",
+    "xsrfHeaderName": "X-XSRF-TOKEN",
+    "maxContentLength": -1,
+    "maxBodyLength": -1,
+    "env": {},
+    "headers": {
+      "Accept": "application/json, text/plain, */*",
+      "Content-Type": "application/json",
+      "Authorization": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzYW5nZ29lIiwiYXV0aCI6IlJPTEVfVVNFUiIsImV4cCI6MTY2ODk2MTM3M30.NhwXxBhoGr8xwjhz4klerYbiKo-BDUNOx4WkJQc4zYv6Ax-NYpi2m5BzI9nJppyDYMoe5JyogxBGOtoJ0_X6sg"
+    },
+    "method": "post",
+    "url": "http://192.168.5.40:8080/api/checking-verses",
+    "data": "{\"checkingType\":\"전체 점검\",\"headList\":[\"A - 새로운 삶\"],\"orderType\":\"랜덤\",\"verseType\":\"내용\",\"count\":{\"chapterNums\":2,\"contentsNums\":8},\"weight\":{\"weightType\":\"일부 점검\",\"in73ChapterNums\":0,\"in73ContentsNums\":0,\"out73ChapterNums\":0,\"out73ContentsNums\":0}}"
+  },
+  "code": "ERR_BAD_REQUEST",
+  "status": 400
+}

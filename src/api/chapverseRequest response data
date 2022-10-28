@@ -1,13 +1,15 @@
 {
   "data": {
-    "resultTitle": "경청함",
-    "resultChapterName": "야고보서",
-    "resultChapter": "1",
-    "resultVerse": "19",
+    "resultTitle": "사죄의 확신",
+    "correctTitle": false,
+    "resultChapterName": "요한일서",
     "correctChapterName": true,
-    "correctTitle": true,
+    "resultChapter": "1",
+    "correctChapter": true,
+    "resultVerse": "9",
     "correctVerse": true,
-    "correctChapter": true
+    "currentMinus": 1,
+    "currentScore": 9
   },
   "status": 200,
   "statusText": "",
@@ -38,11 +40,11 @@
     "headers": {
       "Accept": "application/json, text/plain, */*",
       "Content-Type": "application/json",
-      "Authorization": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzYW5nZ29lIiwiYXV0aCI6IlJPTEVfVVNFUiIsImV4cCI6MTY2NjcxMzQ0Nn0.gQBRAcvXVr_w0XoRMGmrQ3OO4IMJUD25sT86udz7LUC9GdfC8pkxQHcZZC0r-gDZOXcyzhIHRNMJLlFADeW7FQ"
+      "Authorization": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzYW5nZ29lIiwiYXV0aCI6IlJPTEVfVVNFUiIsImV4cCI6MTY2ODk3MDM3OX0.xL20PWJ4p63adKaR1_fnK20PQUMxhU0QLiTpdCdjUXti31hcSOhwoCWSRrQDv-5JfTerVPqFW-h_4_9iCNgUBw"
     },
     "method": "post",
     "url": "http://192.168.5.40:8080/api/chapverse-checking",
-    "data": "{\"theme\":\"180\",\"chapverse\":\"야고보서 1:19\",\"inputTitle\":\"\",\"inputChapterName\":\"\",\"inputChapter\":\"\",\"inputVerse\":\"\"}"
+    "data": "{\"theme\":\"LOA\",\"chapverse\":\"요한일서 1:9\",\"subhead\":\"\",\"inputTitle\":\"\",\"inputChapterName\":\"\",\"inputChapter\":\"\",\"inputVerse\":\"\"}"
   },
   "request": {}
 }

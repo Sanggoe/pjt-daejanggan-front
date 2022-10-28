@@ -53,16 +53,21 @@ const PrepareCheckingContentsList = () => {
     let weight = verseCtx.checkingInfoRequest.weight.weightType;
     if (weight === 0) {
       verseCtx.setIn73ChapterNums(10);
-    } else if (weight < 10 ) {
+    } else if (weight < 10) {
       verseCtx.setIn73ContentsNums(weight);
-    } else if (weight < 73 ) {
+    } else if (weight < 73) {
       verseCtx.setIn73ContentsNums(10);
     } else if (weight === 73) {
-      let num = Math.floor(Math.random() * 2);
-      verseCtx.setIn73ChapterNums(4);
-      verseCtx.setIn73ContentsNums(5 + num);
-      if (!num) {
-        verseCtx.setOut73ContentsNums(1);
+      if (verseCtx.checkingProcessInfo.numberOfVerse.total === 73) {
+        verseCtx.setIn73ChapterNums(4);
+        verseCtx.setIn73ContentsNums(6);
+      } else {
+        let num = Math.floor(Math.random() * 2);
+        verseCtx.setIn73ChapterNums(4);
+        verseCtx.setIn73ContentsNums(5 + num);
+        if (!num) {
+          verseCtx.setOut73ContentsNums(1);
+        }
       }
     } else if (weight === 100) {
       verseCtx.setIn73ChapterNums(3);

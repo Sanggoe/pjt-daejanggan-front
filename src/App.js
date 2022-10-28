@@ -41,27 +41,41 @@ const App = () => {
         {!authCtx.isLoggedIn && <Redirect to="/" />}
       </Route>
       <Route path="/prepareChecking">
-        {authCtx.isLoggedIn && verseCtx.checkingInfoRequest.headList.length && (
-          <PrepareCheckingPage />
-        )}
         {authCtx.isLoggedIn &&
-          !verseCtx.checkingInfoRequest.headList.length && (
+          verseCtx.checkingProcessInfo.checkingProcessingState ===
+            "preparing" &&
+          verseCtx.checkingInfoRequest.headList.length && (
+            <PrepareCheckingPage />
+          )}
+        {authCtx.isLoggedIn &&
+          (verseCtx.checkingProcessInfo.checkingProcessingState !==
+            "preparing" ||
+            !verseCtx.checkingInfoRequest.headList.length) && (
             <Redirect to="/menu" />
           )}
         {!authCtx.isLoggedIn && <Redirect to="/" />}
       </Route>
       <Route path="/checking">
+        {authCtx.isLoggedIn &&
+          verseCtx.checkingProcessInfo.checkingProcessingState === "checking" &&
+          verseCtx.checkingInfoRequest.headList.length && <CheckingPage />}
+        {authCtx.isLoggedIn &&
+          (verseCtx.checkingProcessInfo.checkingProcessingState !==
+            "checking" ||
+            !verseCtx.checkingInfoRequest.headList.length) && (
+            <Redirect to="/menu" />
+          )}
+        {!authCtx.isLoggedIn && <Redirect to="/" />}
+      </Route>
+      <Route path="/result">
         {authCtx.isLoggedIn && verseCtx.checkingInfoRequest.headList.length && (
-          <CheckingPage />
+          <ResultPage />
         )}
         {authCtx.isLoggedIn &&
           !verseCtx.checkingInfoRequest.headList.length && (
             <Redirect to="/menu" />
           )}
         {!authCtx.isLoggedIn && <Redirect to="/" />}
-      </Route>
-      <Route path="/result">
-          <ResultPage />
       </Route>
       <Route path="/statistics">
         {authCtx.isLoggedIn && <StatisticsPage />}
