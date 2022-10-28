@@ -40,7 +40,7 @@
     "headers": {
       "Accept": "application/json, text/plain, */*",
       "Content-Type": "application/json",
-      "Authorization": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzYW5nZ29lIiwiYXV0aCI6IlJPTEVfVVNFUiIsImV4cCI6MTY2ODk3MDM3OX0.xL20PWJ4p63adKaR1_fnK20PQUMxhU0QLiTpdCdjUXti31hcSOhwoCWSRrQDv-5JfTerVPqFW-h_4_9iCNgUBw"
+      "Authorization": "Bearer @@@@"
     },
     "method": "post",
     "url": "http://192.168.5.40:8080/api/chapverse-checking",

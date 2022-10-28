@@ -23,7 +23,7 @@
     "headers": {
       "Accept": "application/json, text/plain, */*",
       "Content-Type": "application/json",
-      "Authorization": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzYW5nZ29lIiwiYXV0aCI6IlJPTEVfVVNFUiIsImV4cCI6MTY2NjcxMzQ0Nn0.gQBRAcvXVr_w0XoRMGmrQ3OO4IMJUD25sT86udz7LUC9GdfC8pkxQHcZZC0r-gDZOXcyzhIHRNMJLlFADeW7FQ"
+      "Authorization": "Bearer @@@@"
     },
     "method": "post",
     "url": "http://192.168.5.40:8080/api/contents-checking",

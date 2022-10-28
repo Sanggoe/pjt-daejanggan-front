@@ -80,7 +80,7 @@
     "headers": {
       "Accept": "application/json, text/plain, */*",
       "Content-Type": "application/json",
-      "Authorization": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzYW5nZ29lIiwiYXV0aCI6IlJPTEVfVVNFUiIsImV4cCI6MTY2NjUwMTIzM30.iCECIKt7GFkxgdz7S8qintcvV9Be2EtM1KlcU2lBRhdVKNVQ7_b5sv0RChlS_eZ5JGmtb8o4kLyrrct4grf6SQ"
+      "Authorization": "Bearer @@@@"
     },
     "method": "post",
     "url": "http://192.168.5.40:8080/api/practice-verses",

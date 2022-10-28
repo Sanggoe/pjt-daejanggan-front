@@ -162,7 +162,7 @@
     "headers": {
       "Accept": "application/json, text/plain, */*",
       "Content-Type": "application/json",
-      "Authorization": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzYW5nZ29lIiwiYXV0aCI6IlJPTEVfVVNFUiIsImV4cCI6MTY2ODk2MTM3M30.NhwXxBhoGr8xwjhz4klerYbiKo-BDUNOx4WkJQc4zYv6Ax-NYpi2m5BzI9nJppyDYMoe5JyogxBGOtoJ0_X6sg"
+      "Authorization": "Bearer @@@@"
     },
     "method": "post",
     "url": "http://192.168.5.40:8080/api/checking-verses",
