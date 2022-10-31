@@ -29,7 +29,7 @@
     "headers": {
       "Accept": "application/json, text/plain, */*",
       "Content-Type": "application/json",
-      "Authorization": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzYW5nZ29lIiwiYXV0aCI6IlJPTEVfVVNFUiIsImV4cCI6MTY2OTEyMTk0Mn0.kNwy9nq2DnSr5SGkSA7eDRfPyJL4PYjfJBuf0v-bIItXvpNikxvy0WYw27whkJmyjmTLmKAM4mARvvg0xE1YJA"
+      "Authorization": "@@@@"
     },
     "method": "post",
     "url": "http://192.168.5.40:8080/api/save-check-result",
