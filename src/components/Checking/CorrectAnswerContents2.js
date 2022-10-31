@@ -13,13 +13,13 @@ const CorrectAnswerContents2 = () => {
       <div className={styles.label}>
         <label // 제목
           className={`${styles.labelTitle} ${
-            verseCtx.checkingContentsResponse.correctTitle
+            verseCtx.checkingContentsResponse.inputTitleIsCorrect
               ? styles.labelTitle_Correct
               : styles.labelTitle_Wrong
           }`}
           type="text"
         >
-          {verseCtx.checkingContentsResponse.resultTitle}
+          {verseCtx.checkingContentsResponse.correctTitle}
         </label>
       </div>
       <div className={styles.label}>
@@ -31,7 +31,7 @@ const CorrectAnswerContents2 = () => {
         <label // 내용
           className={styles.labelContent}
         >
-          {verseCtx.checkingContentsResponse.resultContents}
+          {verseCtx.checkingContentsResponse.correctContents}
         </label>
       </div>
       <div className={styles.label}>
@@ -39,7 +39,7 @@ const CorrectAnswerContents2 = () => {
           {verseCtx.checkingProcessInfo.currentVerse.theme}
         </label>
       </div>
-      {console.log(verseCtx.checkingContentsResponse)}
+      {/* {console.log(verseCtx.checkingContentsResponse)} */}
     </Card>
   );
 };

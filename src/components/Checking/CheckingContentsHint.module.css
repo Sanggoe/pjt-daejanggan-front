@@ -1,0 +1,64 @@
+.input {
+    margin: 0.2rem;
+    display: flex;
+}
+
+.label {
+    font-size: 18px;
+    margin: 0.2rem;
+    display: flex;
+}
+
+.inputTitle {
+    width: 95%;
+    border: none;
+    font-weight: bold;
+    font-size: 20px;
+    margin-top: 0.2rem;
+    margin-left: 0.2rem;
+    padding: 0.2rem;
+    color: rgba(0,0,139,0.7);
+    border-radius: 0.3rem;
+}
+
+.labelChapVerse {
+    width: 95%;
+    border: none;
+    font-weight: bold;
+    font-size: 18px;
+    margin-top: 0.2rem;
+    margin-left: 0.2rem;
+    padding: 0 0.2rem;
+    color: rgba(0,0,0);
+    border-radius: 0.3rem;
+}
+
+.inputContents {
+    width: 95%;
+    min-height: 5rem;
+    border: none;
+    font-size: 17px;
+    margin: 0.2rem;
+    border-radius: 0.3rem;
+}
+.labelContent {
+    width: 95%;
+    min-height: 5rem;
+    font-size: 17px;
+    margin-top: 0.2rem;
+    margin-left: 0.2rem;
+    padding: 0.2rem;
+    color: rgba(0,0,0);
+    border-radius: 0.3rem;
+}
+
+.lableHint {
+    margin: 0rem 0.1rem;
+    background-color: #FFE181;
+}
+.labelCorrect {
+    margin: 0rem 0.1rem;
+}
+.labelDisable {
+    display: none;
+}

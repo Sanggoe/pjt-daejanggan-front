@@ -32,3 +32,12 @@
     font-size: 18px;
     text-align: center;
 }
+
+.messageArea {
+    display: flex;
+}
+.labelMessage {
+    margin: auto;
+    /* background-color: #FFE181; */
+    color: darkblue;
+}

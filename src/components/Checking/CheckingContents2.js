@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef } from "react";
+import React, { useContext, useRef } from "react";
 import VerseContext from "../../store/verses-context";
 
 import Card from "../UI/Card";
@@ -32,7 +32,7 @@ const CheckingContents2 = () => {
     if (contents.current.value === "") {
       contents.current.value = "| 내용";
     } else {
-      verseCtx.setInputChapterName(contents.current.value)
+      verseCtx.setInputContents(contents.current.value)
     }
   };
 

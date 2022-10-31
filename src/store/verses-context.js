@@ -7,7 +7,7 @@ const verseCheck = [
   { head: "A - 새로운 삶", len: 12 },
   { head: "B - 그리스도를 전파함", len: 12 },
   { head: "C - 하나님을 의뢰함", len: 12 },
-  { head: "D - 그리스도의 자격", len: 12 },
+  { head: "D - 그리스도 제자의 자격", len: 12 },
   { head: "E - 그리스도를 닮아감", len: 12 },
   { head: "1. 구원의 확신", len: 18 }, // 7 선택 : 73체급
   { head: "2. Quiet Time", len: 26 }, // 8 선택부터 : 100체급
@@ -125,6 +125,7 @@ const VerseContext = React.createContext({
       title: {},
       contents: {},
     },
+    currentContents: [],
     currentScoreInfo: {
       currentHint: {},
       currentMinus: {},
@@ -151,17 +152,20 @@ const VerseContext = React.createContext({
       totalScore: {},
       transformScore: {},
     },
-    indexList: {}
+    indexList: {},
   },
   setCheckingTime: () => {},
   setCheckingProcessingState: (state) => {},
   setMode: () => {},
   resetMode: () => {},
   setCurrentVerse: (index) => {},
-  increaseCurrentHint: () => {},
+  clearCurrentVerse: () => {},
+  setCurrentContents: () => {},
+  clearCurrentContents: () => {},
+  // increaseCurrentHint: () => {},
   setCurrentHint: () => {},
   setCurrentMinus: () => {},
-  increaseCurrentMinus: () => {},
+  // increaseCurrentMinus: () => {},
   setCurrentScore: (score) => {},
   clearCurrentScoreInfo: () => {},
   addResultVerse: (resultCurrentVerse) => {},
@@ -193,26 +197,25 @@ const VerseContext = React.createContext({
     subhead: {}, // DB 찾기용
     inputTitle: {},
     inputContents: {}, // + 힌트표시?
-    hintWord: [],
+    hintIndexes: [],
     currentHint: {},
     currentMinus: {},
     currentScore: {},
   },
   // setInputTitle: (inputTitle) => {}, 중복 사용
   setInputContents: (inputContents) => {},
-  addHintWord: (hintWord) => {},
   clearContentsInput: () => {},
 
   /* response data object for chapverse checking (장절 채점 결과) */
   checkingChapverseResponse: {
-    resultTitle: {},
     correctTitle: {},
-    resultChapterName: {},
+    inputTitleIsCorrect: {},
     correctChapterName: {},
-    resultChapter: {},
+    inputChapterNameIsCorrect: {},
     correctChapter: {},
-    resultVerse: {},
+    inputChapterIsCorrect: {},
     correctVerse: {},
+    inputVerseIsCorrect: {},
     currentMinus: {},
     currentScore: {},
   },
@@ -222,16 +225,31 @@ const VerseContext = React.createContext({
   /* response data object for contents checking (내용 채점 결과) */
   checkingContentsResponse: {
     mode: {},
-    resultTitle: {},
-    isCorrectTitle: {},
-    resultContents: {},
+    correctTitle: {},
+    inputTitleIsCorrect: {},
+    correctContents: {},
     inputContents: {},
+    hintIndexes: [],
     currentHint: {},
     currentMinus: {},
     currentScore: {},
   },
   receiveCheckingContentsResponse: (response) => {},
+  receiveHintResponse: (response) => {},
   clearCheckingContentsResponse: () => {},
+  clearHintIndexes: () => {},
+
+  /* request data object for save checking result (결과 저장을 위해) */
+  saveCheckingResult: {
+    check_time: {},
+    count_total: {},
+    count_selected: {},
+    score_total: {},
+    score_transform: {},
+    check_chapverses: {}, // |로 구분
+  },
+  getChapverseList: () => {},
+  clearChapverseList: () => {},
 });
 
 ///////////////////////////////////////////////////////////////
@@ -288,10 +306,10 @@ export const VerseContextProvider = (props) => {
       return [];
     });
   };
-  
+
   /* state object for verses practice, checking */
   const [verse, setVerse] = useState([]);
-    /* response data object for verses practice */
+  /* response data object for verses practice */
   // practiceResponse에 verse 객체 추가 및 초기화
   const receivePracticeResponseHandler = (response) => {
     response.data.verses.map((verse) => addPracticeVerseHandler(verse));
@@ -452,6 +470,7 @@ export const VerseContextProvider = (props) => {
   // checkingInfoResponse에 verse 객체 추가 및 초기화
   const receiveCheckingResponseHandler = (response) => {
     setCurrentVerse(response.data.verses[0]);
+    setCurrentContentsHandler(response.data.verses[0].contents);
     response.data.verses.map((verse) => addCheckingVerseHandler(verse));
   };
   const addCheckingVerseHandler = (verse) => {
@@ -467,10 +486,11 @@ export const VerseContextProvider = (props) => {
 
   /* states for checking process (checkingProcessInfo) */
   const [checkingTime, setCheckingTime] = useState("");
-  const [checkingProcessingState, setCheckingProcessingState] = useState("none");
+  const [checkingProcessingState, setCheckingProcessingState] =
+    useState("none");
   const [mode, setMode] = useState("check");
   const [currentVerse, setCurrentVerse] = useState({
-    index: 0,
+    index: -1,
     verseType: "",
     chapverse: "",
     theme: "",
@@ -479,6 +499,7 @@ export const VerseContextProvider = (props) => {
     title: "",
     contents: "",
   });
+  const [currentContents, setCurrentContents] = useState([]);
   // current checking score info
   const [currentHint, setCurrentHint] = useState(0);
   const [currentMinus, setCurrentMinus] = useState(0);
@@ -486,7 +507,7 @@ export const VerseContextProvider = (props) => {
   // result verses info
   const [resultVerse, setResultVerse] = useState([]);
   /*{
-    verse: {
+    currentVerse: {
       index: 0,
       verseType: "",
       chapverse: "",
@@ -496,7 +517,7 @@ export const VerseContextProvider = (props) => {
       title: "",
       contents: "",
     },
-    scoreInfo: {
+    currentScoreInfo: {
       currentHint: currentHint,
       currentMinus: currentMinus,
       currentScore: currentScore,
@@ -504,12 +525,25 @@ export const VerseContextProvider = (props) => {
   }*/
   // result checking score info
   const [resultTotalScore, setResultTotalScore] = useState(0);
-  const [resultTransformScore, setResultTransformScore] = useState(0);
+  const [resultTransformScore, setResultTransformScore] = useState(0.0);
   // 점검 날짜 설정 및 초기화
   const setCheckingTimeHandler = () => {
     let date = new Date();
+    let mm = date.getMonth();
+    let dd = date.getDate();
+    let h = date.getHours();
+    let m = date.getMinutes();
+
     let todayInfo =
-      date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
+      date.getFullYear() +
+      "-" +
+      (mm + 1 < 10 ? "0" + (mm + 1) : mm + 1) +
+      "-" +
+      (dd < 10 ? "0" + dd : dd) +
+      " " +
+      (h < 10 ? "0" + h : h) +
+      ":" +
+      (m < 10 ? "0" + m : m);
     setCheckingTime(todayInfo);
   };
   const clearCheckingTimeHandler = () => {
@@ -518,7 +552,7 @@ export const VerseContextProvider = (props) => {
   // 점검중 여부 구분 설정 및 초기화
   const setCheckingProcessingStateHandler = (state) => {
     setCheckingProcessingState(state);
-  }
+  };
   // 점검창, 결과창 구분 설정 및 초기화
   const setModeHandler = (mode) => {
     setMode(mode);
@@ -532,24 +566,48 @@ export const VerseContextProvider = (props) => {
     setCurrentVerse(() => {
       return verse[index];
     });
+    setCurrentContentsHandler(verse[index].contents);
+  };
+  const clearCurrentVerseHandler = () => {
+    setCurrentVerse({
+      index: -1,
+      verseType: "",
+      chapverse: "",
+      theme: "",
+      head: "",
+      subhead: "",
+      title: "",
+      contents: "",
+    });
+  };
+  const setCurrentContentsHandler = (contents) => {
+    clearCurrentContentsHandler();
+    contents.split(" ").map((word) =>
+      setCurrentContents((prevWord) => {
+        return [...prevWord, word];
+      })
+    );
+  };
+  const clearCurrentContentsHandler = () => {
+    setCurrentContents([]);
   };
   // 채점 점수 관련 정보 설정 및 초기화
   const setCurrentHintHandler = (currentHint) => {
     setCurrentHint(currentHint);
   };
-  const increaseCurrentHintHandler = () => {
-    setCurrentHint(currentHint + 1);
-    increaseCurrentMinusHandler();
-  };
+  // const increaseCurrentHintHandler = () => {
+  //   setCurrentHint(currentHint + 1);
+  //   increaseCurrentMinusHandler();
+  // };
   const clearCurrentHintHandler = () => {
     setCurrentHint(0);
   };
   const setCurrentMinusHandler = (currentMinus) => {
     setCurrentMinus(currentMinus);
   };
-  const increaseCurrentMinusHandler = () => {
-    setCurrentMinus(currentMinus + 1);
-  };
+  // const increaseCurrentMinusHandler = () => {
+  //   setCurrentMinus(currentMinus + 1);
+  // };
   const clearCurrentMinusHandler = () => {
     setCurrentMinus(0);
   };
@@ -595,7 +653,9 @@ export const VerseContextProvider = (props) => {
     setResultTotalScore(0);
   };
   const setResultTransformScoreHandler = () => {
-    setResultTransformScore((resultTotalScore / verse.length) * 10);
+    setResultTransformScore(
+      ((resultTotalScore / verse.length) * 10).toFixed(1)
+    );
   };
   const clearResultTransformScoreHandler = () => {
     setResultTransformScore(0);
@@ -645,7 +705,6 @@ export const VerseContextProvider = (props) => {
 
   /* for contents checking (checkingContentsRequest) */
   const [inputContents, setInputContents] = useState("");
-  const [hintWord, setHintWord] = useState([]);
   // 내용 점검 요청 정보들 설정 및 초기화
   const setInputContentsHandler = (contents) => {
     setInputContents(contents);
@@ -653,19 +712,9 @@ export const VerseContextProvider = (props) => {
   const clearInputContentsHandler = () => {
     setInputContents("");
   };
-  const addHintWordHandler = (hintWord) => {
-    setHintWord((prevHintWord) => {
-      return prevHintWord.concat(hintWord);
-    });
-  };
-  const clearHintWordHandler = () => {
-    setHintWord(() => {
-      return [];
-    });
-  };
   const clearContentsInputHandler = () => {
+    clearInputTitleHandler();
     clearInputContentsHandler();
-    clearHintWordHandler();
   };
 
   /* for chapverse response (checkingChapverseResponse) */
@@ -687,12 +736,9 @@ export const VerseContextProvider = (props) => {
 
   const receiveCheckingChapverseResponseHandler = (response) => {
     setCheckingChapverseResponse(response.data);
-
     setCurrentMinus(response.data.currentMinus);
     setCurrentScore(response.data.currentScore);
-    console.log("점수 저장");
     addResultTotalScoreHandler(response.data.currentScore);
-
     setMode("result");
   };
   const clearCheckingChapverseResponseHandler = () => {
@@ -701,14 +747,52 @@ export const VerseContextProvider = (props) => {
 
   /* for chapverse response (chapverseResponse) */
   const [checkingContentsResponse, setCheckingContentsResponse] = useState({});
+  const [hintIndexes, setHintIndexes] = useState([]);
 
   const receiveCheckingContentsResponseHandler = (response) => {
+    console.log(response.data); //////////
+    setCheckingContentsResponse(response.data);
+    setHintIndexes(response.data.hintIndexes);
+    setCurrentHint(response.data.currentHint);
+    setCurrentMinus(response.data.currentMinus);
+    setCurrentScore(response.data.currentScore);
+    if (response.data.mode === "result") {
+      addResultTotalScoreHandler(response.data.currentScore);
+      setMode("result");
+    }
+  };
+  const receiveHintResponseHandler = (response) => {
     console.log(response.data);
     setCheckingContentsResponse(response.data);
+    setHintIndexes(response.data.hintIndexes);
+    setCurrentHint(response.data.currentHint);
+    setCurrentMinus(response.data.currentMinus);
+    setCurrentScore(response.data.currentScore);
+    if (response.data.mode === "result") {
+      addResultTotalScoreHandler(response.data.currentScore);
+      setMode("result");
+    }
   };
   const clearCheckingContentsResponseHandler = () => {
     setCheckingContentsResponse(null);
   };
+  const clearHintIndexesHandler = () => {
+    setHintIndexes(() => {
+      return [];
+    });
+  };
+
+  /* for save check result */
+  const [chapverseResults, setChapverseResults] = useState("");
+  const getChapverseListHandler = () => {
+    let chapList = [
+      resultVerse.map((resultVerse) => resultVerse.currentVerse.chapverse),
+    ];
+    setChapverseResults(chapList.join("&"));
+  };
+  const clearChapverseListHandler = () => {
+    setChapverseResults("");
+  }
 
   ///////////////////////////////////////////////////////////////
   ///////////////////////////////////////////////////////////////
@@ -740,7 +824,7 @@ export const VerseContextProvider = (props) => {
           { head: "A - 새로운 삶", len: 12 },
           { head: "B - 그리스도를 전파함", len: 12 },
           { head: "C - 하나님을 의뢰함", len: 12 },
-          { head: "D - 그리스도의 자격", len: 12 }, // 까지 73이하
+          { head: "D - 그리스도 제자의 자격", len: 12 }, // 까지 73이하
           { head: "E - 그리스도를 닮아감", len: 12 },
         ],
       },
@@ -836,6 +920,7 @@ export const VerseContextProvider = (props) => {
         selected: verse.length,
       },
       currentVerse: currentVerse,
+      currentContents: currentContents,
       currentScoreInfo: {
         currentHint: currentHint,
         currentMinus: currentMinus,
@@ -846,17 +931,20 @@ export const VerseContextProvider = (props) => {
         totalScore: resultTotalScore,
         transformScore: resultTransformScore,
       },
-      indexList: indexList
+      indexList: indexList,
     },
     setCheckingTime: setCheckingTimeHandler,
     setCheckingProcessingState: setCheckingProcessingStateHandler,
     setMode: setModeHandler,
     resetMode: resetModeHandler,
     setCurrentVerse: setCurrentVerseHandler,
+    clearCurrentVerse: clearCurrentVerseHandler,
+    setCurrentContents: setCurrentContentsHandler,
+    clearCurrentContents: clearCurrentContentsHandler,
     setCurrentHint: setCurrentHintHandler,
-    increaseCurrentHint: increaseCurrentHintHandler,
+    // increaseCurrentHint: increaseCurrentHintHandler,
     setCurrentMinus: setCurrentMinusHandler,
-    increaseCurrentMinus: increaseCurrentMinusHandler,
+    // increaseCurrentMinus: increaseCurrentMinusHandler,
     setCurrentScore: setCurrentScoreHandler,
     clearCurrentScoreInfo: clearCurrentScoreInfoHandler,
     addResultVerse: addResultVerseHandler,
@@ -888,26 +976,25 @@ export const VerseContextProvider = (props) => {
       subhead: currentVerse.subhead, // DB 찾기용
       inputTitle: inputTitle,
       inputContents: inputContents,
-      hintWord: hintWord,
+      hintIndexes: hintIndexes,
       currentHint: currentHint,
       currentMinus: currentMinus,
       currentScore: currentScore,
     },
     setInputContents: setInputContentsHandler,
-    addHintWord: addHintWordHandler,
     clearContentsInput: clearContentsInputHandler,
 
     /* response data object for chapverse checking (장절 채점 결과) */
     checkingChapverseResponse: checkingChapverseResponse,
     /*
-      resultTitle: {},
-      isCorrectTitle: {},
-      resultChapterName: {},
-      isCorrectChapterName: {},
-      resultChapter: {},
-      isCorrectChapter: {},
-      resultVerse: {},
-      isCorrectVerse: {},
+      correctTitle: {},
+      inputTitleIsCorrect: {},
+      correctChapterName: {},
+      inputChapterNameIsCorrect: {},
+      correctChapter: {},
+      inputChapterIsCorrect: {},
+      correctVerse: {},
+      inputVerseIsCorrect: {},
       currentMinus: {},
       currentScore: {},
     */
@@ -922,12 +1009,27 @@ export const VerseContextProvider = (props) => {
       isCorrectTitle: {},
       resultContents: {},
       inputContents: {},
+      hintIndexes: {},
       currentHint: {},
       currentMinus: {},
       currentScore: {},
     */
     receiveCheckingContentsResponse: receiveCheckingContentsResponseHandler,
+    receiveHintResponse: receiveHintResponseHandler,
     clearCheckingContentsResponse: clearCheckingContentsResponseHandler,
+    clearHintIndexes: clearHintIndexesHandler,
+
+    saveCheckingResult: {
+      username: localStorage.getItem("username"),
+      check_time: checkingTime,
+      count_total: totalLen,
+      count_selected: verse.length,
+      score_total: resultTotalScore,
+      score_transform: resultTransformScore,
+      check_chapverses: chapverseResults, // |로 구분
+    },
+    getChapverseList: getChapverseListHandler,
+    clearChapverseList: clearChapverseListHandler,
   };
 
   return (

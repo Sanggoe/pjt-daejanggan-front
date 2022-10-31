@@ -19,7 +19,9 @@ const PrepareCheckingSubContent2 = (props) => {
   };
   const minusChapverseHandler = () => {
     if (chapterNums > 0) {
-      setChapterNums(chapterNums - 1);
+      if (chapterNums !== 1 || contentsNums !== 0) {
+        setChapterNums(chapterNums - 1);
+      }
     }
   };
 
@@ -30,7 +32,9 @@ const PrepareCheckingSubContent2 = (props) => {
   };
   const minusContentsHandler = () => {
     if (contentsNums > 0) {
-      setContentsNums(contentsNums - 1);
+      if (contentsNums !== 1 || chapterNums !== 0) {
+        setContentsNums(contentsNums - 1);
+      }
     }
   };
 

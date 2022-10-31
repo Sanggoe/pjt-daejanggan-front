@@ -1,9 +1,16 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
+import VerseContext from "../../store/verses-context";
 import PracticeContent from "./PracticeContent";
 
 import styles from './PracticeContent.module.css'
 
 const PracticeContentsList = (props) => {
+  const verseCtx = useContext(VerseContext);
+
+  useEffect(() => {
+    verseCtx.setCheckingProcessingState("none");
+  }, [])
+
   return (
     <>
       {props.verses.map((verse) => (
@@ -17,6 +24,7 @@ const PracticeContentsList = (props) => {
           subhead={verse.subhead}
         />
       ))}
+      {!props.verses.length && "아무것도 없네요"}
     </>
   );
 };

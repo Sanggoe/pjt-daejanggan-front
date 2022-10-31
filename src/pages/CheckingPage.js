@@ -12,6 +12,7 @@ import VerseContext from "../store/verses-context";
 import axios from "axios";
 import authHeader from "../api/auth-header";
 import Button from "../components/UI/Button";
+import CheckingContentsHint from "../components/Checking/CheckingContentsHint";
 
 const CheckingPage = () => {
   const verseCtx = useContext(VerseContext);
@@ -28,27 +29,35 @@ const CheckingPage = () => {
     };
     verseCtx.addResultVerse(resultCurrentVerse);
     verseCtx.clearCurrentScoreInfo();
+    verseCtx.checkingProcessInfo.currentVerse.verseType === "장절"
+      ? verseCtx.clearChapverseInput()
+      : verseCtx.clearContentsInput();
+    verseCtx.clearHintIndexes();
 
     if (isLast !== true) {
       verseCtx.setCurrentVerse(
         verseCtx.checkingProcessInfo.currentVerse.index + 1
       );
     } else {
-      verseCtx.setResultTransformScore()
-      verseCtx.setCheckingProcessingState("none");
+      verseCtx.setResultTransformScore();
+      verseCtx.setCheckingProcessingState("result");
     }
   };
 
   const changeJustNextVerseHandler = () => {
     checkingRequestHandler();
-    console.log("넘기기~ 뭐 Request에 넘기기 요청 표시하면 무조건 mode result로 반환되도록 하자.")
+    console.log(
+      "넘기기~ 뭐 Request에 넘기기 요청 표시하면 무조건 mode result로 반환되도록 하자."
+    );
   };
 
   const checkingRequestHandler = () => {
-    if (verseCtx.checkingProcessInfo.currentVerse.verseType) {
+    if (verseCtx.checkingProcessInfo.currentVerse.verseType === "장절") {
       // 장절
+      console.log("장절 Request!");
       checkingChapverseRequest();
     } else {
+      console.log("내용 Request!");
       checkingContentsRequest();
     }
     if (
@@ -63,7 +72,7 @@ const CheckingPage = () => {
     const payload = verseCtx.checkingChapverseRequest;
 
     axios
-      .post(API_URL + "/chapverse-checking", payload, { headers: authHeader() })
+      .post(API_URL + "/checking-chapverse", payload, { headers: authHeader() })
       .then((response) => {
         /***********************/
         // console.log("response : " + JSON.stringify(response));
@@ -78,6 +87,7 @@ const CheckingPage = () => {
       })
       .catch((err) => {
         /***********************/
+        alert("checkingPage 에서 오류! 로그아웃 후 다시 이용해주세요.");
         console.log("\n\nerror : " + JSON.stringify(err));
       });
   };
@@ -86,7 +96,7 @@ const CheckingPage = () => {
     const payload = verseCtx.checkingContentsRequest;
 
     axios
-      .post(API_URL + "/contents-checking", payload, { headers: authHeader() })
+      .post(API_URL + "/checking-contents", payload, { headers: authHeader() })
       .then((response) => {
         /***********************/
         // console.log("response : " + JSON.stringify(response));
@@ -96,24 +106,49 @@ const CheckingPage = () => {
 
         if (response.status === 200) {
           verseCtx.receiveCheckingContentsResponse(response);
-          verseCtx.setMode(verseCtx.checkingContentsResponse.mode);
-
           return response;
         }
       })
       .catch((err) => {
         /***********************/
-        alert("prepare 에서 오류! 로그아웃 후 다시 이용해주세요.");
+        alert("checkingPage 에서 오류! 로그아웃 후 다시 이용해주세요.");
+        console.log("\n\nerror : " + JSON.stringify(err));
+      });
+  };
+
+  const hintRequest = () => {
+    const payload = verseCtx.checkingContentsRequest;
+
+    axios
+      .post(API_URL + "/checking-hint", payload, { headers: authHeader() })
+      .then((response) => {
+        /***********************/
+        // console.log("response : " + JSON.stringify(response));
+        // console.log("\n" + JSON.stringify(response.data));
+        // console.log("\n" + response.status);
+        // console.log("\n" + JSON.stringify(response.statusText));
+
+        if (response.status === 200) {
+          verseCtx.receiveHintResponse(response);
+          return response;
+        }
+      })
+      .catch((err) => {
+        /***********************/
+        alert("checkingPage 에서 오류! 로그아웃 후 다시 이용해주세요.");
         console.log("\n\nerror : " + JSON.stringify(err));
       });
   };
 
   const showCurrentVerseHandler = () => {
-    console.log(verseCtx.checkingProcessInfo.currentVerse);
+    console.log(verseCtx.checkingContentsResponse);
+    // console.log(verseCtx.checkingProcessInfo.currentVerse);
+    console.log(verseCtx.checkingProcessInfo.currentContents);
     console.log(verseCtx.checkingProcessInfo.currentScoreInfo);
-    console.log(verseCtx.checkingProcessInfo.resultVerses);
-    console.log(verseCtx.practiceRequest);
-    console.log(verseCtx.practiceResponse);
+    console.log(verseCtx.checkingContentsResponse.hintIndexes); // 처음엔 클릭 금지
+    // console.log(verseCtx.checkingProcessInfo.resultVerses);
+    // console.log(verseCtx.practiceRequest);
+    // console.log(verseCtx.practiceResponse);
   };
 
   return (
@@ -121,7 +156,7 @@ const CheckingPage = () => {
       <HomeButtonHeader label={"점검중단"} path={"/menu"} />
       {/* Test code */}
       <Button type="button" onClick={showCurrentVerseHandler}>
-        show head
+        {"show head"}
       </Button>
       {/***************/}
       <CheckingInfoHeader />
@@ -129,11 +164,16 @@ const CheckingPage = () => {
         verseCtx.checkingProcessInfo.currentVerse.verseType === "장절" && (
           <CheckingContents1 />
         )}
-      {(verseCtx.checkingProcessInfo.mode === "check") === true &&
+      {verseCtx.checkingProcessInfo.mode === "check" &&
         verseCtx.checkingProcessInfo.currentVerse.verseType === "내용" && (
           <CheckingContents2 />
         )}
-      {(verseCtx.checkingProcessInfo.mode === "check") === true && (
+      {verseCtx.checkingProcessInfo.currentScoreInfo.currentHint !== 0 &&
+        verseCtx.checkingProcessInfo.mode === "check" &&
+        verseCtx.checkingProcessInfo.currentVerse.verseType === "내용" && (
+          <CheckingContentsHint />
+        )}
+      {verseCtx.checkingProcessInfo.mode === "check" && (
         <CheckingFooter
           len={2}
           labels={["채점 하기", "넘기기"]}
@@ -150,7 +190,7 @@ const CheckingPage = () => {
         verseCtx.checkingProcessInfo.currentVerse.verseType === "내용" && (
           <CorrectAnswerContents2 />
         )}
-      {<CheckingInfoFooter type={1} />}
+      {<CheckingInfoFooter type={1} hintRequest={hintRequest} />}
 
       <h3>&nbsp;</h3>
       {verseCtx.checkingProcessInfo.mode === "result" && (

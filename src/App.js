@@ -68,11 +68,12 @@ const App = () => {
         {!authCtx.isLoggedIn && <Redirect to="/" />}
       </Route>
       <Route path="/result">
-        {authCtx.isLoggedIn && verseCtx.checkingInfoRequest.headList.length && (
-          <ResultPage />
-        )}
         {authCtx.isLoggedIn &&
-          !verseCtx.checkingInfoRequest.headList.length && (
+          verseCtx.checkingProcessInfo.checkingProcessingState === "result" &&
+          verseCtx.checkingInfoRequest.headList.length && <ResultPage />}
+        {authCtx.isLoggedIn &&
+          (verseCtx.checkingProcessInfo.checkingProcessingState !== "result" ||
+            !verseCtx.checkingInfoRequest.headList.length) && (
             <Redirect to="/menu" />
           )}
         {!authCtx.isLoggedIn && <Redirect to="/" />}

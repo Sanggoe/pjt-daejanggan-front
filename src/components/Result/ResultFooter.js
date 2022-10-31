@@ -13,7 +13,7 @@ const ResultFooter = (props) => {
         <Button
           styles={styles2.button_footer1}
           type="button"
-          onClick={props.onFilterHandler}
+          onClick={props.onClickHandler}
         >
           {props.label}
         </Button>

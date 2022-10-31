@@ -21,14 +21,19 @@ const MainMenuPage = () => {
     setContents(menu);
   };
 
-  // MainMenuPage 렌더링시 headList 초기화
+  // MainMenuPage 렌더링시 초기화
   useEffect(() => {
     verseCtx.clearHeadList();
     verseCtx.clearWeightType();
     verseCtx.clearPracticeVerse();
     verseCtx.clearCheckingProcessInfo();
+    verseCtx.clearCheckingChapverseResponse()
+    verseCtx.clearCheckingContentsResponse();
+    verseCtx.clearCurrentVerse();
+    verseCtx.clearHintIndexes();
+    verseCtx.clearChapverseList();
   }, []);
-  
+
   // nav 메뉴 바꿀 시 headList 초기화
   useEffect(() => {
     verseCtx.clearHeadList();

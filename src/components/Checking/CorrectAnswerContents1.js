@@ -13,48 +13,48 @@ const CorrectAnswerContents1 = () => {
       <div className={styles.label}>
         <label // 제목
           className={`${styles.labelTitle} ${
-            verseCtx.checkingChapverseResponse.correctTitle
+            verseCtx.checkingChapverseResponse.inputTitleIsCorrect
               ? styles.labelTitle_Correct
               : styles.labelTitle_Wrong
           }`}
           type="text"
         >
-          {verseCtx.checkingChapverseResponse.resultTitle}
+          {verseCtx.checkingChapverseResponse.correctTitle}
         </label>
       </div>
       <div className={styles.label}>
         <label // 성경
           className={`${styles.labelChapterName} ${
-            verseCtx.checkingChapverseResponse.correctChapterName
+            verseCtx.checkingChapverseResponse.inputChapterNameIsCorrect
               ? styles.labelChapterName_Correct
               : styles.labelChapterName_Wrong
           }`}
           type="text"
         >
-          {verseCtx.checkingChapverseResponse.resultChapterName}
+          {verseCtx.checkingChapverseResponse.correctChapterName}
         </label>
         <label // 장
           className={`${styles.labelChapter} ${
-            verseCtx.checkingChapverseResponse.correctChapter
+            verseCtx.checkingChapverseResponse.inputChapterIsCorrect
               ? styles.labelChapter_Correct
               : styles.labelChapter_Wrong
           }`}
           type="text"
         >
-          {verseCtx.checkingChapverseResponse.resultChapter}
+          {verseCtx.checkingChapverseResponse.correctChapter}
         </label>
         <label>
           <b>:</b>
         </label>
         <label // 절
           className={`${styles.labelChapter} ${
-            verseCtx.checkingChapverseResponse.correctVerse
+            verseCtx.checkingChapverseResponse.inputVerseIsCorrect
               ? styles.labelChapter_Correct
               : styles.labelChapter_Wrong
           }`}
           type="text"
         >
-          {verseCtx.checkingChapverseResponse.resultVerse}
+          {verseCtx.checkingChapverseResponse.correctVerse}
         </label>
       </div>
       <div className={styles.label}>

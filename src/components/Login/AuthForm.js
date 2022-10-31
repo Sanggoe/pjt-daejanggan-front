@@ -25,12 +25,14 @@ const AuthForm = () => {
   };
 
   const checkingPassword = () => {
-    if (passwordInputRef.current.value === passwordInputCheckRef.current.value) {
+    if (
+      passwordInputRef.current.value === passwordInputCheckRef.current.value
+    ) {
       return true;
     } else {
       return false;
     }
-  }
+  };
 
   const signUpHandler = (e) => {
     if (checkingPassword()) {
@@ -155,10 +157,10 @@ const AuthForm = () => {
   return (
     <>
       <section className={classes.auth}>
-        <h1>{isLogin ? "Login" : "Sign Up"}</h1>
+        <h1>{isLogin ? "로그인" : "회원 가입"}</h1>
         <form onSubmit={isLogin ? authLogin : signUpHandler}>
           <div className={classes.control}>
-            <label htmlFor="id">{isLogin ? "Your Id" : "Make Your Id"}</label>
+            <label htmlFor="id">{isLogin ? "아이디" : "아이디 입력"}</label>
             <input
               className={classes.control_input}
               type="id"
@@ -169,7 +171,7 @@ const AuthForm = () => {
           </div>
           <div className={classes.control}>
             <label htmlFor="password">
-              {isLogin ? "Your Password" : "Make Your Password"}
+              {isLogin ? "비밀번호" : "비밀번호 입력"}
             </label>
             <input
               className={classes.control_input}
@@ -182,9 +184,7 @@ const AuthForm = () => {
           {!isLogin && (
             <>
               <div className={classes.control}>
-                <label htmlFor="passwordCheck">
-                  {"Input Your Password Again"}
-                </label>
+                <label htmlFor="passwordCheck">{"비밀번호 확인"}</label>
                 <input
                   className={classes.control_input}
                   type="password"
@@ -194,7 +194,7 @@ const AuthForm = () => {
                 />
               </div>
               <div className={classes.control}>
-                <label htmlFor="name">Your Name</label>
+                <label htmlFor="name">{"이름 입력"}</label>
                 <input
                   className={classes.control_input}
                   type="name"
@@ -209,7 +209,7 @@ const AuthForm = () => {
             {!isLoading && (
               <button type="submit">{isLogin ? "로그인" : "회원 가입"}</button>
             )}
-            {isLoading && <p>Sending request...</p>}
+            {isLoading && <p>{"응답을 기다리는 중..."}</p>}
             {/* {isLogin && (
               <button type="button" onClick={guestinHandler}>
                 {"Guest"}
@@ -220,7 +220,7 @@ const AuthForm = () => {
               className={classes.toggle}
               onClick={switchAuthModeHandler}
             >
-              {isLogin ? "Create new account" : "Login with existing account"}
+              {isLogin ? "회원가입" : "로그인"}
             </button>
           </div>
         </form>
