@@ -41,7 +41,7 @@ const MainMenuPage = () => {
   
   return (
     <>
-      <MenuHeader />
+      <MenuHeader onClick={verseCtx.clearMyRecord}/>
       <MenuNav navLabel={navLabel} contentsSelect={changeContents} />
       {contents === navLabel[0] && (
         <>

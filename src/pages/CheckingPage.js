@@ -13,10 +13,11 @@ import axios from "axios";
 import authHeader from "../api/auth-header";
 import Button from "../components/UI/Button";
 import CheckingContentsHint from "../components/Checking/CheckingContentsHint";
+import CorrectMyLastAnswerContents from "../components/Checking/CorrectMyLastAnswerContents";
 
 const CheckingPage = () => {
   const verseCtx = useContext(VerseContext);
-  const API_URL = "http://192.168.5.40:8080/api";
+  const API_URL = "http://192.168.5.40:8080/api/verse";
 
   const [isLast, setIsLast] = useState(false);
 
@@ -130,6 +131,13 @@ const CheckingPage = () => {
 
         if (response.status === 200) {
           verseCtx.receiveHintResponse(response);
+
+          if (
+            verseCtx.checkingProcessInfo.currentVerse.index + 1 ===
+            verseCtx.checkingProcessInfo.numberOfVerse.selected
+          ) {
+            setIsLast(true);
+          }
           return response;
         }
       })
@@ -142,10 +150,12 @@ const CheckingPage = () => {
 
   const showCurrentVerseHandler = () => {
     console.log(verseCtx.checkingContentsResponse);
+    console.log(verseCtx.checkingProcessInfo.currentInputResult);
+    console.log(verseCtx.checkingProcessInfo.currentCorrectResult);
     // console.log(verseCtx.checkingProcessInfo.currentVerse);
-    console.log(verseCtx.checkingProcessInfo.currentContents);
-    console.log(verseCtx.checkingProcessInfo.currentScoreInfo);
-    console.log(verseCtx.checkingContentsResponse.hintIndexes); // 처음엔 클릭 금지
+    // console.log(verseCtx.checkingProcessInfo.currentContents);
+    // console.log(verseCtx.checkingProcessInfo.currentScoreInfo);
+    // console.log(verseCtx.checkingContentsResponse.hintIndexes); // 처음엔 클릭 금지
     // console.log(verseCtx.checkingProcessInfo.resultVerses);
     // console.log(verseCtx.practiceRequest);
     // console.log(verseCtx.practiceResponse);
@@ -188,7 +198,10 @@ const CheckingPage = () => {
         )}
       {verseCtx.checkingProcessInfo.mode === "result" &&
         verseCtx.checkingProcessInfo.currentVerse.verseType === "내용" && (
-          <CorrectAnswerContents2 />
+          <>
+            <CorrectAnswerContents2 />
+            <CorrectMyLastAnswerContents />
+          </>
         )}
       {<CheckingInfoFooter type={1} hintRequest={hintRequest} />}
 

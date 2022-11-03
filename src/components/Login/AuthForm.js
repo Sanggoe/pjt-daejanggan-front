@@ -8,7 +8,7 @@ import authHeader from "../../api/auth-header";
 
 const AuthForm = () => {
   const authCtx = useContext(AuthContext);
-  const API_URL = "http://192.168.5.40:8080/api";
+  const API_URL = "http://192.168.5.40:8080/api/user";
 
   const history = useHistory();
 

@@ -11,7 +11,7 @@ import authHeader from "../api/auth-header";
 
 const ResultPage = () => {
   const verseCtx = useContext(VerseContext);
-  const API_URL = "http://192.168.5.40:8080/api";
+  const API_URL = "http://192.168.5.40:8080/api/result";
   
   useEffect(() => {
     verseCtx.getChapverseList();

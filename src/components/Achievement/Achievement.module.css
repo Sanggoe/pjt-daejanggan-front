@@ -1,0 +1,18 @@
+.achievementContentArea {
+    width: 90%;
+    max-width: 20rem;
+    margin: auto;
+    padding: 1rem;
+    background-color: blanchedalmond;
+    display: flex;
+}
+.achievementContent {
+    width: 5rem;
+    height: 5rem;
+    margin: auto;
+    background-color: aquamarine;
+}
+
+.achievementContent:hover {
+    border: 1px solid black;
+}

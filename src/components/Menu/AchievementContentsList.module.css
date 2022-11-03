@@ -1,11 +1,11 @@
-.div {
+.div_area {
     width: 80%;
     margin: auto;
     padding: 1rem;
     display: flex;
 }
 
-.img {
+.img_area {
     width: 20rem;
     margin: auto;
 }

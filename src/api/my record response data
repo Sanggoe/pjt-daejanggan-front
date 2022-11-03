@@ -1,0 +1,66 @@
+{
+  "data": {
+    "myRecords": [
+      {
+        "check_time": "2022-11-01 14:13",
+        "count_total": 5,
+        "count_selected": 2,
+        "score_total": 17,
+        "score_transform": 85,
+        "check_chapverses": "잠언 3:5~6&요한복음 16:24"
+      },
+      {
+        "check_time": "2022-11-01 15:06",
+        "count_total": 13,
+        "count_selected": 5,
+        "score_total": 42,
+        "score_transform": 84,
+        "check_chapverses": "고린도후서 5:7&로마서 8:14&요한복음 16:24&잠언 3:5~6&사도행전 20:32"
+      },
+      {
+        "check_time": "2022-11-01 15:06",
+        "count_total": 73,
+        "count_selected": 10,
+        "score_total": 84,
+        "score_transform": 84,
+        "check_chapverses": "마태복음 28:19~20&마태복음 6:33&요한일서 5:11~12&고린도후서 9:6~7&베드로전서 5:7&요한일서 5:13&요한복음 13:34~35&시편 119:9,11&고린도후서 5:7&빌립보서 4:13"
+      }
+    ]
+  },
+  "status": 200,
+  "statusText": "",
+  "headers": {
+    "cache-control": "no-cache, no-store, max-age=0, must-revalidate",
+    "content-type": "application/json",
+    "expires": "0",
+    "pragma": "no-cache"
+  },
+  "config": {
+    "transitional": {
+      "silentJSONParsing": true,
+      "forcedJSONParsing": true,
+      "clarifyTimeoutError": false
+    },
+    "transformRequest": [
+      null
+    ],
+    "transformResponse": [
+      null
+    ],
+    "timeout": 0,
+    "xsrfCookieName": "XSRF-TOKEN",
+    "xsrfHeaderName": "X-XSRF-TOKEN",
+    "maxContentLength": -1,
+    "maxBodyLength": -1,
+    "env": {},
+    "headers": {
+      "Accept": "application/json, text/plain, */*",
+      "Content-Type": "application/json",
+      "Authorization": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzYW5nZ29lIiwiYXV0aCI6IlJPTEVfVVNFUiIsImV4cCI6MTY2OTM1NTg4M30.25DmFN1kHWm_XjiOVdljRf_ByA-XZ2xE48RO_Nc_uuOLq-U6vziU2wkt366k6xvFQl8We4S7MuzRwcvvrgjYIw"
+    },
+    "method": "post",
+    "url": "http://192.168.5.40:8080/api/result/my-records",
+    "data": "{\"username\":\"sanggoe\"}"
+  },
+  "request": {}
+}

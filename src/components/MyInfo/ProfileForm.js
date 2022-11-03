@@ -6,7 +6,7 @@ import AuthContext from "../../store/auth-context";
 import styles from "./ProfileForm.module.css";
 
 const ProfileForm = () => {
-  const API_URL = "http://192.168.5.40:8080/api";
+  const API_URL = "http://192.168.5.40:8080/api/user";
   const authCtx = useContext(AuthContext);
   const history = useHistory();
   const newPasswordInputRef = useRef();

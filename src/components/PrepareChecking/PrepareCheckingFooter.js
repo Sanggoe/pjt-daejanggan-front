@@ -11,7 +11,7 @@ import authHeader from "../../api/auth-header"
 
 const PrepareCheckingFooter = (props) => {
   const verseCtx = useContext(VerseContext);
-  const API_URL = "http://192.168.5.40:8080/api";
+  const API_URL = "http://192.168.5.40:8080/api/verse";
 
   const actionHandler = () => {
     verseCtx.setCheckingProcessingState("checking");

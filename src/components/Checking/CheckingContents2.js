@@ -1,4 +1,4 @@
-import React, { useContext, useRef } from "react";
+import React, { useContext, useEffect, useRef } from "react";
 import VerseContext from "../../store/verses-context";
 
 import Card from "../UI/Card";
@@ -36,6 +36,13 @@ const CheckingContents2 = () => {
     }
   };
 
+  // const
+
+  useEffect(() => {
+    //contents.current.value = verseCtx.checkingContentsResponse.correctContents;
+    console.log("하하");
+  }, [verseCtx.checkingContentsResponse])
+
   return (
     <Card>
       <div className={styles.input}>
@@ -62,7 +69,7 @@ const CheckingContents2 = () => {
           onFocus={onfocusHandler2}
           onBlur={onblurHandler2}
           ref={contents}
-        />
+        >{}</textarea>
       </div>
       <div className={styles.label}>
         <label className={styles.labelTheme}>

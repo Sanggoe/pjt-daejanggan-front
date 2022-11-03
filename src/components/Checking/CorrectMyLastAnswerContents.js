@@ -3,35 +3,19 @@ import VerseContext from "../../store/verses-context";
 
 import Card from "../UI/Card";
 
-import styles from "./CorrectAnswerContents2.module.css";
+import styles from "./CorrectMyLastAnswerContents.module.css";
 
-const CorrectAnswerContents2 = () => {
+const CorrectMyLastAnswerContents = () => {
   const verseCtx = useContext(VerseContext);
 
   return (
     <Card>
       <div className={styles.label}>
-        <label // 제목
-          className={`${styles.labelTitle} ${
-            verseCtx.checkingContentsResponse.inputTitleIsCorrect
-              ? styles.labelTitle_Correct
-              : styles.labelTitle_Wrong
-          }`}
-          type="text"
-        >
-          {verseCtx.checkingContentsResponse.correctTitle}
-        </label>
+        <label className={styles.labelInfo}>{"내 직전 제출 구절"}</label>
       </div>
-      <div className={styles.label}>
-        <label className={styles.labelChapVerse}>
-          {verseCtx.checkingProcessInfo.currentVerse.chapverse}
-        </label>
-      </div>
-      <div className={styles.label}>
-        <label // 내용
-          className={styles.labelContent}
-        >
-          {verseCtx.checkingContentsResponse.correctContents
+      <div className={styles.input}>
+        <label className={styles.labelContent}>
+          {verseCtx.checkingContentsResponse.inputContents
             .split(" ")
             .map((word, i) => (
               <label
@@ -57,14 +41,8 @@ const CorrectAnswerContents2 = () => {
             ))}
         </label>
       </div>
-      <div className={styles.label}>
-        <label className={styles.labelTheme}>
-          {verseCtx.checkingProcessInfo.currentVerse.theme}
-        </label>
-      </div>
-      {/* {console.log(verseCtx.checkingContentsResponse)} */}
     </Card>
   );
 };
 
-export default CorrectAnswerContents2;
+export default CorrectMyLastAnswerContents;

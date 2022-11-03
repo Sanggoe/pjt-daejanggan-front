@@ -7,8 +7,13 @@ import styles2 from "../UI/Button.module.css";
 import { Link } from "react-router-dom";
 import AuthContext from "../../store/auth-context";
 
-const MenuHeader = () => {
+const MenuHeader = (props) => {
   const authCtx = useContext(AuthContext);
+
+  const logoutHandler = () => {
+    props.onClick();
+    authCtx.logout();
+  }
 
   return (
     <div className={styles.header}>
@@ -18,7 +23,7 @@ const MenuHeader = () => {
         </Button>
       </Link>
       <Link to="/">
-        <Button styles={styles2.button_header} type="button" onClick={authCtx.logout}>
+        <Button styles={styles2.button_header} type="button" onClick={logoutHandler}>
           로그아웃
         </Button>
       </Link>
