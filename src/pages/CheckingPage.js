@@ -34,6 +34,7 @@ const CheckingPage = () => {
       ? verseCtx.clearChapverseInput()
       : verseCtx.clearContentsInput();
     verseCtx.clearHintIndexes();
+    verseCtx.clearVerifiedIndexes();
 
     if (isLast !== true) {
       verseCtx.setCurrentVerse(
@@ -149,9 +150,9 @@ const CheckingPage = () => {
   };
 
   const showCurrentVerseHandler = () => {
-    console.log(verseCtx.checkingContentsResponse);
-    console.log(verseCtx.checkingProcessInfo.currentInputResult);
-    console.log(verseCtx.checkingProcessInfo.currentCorrectResult);
+    console.log(verseCtx.checkingContentsRequest);
+    // console.log(verseCtx.checkingProcessInfo.currentInputResult);
+    // console.log(verseCtx.checkingProcessInfo.currentCorrectResult);
     // console.log(verseCtx.checkingProcessInfo.currentVerse);
     // console.log(verseCtx.checkingProcessInfo.currentContents);
     // console.log(verseCtx.checkingProcessInfo.currentScoreInfo);

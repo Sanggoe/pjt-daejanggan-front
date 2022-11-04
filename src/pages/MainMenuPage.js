@@ -27,10 +27,13 @@ const MainMenuPage = () => {
     verseCtx.clearWeightType();
     verseCtx.clearPracticeVerse();
     verseCtx.clearCheckingProcessInfo();
+    verseCtx.clearChapverseInput();
+    verseCtx.clearContentsInput()
     verseCtx.clearCheckingChapverseResponse()
     verseCtx.clearCheckingContentsResponse();
     verseCtx.clearCurrentVerse();
     verseCtx.clearHintIndexes();
+    verseCtx.clearVerifiedIndexes();
     verseCtx.clearChapverseList();
   }, []);
 

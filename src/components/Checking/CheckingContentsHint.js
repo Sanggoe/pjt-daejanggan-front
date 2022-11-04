@@ -15,21 +15,44 @@ const CheckingContentsHint = () => {
       </div>
       <div className={styles.input}>
         <label className={styles.labelContent}>
-          {verseCtx.checkingProcessInfo.currentContents.map((word, i) => (
-            <label
-              className={
-                verseCtx.checkingContentsResponse.hintIndexes.indexOf(i) !== -1
-                  ? styles.lableHint
-                  : i <
-                    verseCtx.checkingContentsResponse.hintIndexes.slice(-1)[0]
-                  ? styles.labelCorrect
-                  : styles.labelDisable
-              }
-              key={"Hint" + i}
-            >
-              {word}
-            </label>
-          ))}
+          {verseCtx.checkingContentsResponse.correctContents
+            .split(" ")
+            .map((word, i) => (
+              <label
+                className={
+                  word.substring(word.length - 4, word.length) === "633w"
+                    ? styles.labelWrong
+                    : word.substring(word.length - 4, word.length) === "633i"
+                    ? styles.labelInvert
+                    : word.substring(word.length - 4, word.length) === "633m"
+                    ? styles.labelMiss
+                    : word.substring(word.length - 4, word.length) === "633a"
+                    ? styles.labelAdded
+                    : word.substring(word.length - 4, word.length) === "633r"
+                    ? styles.labelRight
+                    : word.substring(word.length - 4, word.length) === "633h"
+                    ? styles.labelHint
+                    : word.substring(word.length - 4, word.length) === "633u"
+                    ? styles.labelUnchecked
+                    : word.substring(word.length - 4, word.length) === "633v"
+                    ? styles.labelVerified
+                    : word.substring(word.length - 4, word.length) === "633c"
+                    ? styles.labelCovered
+                    : null
+                }
+                key={word + i}
+              >
+                {["633h", "633v"].includes(
+                  word.substring(word.length - 4, word.length)
+                )
+                  ? word.substring(0, word.length - 4)
+                  : ["633c"].includes(
+                      word.substring(word.length - 4, word.length)
+                    )
+                  ? "[\u00A0\u00A0\u00A0\u00A0]"
+                  : ""}
+              </label>
+            ))}
         </label>
       </div>
     </Card>

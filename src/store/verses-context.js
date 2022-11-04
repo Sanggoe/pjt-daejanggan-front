@@ -197,8 +197,9 @@ const VerseContext = React.createContext({
     chapverse: {}, // DB 찾기용
     subhead: {}, // DB 찾기용
     inputTitle: {},
-    inputContents: {}, // + 힌트표시?
+    inputContents: {},
     hintIndexes: [],
+    verifiedIndexes: [],
     currentHint: {},
     currentMinus: {},
     currentScore: {},
@@ -231,6 +232,7 @@ const VerseContext = React.createContext({
     correctContents: {},
     inputContents: {},
     hintIndexes: [],
+    verifiedIndexes: [],
     currentHint: {},
     currentMinus: {},
     currentScore: {},
@@ -241,6 +243,7 @@ const VerseContext = React.createContext({
   setCurrentInputResult: (inputContents) => {},
   clearCheckingContentsResponse: () => {},
   clearHintIndexes: () => {},
+  clearVerifiedIndexes: () => {},
 
   /* request data object for save checking result (결과 저장을 위해) */
   saveCheckingResult: {
@@ -776,12 +779,14 @@ export const VerseContextProvider = (props) => {
   const [currentCorrectResult, setCurrentCorrectResult] = useState([]);
   const [currentInputResult, setCurrentInputResult] = useState([]);
   const [hintIndexes, setHintIndexes] = useState([]);
-
+  const [verifiedIndexes, setVerifiedIndexes] = useState([]);
+  
   const receiveCheckingContentsResponseHandler = (response) => {
     console.log("내용점검 Response Data 정보들"); 
     console.log(response.data); 
     setCheckingContentsResponse(response.data);
     setHintIndexes(response.data.hintIndexes);
+    setVerifiedIndexes(response.data.verifiedIndexes);
     setCurrentHint(response.data.currentHint);
     setCurrentMinus(response.data.currentMinus);
     setCurrentScore(response.data.currentScore);
@@ -821,6 +826,7 @@ export const VerseContextProvider = (props) => {
     console.log(response.data);
     setCheckingContentsResponse(response.data);
     setHintIndexes(response.data.hintIndexes);
+    setVerifiedIndexes(response.data.verifiedIndexes);
     setCurrentHint(response.data.currentHint);
     setCurrentMinus(response.data.currentMinus);
     setCurrentScore(response.data.currentScore);
@@ -834,6 +840,11 @@ export const VerseContextProvider = (props) => {
   };
   const clearHintIndexesHandler = () => {
     setHintIndexes(() => {
+      return [];
+    });
+  };
+  const clearVerifiedIndexesHandler = () => {
+    setVerifiedIndexes(() => {
       return [];
     });
   };
@@ -1058,6 +1069,7 @@ export const VerseContextProvider = (props) => {
       inputTitle: inputTitle,
       inputContents: inputContents,
       hintIndexes: hintIndexes,
+      verifiedIndexes: verifiedIndexes,
       currentHint: currentHint,
       currentMinus: currentMinus,
       currentScore: currentScore,
@@ -1091,6 +1103,7 @@ export const VerseContextProvider = (props) => {
       correctContents: {},
       inputContents: {},
       hintIndexes: [],
+      verifiedIndexes: [],
       currentHint: {},
       currentMinus: {},
       currentScore: {},
@@ -1101,6 +1114,7 @@ export const VerseContextProvider = (props) => {
     setCurrentInputResult: setCurrentInputResultHandler,
     clearCheckingContentsResponse: clearCheckingContentsResponseHandler,
     clearHintIndexes: clearHintIndexesHandler,
+    clearVerifiedIndexes: clearVerifiedIndexesHandler,
 
     saveCheckingResult: {
       username: localStorage.getItem("username"),

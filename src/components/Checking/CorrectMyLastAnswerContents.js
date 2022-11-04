@@ -11,7 +11,7 @@ const CorrectMyLastAnswerContents = () => {
   return (
     <Card>
       <div className={styles.label}>
-        <label className={styles.labelInfo}>{"내 직전 제출 구절"}</label>
+        <label className={styles.labelInfo}>{"제출 구절"}</label>
       </div>
       <div className={styles.input}>
         <label className={styles.labelContent}>
@@ -32,7 +32,9 @@ const CorrectMyLastAnswerContents = () => {
                     ? styles.labelRight
                     : word.substring(word.length - 4, word.length) === "633h"
                     ? styles.labelHint
-                    : styles.unchecked
+                    : word.substring(word.length - 4, word.length) === "633v"
+                    ? styles.labelVerified
+                    : styles.labelUnchecked
                 }
                 key={word + i}
               >

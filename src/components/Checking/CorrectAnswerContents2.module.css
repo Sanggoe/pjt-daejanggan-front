@@ -50,7 +50,7 @@
 }
 .labelInvert {
     margin: 0rem 0.2rem;
-    background-color: violet;
+    background-color: rgb(255, 165, 255);
 }
 .labelMiss {
     margin: 0rem 0.2rem;
@@ -71,10 +71,15 @@
 .labelUnchecked {
     margin: 0rem 0.2rem;
 }
+.labelVerified {
+    margin: 0rem 0.2rem;
+}
+.labelCovered {
+    margin: 0rem 0.2rem;
+}
 .labelDisable {
     display: none;
 }
-
 
 .labelTheme {
     width: 95%;

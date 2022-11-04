@@ -52,12 +52,39 @@
     border-radius: 0.3rem;
 }
 
-.lableHint {
-    margin: 0rem 0.1rem;
+.labelWrong {
+    margin: 0rem 0.2rem;
+    background-color: #FF9999;
+}
+.labelInvert {
+    margin: 0rem 0.2rem;
+    background-color: rgb(255, 165, 255);
+}
+.labelMiss {
+    margin: 0rem 0.2rem;
+    background-color: skyblue;
+}
+.labelAdded {
+    margin: 0rem 0.2rem;
+    background-color: skyblue;
+}
+.labelRight {
+    margin: 0rem 0.2rem;
+    background-color: #CCFF99;
+}
+.labelHint {
+    margin: 0rem 0.2rem;
     background-color: #FFE181;
 }
-.labelCorrect {
-    margin: 0rem 0.1rem;
+.labelUnchecked {
+    margin: 0rem 0.2rem;
+}
+.labelVerified {
+    margin: 0rem 0.2rem;
+}
+.labelCovered {
+    margin: 0rem 0.2rem;
+    background-color: aliceblue;
 }
 .labelDisable {
     display: none;

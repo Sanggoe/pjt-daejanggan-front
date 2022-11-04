@@ -48,7 +48,13 @@ const CorrectAnswerContents2 = () => {
                     ? styles.labelRight
                     : word.substring(word.length - 4, word.length) === "633h"
                     ? styles.labelHint
-                    : styles.unchecked
+                    : word.substring(word.length - 4, word.length) === "633u"
+                    ? styles.labelUnchecked
+                    : word.substring(word.length - 4, word.length) === "633v"
+                    ? styles.labelVerified
+                    : word.substring(word.length - 4, word.length) === "633c"
+                    ? styles.labelCovered
+                    : null
                 }
                 key={word + i}
               >
