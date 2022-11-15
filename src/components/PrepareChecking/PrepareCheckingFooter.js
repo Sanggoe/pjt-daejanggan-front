@@ -11,7 +11,7 @@ import authHeader from "../../api/auth-header"
 
 const PrepareCheckingFooter = (props) => {
   const verseCtx = useContext(VerseContext);
-  const API_URL = "http://192.168.5.40:8080/api/verse";
+  const API_URL = "/api/verse";
 
   const actionHandler = () => {
     verseCtx.setCheckingProcessingState("checking");
@@ -38,7 +38,7 @@ const PrepareCheckingFooter = (props) => {
       })
       .catch((err) => {
         /***********************/
-        alert("prepare 에서 오류! 로그아웃 후 다시 이용해주세요.")
+        alert("서버 오류 발생, 로그아웃 후 다시 이용해주세요.");
         console.log("\n\nerror : " + JSON.stringify(err));
       });
   };

@@ -1,68 +1,91 @@
-.daily_area {
+.example_area {
     width: 20rem;
+    margin: 1rem auto;
+    text-align: right;
+    /* background-color: aquamarine; */
+}
+.daily_area {
+    width: 18rem;
     margin: 0.2rem auto;
-    background-color: aquamarine;
+    /* background-color: aquamarine; */
     display: flex;
 }
 .label_day {
-    width: 1.5rem;
+    width: 1.2rem;
     margin: 0.5rem 0.2rem;
     font-weight: bold;
     text-align: center;
-    background-color: #FFE181;
+    /* background-color: #FFE181; */
 }
 .label_month {
-    width: 3rem;
+    width: 2.5rem;
     margin-right: 1rem;
     font-weight: bold;
     text-align: right;
-    background-color: burlywood;
+    /* background-color: burlywood; */
 }
 
 .button_daily_none {
-    width: 1.5rem;
-    height: 1.5rem;
+    width: 1.2rem;
+    height: 1.2rem;
     margin: 0.2rem;
     border-radius: 0.3rem;
     background-color: white;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
 }
 .button_daily_checked {
-    width: 1.5rem;
-    height: 1.5rem;
+    width: 1.2rem;
+    height: 1.2rem;
     margin: 0.2rem;
     border-radius: 0.3rem;
     background-color: #9BE9A8;
     box-shadow: 0 1px 1px rgba(0, 0, 0, 0.5);
 }
 .button_daily_checked2 {
-    width: 1.5rem;
-    height: 1.5rem;
+    width: 1.2rem;
+    height: 1.2rem;
     margin: 0.2rem;
     border-radius: 0.3rem;
     background-color: #40C463;
     box-shadow: 0 1px 1px rgba(0, 0, 0, 0.5);
 }
 .button_daily_checked3 {
-    width: 1.5rem;
-    height: 1.5rem;
+    width: 1.2rem;
+    height: 1.2rem;
     margin: 0.2rem;
     border-radius: 0.3rem;
     background-color: #30A14E;
     box-shadow: 0 1px 1px rgba(0, 0, 0, 0.5);
 }
 .button_daily_checked4 {
-    width: 1.5rem;
-    height: 1.5rem;
+    width: 1.2rem;
+    height: 1.2rem;
     margin: 0.2rem;
     border-radius: 0.3rem;
     background-color: #216E39;
     box-shadow: 0 1px 1px rgba(0, 0, 0, 0.5);
 }
+
+.button_daily_none:hover {
+    background-color: #E6E6E6;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+}
+.button_daily_none:active {
+    background-color: #D6D6D6;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+}
+
 .button_daily_checked:hover,
 .button_daily_checked2:hover,
 .button_daily_checked3:hover,
 .button_daily_checked4:hover {
     background-color: #FFE181;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+}
+.button_daily_checked:active,
+.button_daily_checked2:active,
+.button_daily_checked3:active,
+.button_daily_checked4:active {
+    background-color: #fdd550;
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
 }

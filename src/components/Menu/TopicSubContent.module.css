@@ -1,8 +1,9 @@
 .content {
     width: 17rem;
     text-align: left;
-    margin: auto;
+    margin: 0.2rem auto;
     display: flex;
+    /* background-color: aquamarine; */
 }
 
 .label {
@@ -20,11 +21,11 @@
 }
 .label:hover,
 .label_clicked:hover {
-    color: #FFE181;
+    color: #fec91de9;
 }
 .label:active
 .label_clicked:active {
-    color: #fdd550;
+    color: #fec91de9;
 }
 .input {
     margin: 0rem 0.5rem;

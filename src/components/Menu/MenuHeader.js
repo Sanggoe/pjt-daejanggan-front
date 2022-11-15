@@ -17,13 +17,22 @@ const MenuHeader = (props) => {
 
   return (
     <div className={styles.header}>
+      <Link to="/help">
+        <Button styles={styles2.button_header} type="button">
+          도움말
+        </Button>
+      </Link>
       <Link to="/myInfo">
         <Button styles={styles2.button_header} type="button">
           내 정보
         </Button>
       </Link>
       <Link to="/">
-        <Button styles={styles2.button_header} type="button" onClick={logoutHandler}>
+        <Button
+          styles={styles2.button_header}
+          type="button"
+          onClick={logoutHandler}
+        >
           로그아웃
         </Button>
       </Link>

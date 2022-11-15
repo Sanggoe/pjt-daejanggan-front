@@ -1,11 +1,13 @@
-FROM node:12-alpine
+FROM node:16.16-alpine
+
+RUN npm install -g serve
 
 WORKDIR /app
 
-COPY ./ ./
+RUN mkdir build
 
-RUN npm install
+COPY ./build/ ./build/
 
 EXPOSE 3000
 
-CMD ["npm","start"]
+ENTRYPOINT ["npx", "serve","-s", "build"]

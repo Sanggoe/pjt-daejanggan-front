@@ -33,7 +33,9 @@ const ResultContentsList = (props) => {
         />
       </Card>
       <div className={styles.messageArea}>
-        <label className={styles.labelMessage}>{"※ 점검한 말씀 보기를 눌러야 기록이 저장됩니다"}</label>
+        <label className={styles.labelMessage}>
+          {"※ 점검한 말씀 보기를 눌러야 기록이 저장됩니다"}
+        </label>
       </div>
     </>
   );

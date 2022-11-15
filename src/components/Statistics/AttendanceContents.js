@@ -28,25 +28,223 @@ const AttendanceContents = () => {
   for (let i = 4; i >= 0; i--) {
     months = [...months, ((month - i) % 12) + 1];
   }
-  let dates = new Array(
-    (parseInt((monthly_day[months[0] - 1] +
-      monthly_day[months[1] - 1] +
-      monthly_day[months[2] - 1] +
-      monthly_day[months[3] - 1] +
-      monthly_day[months[4] - 1])/7))
-  ).fill(0);
-  console.log(months[0] - 1)
-  console.log(months[1] - 1)
-  console.log(months[2] - 1)
-  console.log(months[3] - 1)
-  console.log(months[4] - 1)
-  console.log(dates)
-
+  let dates = []
+  for (let i=1; i<180; i++)
+    dates.push(i);
+// parseInt((monthly_day[months[0] - 1] +
+// monthly_day[months[1] - 1] +
+// monthly_day[months[2] - 1] +
+// monthly_day[months[3] - 1] +
+// monthly_day[months[4] - 1])/7)
+  
   return (
     <>
-      {dates.map((value, i) => (
-        <div key={i} className={styles.daily_area}> 
-          <label className={styles.label_month}>{/*(i+1) % month[] */value + "월"}</label>
+      <div className={styles.daily_area}>
+        <label className={styles.label_month}>{months[4] + "월"}</label>
+        <Button styles={styles.button_daily_checked}></Button>
+        <Button styles={styles.button_daily_checked2}></Button>
+        <Button styles={styles.button_daily_checked}></Button>
+        <Button styles={styles.button_daily_none}></Button>
+        <Button styles={styles.button_daily_none}></Button>
+        <Button styles={styles.button_daily_checked3}></Button>
+        <Button styles={styles.button_daily_none}></Button>
+      </div>
+      <div className={styles.daily_area}>
+        <label className={styles.label_month}>{}</label>
+        <Button styles={styles.button_daily_checked}></Button>
+        <Button styles={styles.button_daily_none}></Button>
+        <Button styles={styles.button_daily_checked}></Button>
+        <Button styles={styles.button_daily_none}></Button>
+        <Button styles={styles.button_daily_checked4}></Button>
+        <Button styles={styles.button_daily_checked3}></Button>
+        <Button styles={styles.button_daily_none}></Button>
+      </div>
+      <div className={styles.daily_area}>
+        <label className={styles.label_month}>{months[3] + "월"}</label>
+        <Button styles={styles.button_daily_checked2}>{}</Button>
+        <Button styles={styles.button_daily_checked}>{}</Button>
+        <Button styles={styles.button_daily_none}>{}</Button>
+        <Button styles={styles.button_daily_none}>{}</Button>
+        <Button styles={styles.button_daily_none}>{}</Button>
+        <Button styles={styles.button_daily_checked2}>{}</Button>
+        <Button styles={styles.button_daily_none}>{}</Button>
+      </div>
+      <div className={styles.daily_area}>
+        <label className={styles.label_month}>{""}</label>
+        <Button styles={styles.button_daily_none}>{}</Button>
+        <Button styles={styles.button_daily_checked}>{}</Button>
+        <Button styles={styles.button_daily_checked2}>{}</Button>
+        <Button styles={styles.button_daily_none}>{}</Button>
+        <Button styles={styles.button_daily_checked}>{}</Button>
+        <Button styles={styles.button_daily_none}>{}</Button>
+        <Button styles={styles.button_daily_checked}>{}</Button>
+      </div>
+      <div className={styles.daily_area}>
+        <label className={styles.label_month}>{""}</label>
+        <Button styles={styles.button_daily_checked}>{}</Button>
+        <Button styles={styles.button_daily_none}>{}</Button>
+        <Button styles={styles.button_daily_none}>{}</Button>
+        <Button styles={styles.button_daily_checked3}>{}</Button>
+        <Button styles={styles.button_daily_checked}>{}</Button>
+        <Button styles={styles.button_daily_none}>{}</Button>
+        <Button styles={styles.button_daily_none}>{}</Button>
+      </div>
+      <div className={styles.daily_area}>
+        <label className={styles.label_month}>{""}</label>
+        <Button styles={styles.button_daily_none}>{}</Button>
+        <Button styles={styles.button_daily_none}>{}</Button>
+        <Button styles={styles.button_daily_checked4}>{}</Button>
+        <Button styles={styles.button_daily_none}>{}</Button>
+        <Button styles={styles.button_daily_checked}>{}</Button>
+        <Button styles={styles.button_daily_none}>{}</Button>
+        <Button styles={styles.button_daily_none}>{}</Button>
+      </div>
+      <div className={styles.daily_area}>
+        <label className={styles.label_month}>{""}</label>
+        <Button styles={styles.button_daily_checked4}>{}</Button>
+        <Button styles={styles.button_daily_checked2}>{}</Button>
+        <Button styles={styles.button_daily_checked}>{}</Button>
+        <Button styles={styles.button_daily_none}>{}</Button>
+        <Button styles={styles.button_daily_checked}>{}</Button>
+        <Button styles={styles.button_daily_none}>{}</Button>
+        <Button styles={styles.button_daily_checked3}>{}</Button>
+      </div>
+      <div className={styles.daily_area}>
+        <label className={styles.label_month}>{months[2] + "월"}</label>
+        <Button styles={styles.button_daily_none}>{}</Button>
+        <Button styles={styles.button_daily_none}>{}</Button>
+        <Button styles={styles.button_daily_none}>{}</Button>
+        <Button styles={styles.button_daily_none}>{}</Button>
+        <Button styles={styles.button_daily_none}>{}</Button>
+        <Button styles={styles.button_daily_checked2}>{}</Button>
+        <Button styles={styles.button_daily_none}>{}</Button>
+      </div>
+      <div className={styles.daily_area}>
+        <label className={styles.label_month}>{""}</label>
+        <Button styles={styles.button_daily_checked3}>{}</Button>
+        <Button styles={styles.button_daily_checked}>{}</Button>
+        <Button styles={styles.button_daily_checked2}>{}</Button>
+        <Button styles={styles.button_daily_none}>{}</Button>
+        <Button styles={styles.button_daily_checked}>{}</Button>
+        <Button styles={styles.button_daily_none}>{}</Button>
+        <Button styles={styles.button_daily_checked3}>{}</Button>
+      </div>
+      <div className={styles.daily_area}>
+        <label className={styles.label_month}>{""}</label>
+        <Button styles={styles.button_daily_none}>{}</Button>
+        <Button styles={styles.button_daily_checked}>{}</Button>
+        <Button styles={styles.button_daily_none}>{}</Button>
+        <Button styles={styles.button_daily_none}>{}</Button>
+        <Button styles={styles.button_daily_checked}>{}</Button>
+        <Button styles={styles.button_daily_none}>{}</Button>
+        <Button styles={styles.button_daily_checked}>{}</Button>
+      </div>
+      <div className={styles.daily_area}>
+        <label className={styles.label_month}>{""}</label>
+        <Button styles={styles.button_daily_checked}>{}</Button>
+        <Button styles={styles.button_daily_none}>{}</Button>
+        <Button styles={styles.button_daily_none}>{}</Button>
+        <Button styles={styles.button_daily_checked}>{}</Button>
+        <Button styles={styles.button_daily_none}>{}</Button>
+        <Button styles={styles.button_daily_none}>{}</Button>
+        <Button styles={styles.button_daily_checked4}>{}</Button>
+      </div>
+      <div className={styles.daily_area}>
+        <label className={styles.label_month}>{months[1] + "월"}</label>
+        <Button styles={styles.button_daily_checked3}></Button>
+        <Button styles={styles.button_daily_checked}></Button>
+        <Button styles={styles.button_daily_checked2}></Button>
+        <Button styles={styles.button_daily_none}></Button>
+        <Button styles={styles.button_daily_checked3}></Button>
+        <Button styles={styles.button_daily_checked4}></Button>
+        <Button styles={styles.button_daily_none}></Button>
+      </div>
+      <div className={styles.daily_area}>
+        <label className={styles.label_month}>{""}</label>
+        <Button styles={styles.button_daily_none}></Button>
+        <Button styles={styles.button_daily_checked2}></Button>
+        <Button styles={styles.button_daily_checked}></Button>
+        <Button styles={styles.button_daily_none}></Button>
+        <Button styles={styles.button_daily_checked3}></Button>
+        <Button styles={styles.button_daily_none}></Button>
+        <Button styles={styles.button_daily_none}></Button>
+      </div>
+      <div className={styles.daily_area}>
+        <label className={styles.label_month}>{""}</label>
+        <Button styles={styles.button_daily_none}>{}</Button>
+        <Button styles={styles.button_daily_checked4}>{}</Button>
+        <Button styles={styles.button_daily_none}>{}</Button>
+        <Button styles={styles.button_daily_none}>{}</Button>
+        <Button styles={styles.button_daily_none}>{}</Button>
+        <Button styles={styles.button_daily_checked}>{}</Button>
+        <Button styles={styles.button_daily_checked3}>{}</Button>
+      </div>
+      <div className={styles.daily_area}>
+        <label className={styles.label_month}>{""}</label>
+        <Button styles={styles.button_daily_none}>{}</Button>
+        <Button styles={styles.button_daily_none}>{}</Button>
+        <Button styles={styles.button_daily_none}>{}</Button>
+        <Button styles={styles.button_daily_none}>{}</Button>
+        <Button styles={styles.button_daily_checked}>{}</Button>
+        <Button styles={styles.button_daily_none}>{}</Button>
+        <Button styles={styles.button_daily_checked}>{}</Button>
+      </div>
+      <div className={styles.daily_area}>
+        <label className={styles.label_month}>{"7월"}</label>
+        <Button styles={styles.button_daily_none}>{}</Button>
+        <Button styles={styles.button_daily_none}>{}</Button>
+        <Button styles={styles.button_daily_none}>{}</Button>
+        <Button styles={styles.button_daily_checked3}>{}</Button>
+        <Button styles={styles.button_daily_none}>{}</Button>
+        <Button styles={styles.button_daily_none}>{}</Button>
+        <Button styles={styles.button_daily_checked}>{}</Button>
+      </div>
+      <div className={styles.daily_area}>
+        <label className={styles.label_month}>{""}</label>
+        <Button styles={styles.button_daily_none}>{}</Button>
+        <Button styles={styles.button_daily_checked}>{}</Button>
+        <Button styles={styles.button_daily_checked3}>{}</Button>
+        <Button styles={styles.button_daily_none}>{}</Button>
+        <Button styles={styles.button_daily_checked4}>{}</Button>
+        <Button styles={styles.button_daily_none}>{}</Button>
+        <Button styles={styles.button_daily_checked2}>{}</Button>
+      </div>
+      <div className={styles.daily_area}>
+        <label className={styles.label_month}>{""}</label>
+        <Button styles={styles.button_daily_none}>{}</Button>
+        <Button styles={styles.button_daily_checked}>{}</Button>
+        <Button styles={styles.button_daily_none}>{}</Button>
+        <Button styles={styles.button_daily_none}>{}</Button>
+        <Button styles={styles.button_daily_none}>{}</Button>
+        <Button styles={styles.button_daily_none}>{}</Button>
+        <Button styles={styles.button_daily_none}>{}</Button>
+      </div>
+      <div className={styles.daily_area}>
+        <label className={styles.label_month}>{""}</label>
+        <Button styles={styles.button_daily_none}>{}</Button>
+        <Button styles={styles.button_daily_checked4}>{}</Button>
+        <Button styles={styles.button_daily_none}>{}</Button>
+        <Button styles={styles.button_daily_none}>{}</Button>
+        <Button styles={styles.button_daily_none}>{}</Button>
+        <Button styles={styles.button_daily_checked}>{}</Button>
+        <Button styles={styles.button_daily_checked3}>{}</Button>
+      </div>
+      <div className={styles.daily_area}>
+        <label className={styles.label_month}>{""}</label>
+        <Button styles={styles.button_daily_none}>{}</Button>
+        <Button styles={styles.button_daily_none}>{}</Button>
+        <Button styles={styles.button_daily_none}>{}</Button>
+        <Button styles={styles.button_daily_none}>{}</Button>
+        <Button styles={styles.button_daily_none}>{}</Button>
+        <Button styles={styles.button_daily_none}>{}</Button>
+        <Button styles={styles.button_daily_none}>{}</Button>
+      </div>
+
+      {/* {dates.map((value, i) => (
+        <div key={i} className={styles.daily_area}>
+          <label className={styles.label_month}>
+            {(i+1) % month[] value +"월"}
+          </label>
           <Button styles={styles.button_daily_none}></Button>
           <Button styles={styles.button_daily_none}></Button>
           <Button styles={styles.button_daily_none}></Button>
@@ -55,18 +253,7 @@ const AttendanceContents = () => {
           <Button styles={styles.button_daily_none}></Button>
           <Button styles={styles.button_daily_none}></Button>
         </div>
-      ))}
-
-
-      
-
-      <div className={styles.button_area}>
-        <Button styles={styles.button_daily_none}></Button>
-        <Button styles={styles.button_daily_checked}></Button>
-        <Button styles={styles.button_daily_checked2}></Button>
-        <Button styles={styles.button_daily_checked3}></Button>
-        <Button styles={styles.button_daily_checked4}></Button>
-      </div>
+      ))} */}
     </>
   );
 };

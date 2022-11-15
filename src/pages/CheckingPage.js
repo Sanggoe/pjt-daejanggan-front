@@ -17,9 +17,10 @@ import CorrectMyLastAnswerContents from "../components/Checking/CorrectMyLastAns
 
 const CheckingPage = () => {
   const verseCtx = useContext(VerseContext);
-  const API_URL = "http://192.168.5.40:8080/api/verse";
+  const API_URL = "/api/verse";
 
   const [isLast, setIsLast] = useState(false);
+  const [justNext, setJustNext] = useState(false);
 
   const changeNextVerseHandler = () => {
     verseCtx.setMode("check");
@@ -47,19 +48,29 @@ const CheckingPage = () => {
   };
 
   const changeJustNextVerseHandler = () => {
-    checkingRequestHandler();
-    console.log(
-      "넘기기~ 뭐 Request에 넘기기 요청 표시하면 무조건 mode result로 반환되도록 하자."
-    );
+    if (verseCtx.checkingProcessInfo.currentVerse.verseType === "장절") {
+      // 장절
+      // console.log("장절 Request!");
+      checkingChapverseRequest();
+    } else {
+      // console.log("내용 Request!");
+      checkingContentsJustNextRequest();
+    }
+    if (
+      verseCtx.checkingProcessInfo.currentVerse.index + 1 ===
+      verseCtx.checkingProcessInfo.numberOfVerse.selected
+    ) {
+      setIsLast(true);
+    }
   };
 
   const checkingRequestHandler = () => {
     if (verseCtx.checkingProcessInfo.currentVerse.verseType === "장절") {
       // 장절
-      console.log("장절 Request!");
+      // console.log("장절 Request!");
       checkingChapverseRequest();
     } else {
-      console.log("내용 Request!");
+      // console.log("내용 Request!");
       checkingContentsRequest();
     }
     if (
@@ -89,7 +100,7 @@ const CheckingPage = () => {
       })
       .catch((err) => {
         /***********************/
-        alert("checkingPage 에서 오류! 로그아웃 후 다시 이용해주세요.");
+        alert("서버 오류 발생, 로그아웃 후 다시 이용해주세요.")
         console.log("\n\nerror : " + JSON.stringify(err));
       });
   };
@@ -113,7 +124,32 @@ const CheckingPage = () => {
       })
       .catch((err) => {
         /***********************/
-        alert("checkingPage 에서 오류! 로그아웃 후 다시 이용해주세요.");
+        alert("서버 오류 발생, 로그아웃 후 다시 이용해주세요.")
+        console.log("\n\nerror : " + JSON.stringify(err));
+      });
+  };
+
+  const checkingContentsJustNextRequest = () => {
+    const payload = verseCtx.checkingContentsRequest;
+    payload.currentMinus = 9;
+
+    axios
+      .post(API_URL + "/checking-contents", payload, { headers: authHeader() })
+      .then((response) => {
+        /***********************/
+        // console.log("response : " + JSON.stringify(response));
+        // console.log("\n" + JSON.stringify(response.data));
+        // console.log("\n" + response.status);
+        // console.log("\n" + JSON.stringify(response.statusText));
+
+        if (response.status === 200) {
+          verseCtx.receiveCheckingContentsResponse(response);
+          return response;
+        }
+      })
+      .catch((err) => {
+        /***********************/
+        alert("서버 오류 발생, 로그아웃 후 다시 이용해주세요.")
         console.log("\n\nerror : " + JSON.stringify(err));
       });
   };
@@ -144,13 +180,13 @@ const CheckingPage = () => {
       })
       .catch((err) => {
         /***********************/
-        alert("checkingPage 에서 오류! 로그아웃 후 다시 이용해주세요.");
+        alert("서버 오류 발생, 로그아웃 후 다시 이용해주세요.")
         console.log("\n\nerror : " + JSON.stringify(err));
       });
   };
 
-  const showCurrentVerseHandler = () => {
-    console.log(verseCtx.checkingContentsRequest);
+  // const showCurrentVerseHandler = () => {
+    // console.log(verseCtx.checkingContentsRequest);
     // console.log(verseCtx.checkingProcessInfo.currentInputResult);
     // console.log(verseCtx.checkingProcessInfo.currentCorrectResult);
     // console.log(verseCtx.checkingProcessInfo.currentVerse);
@@ -160,15 +196,15 @@ const CheckingPage = () => {
     // console.log(verseCtx.checkingProcessInfo.resultVerses);
     // console.log(verseCtx.practiceRequest);
     // console.log(verseCtx.practiceResponse);
-  };
+  // };
 
   return (
     <>
       <HomeButtonHeader label={"점검중단"} path={"/menu"} />
       {/* Test code */}
-      <Button type="button" onClick={showCurrentVerseHandler}>
-        {"show head"}
-      </Button>
+      {/* <Button type="button" onClick={showCurrentVerseHandler}>
+        {"헤드출력"}
+      </Button> */}
       {/***************/}
       <CheckingInfoHeader />
       {verseCtx.checkingProcessInfo.mode === "check" &&

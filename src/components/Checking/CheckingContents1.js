@@ -14,13 +14,13 @@ const CheckingContents1 = () => {
   const verse = useRef("");
 
   const onfocusHandler1 = () => {
-    if (title.current.value === "| 제목") {
+    if (title.current.value === "| 제목 입력") {
       title.current.value = "";
     }
   };
   const onblurHandler1 = () => {
     if (title.current.value === "") {
-      title.current.value = "| 제목";
+      title.current.value = "| 제목 입력";
     } else {
       verseCtx.setInputTitle(title.current.value);
     }
@@ -68,7 +68,7 @@ const CheckingContents1 = () => {
         <input
           className={styles.inputTitle}
           type="text"
-          defaultValue={"| 제목"}
+          defaultValue={"| 제목 입력"}
           onFocus={onfocusHandler1}
           onBlur={onblurHandler1}
           required
@@ -103,12 +103,14 @@ const CheckingContents1 = () => {
       </div>
       <div className={styles.label}>
         <label className={styles.labelContent}>
-          {verseCtx.checkingProcessInfo.currentVerse && verseCtx.checkingProcessInfo.currentVerse.contents}
+          {verseCtx.checkingProcessInfo.currentVerse &&
+            verseCtx.checkingProcessInfo.currentVerse.contents}
         </label>
       </div>
       <div className={styles.label}>
         <label className={styles.labelTheme}>
-          {verseCtx.checkingProcessInfo.currentVerse && verseCtx.checkingProcessInfo.currentVerse.theme}
+          {verseCtx.checkingProcessInfo.currentVerse &&
+            verseCtx.checkingProcessInfo.currentVerse.theme}
         </label>
       </div>
     </Card>

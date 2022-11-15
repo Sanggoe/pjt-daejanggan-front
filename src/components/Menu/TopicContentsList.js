@@ -3,16 +3,16 @@ import React, { useContext } from "react";
 import styles from "./TopicContentsList.module.css";
 import TopicContent from "./TopicContent";
 import VerseContext from "../../store/verses-context";
-import Button from "../UI/Button";
+// import Button from "../UI/Button";
 
 const TopicContentsList = () => {
   const verseCtx = useContext(VerseContext);
   
-  /* test code */
-  const showHeadHandler = () => {
-    console.log(verseCtx.checkingInfoRequest.headList);
-  };
-  /************/ 
+  // /* test code */
+  // const showHeadHandler = () => {
+  //   console.log(verseCtx.checkingInfoRequest.headList);
+  // };
+  // /************/ 
 
   return (
     <div className={styles.contents}>
@@ -27,9 +27,9 @@ const TopicContentsList = () => {
       ))}
 
       {/* Test code */}
-      <Button type="button" onClick={showHeadHandler}>
-        show head
-      </Button>
+      {/* <Button type="button" onClick={showHeadHandler}>
+        헤드출력
+      </Button> */}
       {/***************/}
     </div>
   );

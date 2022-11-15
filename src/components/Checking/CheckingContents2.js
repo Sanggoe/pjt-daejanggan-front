@@ -13,13 +13,13 @@ const CheckingContents2 = () => {
   const contents = useRef("");
 
   const onfocusHandler1 = () => {
-    if (title.current.value === "| 제목") {
+    if (title.current.value === "| 제목 입력") {
       title.current.value = "";
     }
   };
   const onblurHandler1 = () => {
     if (title.current.value === "") {
-      title.current.value = "| 제목";
+      title.current.value = "| 제목 입력";
     } else {
       verseCtx.setInputTitle(title.current.value);
     }
@@ -42,24 +42,24 @@ const CheckingContents2 = () => {
 
   // const
 
-  useEffect(() => {
-    if (verseCtx.checkingContentsResponse) {
-      let contentResult = "";
-      verseCtx.checkingContentsResponse.correctContents
-        .split(" ")
-        .map(
-          (word) =>
-            (contentResult += ["633h", "633v", "633c"].includes(
-              word.substring(word.length - 4, word.length)
-            )
-              ? word.substring(0, word.length - 4) + " "
-              : "")
-        );
-      console.log(contentResult);
-      contents.current.value = contentResult;
-      verseCtx.setInputContents(contents.current.value);
-    }
-  }, [verseCtx.checkingContentsResponse]);
+  // useEffect(() => {
+  //   if (verseCtx.checkingContentsResponse) {
+  //     let contentResult = "";
+  //     verseCtx.checkingContentsResponse.correctContents
+  //       .split(" ")
+  //       .map(
+  //         (word) =>
+  //           (contentResult += ["633h", "633v", "633c"].includes(
+  //             word.substring(word.length - 4, word.length)
+  //           )
+  //             ? word.substring(0, word.length - 4) + " "
+  //             : "")
+  //       );
+  //     console.log(contentResult);
+  //     contents.current.value = contentResult;
+  //     verseCtx.setInputContents(contents.current.value);
+  //   }
+  // }, [verseCtx.checkingContentsResponse]);
 
   return (
     <>
@@ -68,7 +68,7 @@ const CheckingContents2 = () => {
           <input
             className={styles.inputTitle}
             type="text"
-            defaultValue={"| 제목"}
+            defaultValue={"| 제목 입력"}
             onFocus={onfocusHandler1}
             onBlur={onblurHandler1}
             required

@@ -5,10 +5,11 @@ import classes from "./AuthForm.module.css";
 import axios from "axios";
 import AuthContext from "../../store/auth-context";
 import authHeader from "../../api/auth-header";
+import Button from "../UI/Button";
 
 const AuthForm = () => {
   const authCtx = useContext(AuthContext);
-  const API_URL = "http://192.168.5.40:8080/api/user";
+  const API_URL = "/api/user";
 
   const history = useHistory();
 
@@ -147,6 +148,25 @@ const AuthForm = () => {
       });
   };
 
+  // 정보 요청
+  const getHello = () => {
+    axios
+      .get(API_URL + "/hello", {})
+      .then((response) => {
+        /***********************/
+        console.log("response : " + JSON.stringify(response));
+        
+        return response;
+      })
+      .catch((err) => {
+        /***********************/
+        console.log("error : " + JSON.stringify(err));
+        alert(
+          "Error 발생!! 이게 나면 에러 로그를 캡쳐해서 개발자에게 보내주세요"
+        );
+      });
+  };
+
   // const guestinHandler = () => {
   //   console.log(authCtx.isGuest);
   //   authCtx.guestin();
@@ -225,6 +245,7 @@ const AuthForm = () => {
           </div>
         </form>
       </section>
+      <Button onClick={getHello}>get Hello</Button>
     </>
   );
 };

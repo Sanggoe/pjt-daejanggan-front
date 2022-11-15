@@ -11,24 +11,24 @@ import styles from "./PrepareCheckingPage.module.css"
 const PrepareCheckingPage = () => {
   const verseCtx = useContext(VerseContext);
 
-  /************************* test code *************************/
-  const showHeadHandler = () => {
-    console.log(verseCtx.practiceResponse)
-    console.log(verseCtx.checkingInfoRequest.checkingType);
-    console.log(verseCtx.checkingInfoRequest.headList);
-    console.log(verseCtx.checkingInfoRequest.orderType)
-    console.log(verseCtx.checkingInfoRequest.verseType)
-    console.log("장절 : " + verseCtx.checkingInfoRequest.count.chapterNums
-    + " / 내용 : " + verseCtx.checkingInfoRequest.count.contentsNums);
-    console.log("체급별일 경우 {");
-    console.log("선택된 체급은?? : " + verseCtx.checkingInfoRequest.weight.weightType)
-     console.log("\t" + verseCtx.checkingInfoRequest.weight.in73ChapterNums);
-     console.log("\t" + verseCtx.checkingInfoRequest.weight.in73ContentsNums);
-     console.log("\t" + verseCtx.checkingInfoRequest.weight.out73ChapterNums);
-     console.log("\t" + verseCtx.checkingInfoRequest.weight.out73ContentsNums);
-     console.log("}");
-  }; 
-  /************************************************************/
+  // /************************* test code *************************/
+  // const showHeadHandler = () => {
+  //   console.log(verseCtx.practiceResponse)
+  //   console.log(verseCtx.checkingInfoRequest.checkingType);
+  //   console.log(verseCtx.checkingInfoRequest.headList);
+  //   console.log(verseCtx.checkingInfoRequest.orderType)
+  //   console.log(verseCtx.checkingInfoRequest.verseType)
+  //   console.log("장절 : " + verseCtx.checkingInfoRequest.count.chapterNums
+  //   + " / 내용 : " + verseCtx.checkingInfoRequest.count.contentsNums);
+  //   console.log("체급별일 경우 {");
+  //   console.log("선택된 체급은?? : " + verseCtx.checkingInfoRequest.weight.weightType)
+  //    console.log("\t" + verseCtx.checkingInfoRequest.weight.in73ChapterNums);
+  //    console.log("\t" + verseCtx.checkingInfoRequest.weight.in73ContentsNums);
+  //    console.log("\t" + verseCtx.checkingInfoRequest.weight.out73ChapterNums);
+  //    console.log("\t" + verseCtx.checkingInfoRequest.weight.out73ContentsNums);
+  //    console.log("}");
+  // }; 
+  // /************************************************************/
 
   return (
     <>
@@ -41,11 +41,11 @@ const PrepareCheckingPage = () => {
       <PrepareCheckingContentsList />
 
       {/* Test code */}
-      <Button type="button" onClick={showHeadHandler}>
-        show head
-      </Button>
+      {/* <Button type="button" onClick={showHeadHandler}>
+      헤드출력
+      </Button> */}
       {/***************/}
-      
+
       <h3>&nbsp;</h3>
       <PrepareCheckingFooter
         len={1}

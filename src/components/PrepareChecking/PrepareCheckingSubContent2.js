@@ -57,7 +57,7 @@ const PrepareCheckingSubContent2 = (props) => {
           type="button"
           onClick={addChapverseHandler}
         >
-          +
+          {"+"}
         </Button>
         <label
           className={
@@ -75,7 +75,7 @@ const PrepareCheckingSubContent2 = (props) => {
           type="button"
           onClick={minusChapverseHandler}
         >
-          -
+          −
         </Button>
 
         <Button
@@ -105,7 +105,7 @@ const PrepareCheckingSubContent2 = (props) => {
           type="button"
           onClick={minusContentsHandler}
         >
-          -
+          −
         </Button>
       </div>
     </>

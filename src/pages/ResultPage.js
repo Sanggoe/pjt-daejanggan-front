@@ -11,17 +11,19 @@ import authHeader from "../api/auth-header";
 
 const ResultPage = () => {
   const verseCtx = useContext(VerseContext);
-  const API_URL = "http://192.168.5.40:8080/api/result";
+  const API_URL = "/api/result";
   
   useEffect(() => {
     verseCtx.getChapverseList();
   }, [])
 
-  /************************* test code *************************/
-  const showHeadHandler = () => {
-    console.log(verseCtx.saveCheckingResult.check_chapverses) 
-  }; 
-  /****/
+  // /************************* test code *************************/
+  // const showHeadHandler = () => {
+  //   console.log(verseCtx.saveCheckingResult.check_chapverses) 
+  //   console.log(verseCtx.checkingProcessInfo.indexList)
+  //   console.log(verseCtx.practiceResponse);
+  // };
+  // /*************************************************************/
 
   const onClickHandler = () => {
     verseCtx.filterPracticVerse();
@@ -41,13 +43,13 @@ const ResultPage = () => {
         // console.log("\n" + JSON.stringify(response.statusText));
 
         if (response.status === 200) {
-          console.log("점검 결과 저장!")
+          // console.log("점검 결과 저장!")
           return response;
         }
       })
       .catch((err) => {
         /***********************/
-        alert("ResultPage 에서 오류! 로그아웃 후 다시 이용해주세요.");
+        alert("서버 오류 발생, 로그아웃 후 다시 이용해주세요.")
         console.log("\nerror : " + JSON.stringify(err));
       });
   };
@@ -59,9 +61,9 @@ const ResultPage = () => {
       <ResultContentsList verseCtx={verseCtx} />
 
       {/* Test code */}
-      <Button type="button" onClick={showHeadHandler}>
-        show head
-      </Button>
+      {/* <Button type="button" onClick={showHeadHandler}>
+      헤드출력
+      </Button> */}
       {/***************/}
 
       <ResultFooter

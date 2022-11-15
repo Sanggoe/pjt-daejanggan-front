@@ -9,11 +9,11 @@ import { Link } from "react-router-dom";
 const PracticingFooter = (props) => {
   return (
     <div className={styles.footer}>
-        <Link to={props.path}>
-          <Button styles={styles2.button_footer1} type="button">
-            {props.label}
-          </Button>
-        </Link>
+      <Link to={props.path}>
+        <Button styles={styles2.button_footer1} type="button">
+          {props.label}
+        </Button>
+      </Link>
     </div>
   );
 };

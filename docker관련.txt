@@ -1,0 +1,30 @@
+// react build 명령어
+npm run build
+
+// docker react 프로젝트 빌드 명령어
+docker build -t computer012/pjt-daejanggan-front .
+
+// dockerfile
+FROM node:16.16-alpine
+RUN npm install -g serve
+WORKDIR /app
+RUN mkdir build
+COPY ./build/ ./build/
+EXPOSE 3000
+CMD ["npx", "serve","-s", "build"]
+
+// docker image 관련 명령어
+docker images
+docker images -a
+docker rmi [imgName]
+docker rmi -f [imgName] // 강제삭제
+docker rm -f $(docker ps -aq --filter ancestor=[삭제안할이미지이름])
+
+// docker network 명령어
+docker network ls
+docker network create daejanggan
+docker network inspect daejanggan
+
+// docker 실행 및 network 연결 명령어
+docker run --network daejanggan -p 8633:8633 computer012/pjt-daejanggan-server
+docker run --network daejanggan -p 3000:3000 computer012/pjt-daejanggan-front

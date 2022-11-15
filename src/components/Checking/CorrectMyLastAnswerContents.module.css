@@ -38,15 +38,15 @@
 }
 .labelInvert {
     margin: 0rem 0.2rem;
-    background-color: rgb(255, 165, 255);
+    background-color: rgb(253, 207, 253);
 }
 .labelMiss {
     margin: 0rem 0.2rem;
-    background-color: skyblue;
+    background-color: rgb(188, 236, 255);
 }
 .labelAdded {
     margin: 0rem 0.2rem;
-    background-color: skyblue;
+    background-color: rgb(75, 156, 255);
 }
 .labelRight {
     margin: 0rem 0.2rem;

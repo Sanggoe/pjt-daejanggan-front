@@ -350,7 +350,7 @@ export const VerseContextProvider = (props) => {
   };
   const filterPracticVerseHandler = () => {
     setVerse((prevVerse) => {
-      return prevVerse.filter((verse) => verse.index in indexList);
+      return prevVerse.filter((verse) => indexList.includes(verse.index));
     });
   };
   const clearPracticeVerseHandler = () => {
@@ -782,8 +782,8 @@ export const VerseContextProvider = (props) => {
   const [verifiedIndexes, setVerifiedIndexes] = useState([]);
   
   const receiveCheckingContentsResponseHandler = (response) => {
-    console.log("내용점검 Response Data 정보들"); 
-    console.log(response.data); 
+    // console.log("내용점검 Response Data 정보들"); 
+    // console.log(response.data); 
     setCheckingContentsResponse(response.data);
     setHintIndexes(response.data.hintIndexes);
     setVerifiedIndexes(response.data.verifiedIndexes);
@@ -823,7 +823,7 @@ export const VerseContextProvider = (props) => {
   };
 
   const receiveHintResponseHandler = (response) => {
-    console.log(response.data);
+    // console.log(response.data);
     setCheckingContentsResponse(response.data);
     setHintIndexes(response.data.hintIndexes);
     setVerifiedIndexes(response.data.verifiedIndexes);

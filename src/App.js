@@ -11,6 +11,7 @@ import { Redirect, Route, Switch } from "react-router-dom";
 import AuthContext from "./store/auth-context";
 import VerseContext from "./store/verses-context";
 import ResultPage from "./pages/ResultPage";
+import HelpPage from "./pages/HelpPage";
 
 const App = () => {
   const authCtx = useContext(AuthContext);
@@ -24,6 +25,10 @@ const App = () => {
       </Route>
       <Route path="/menu">
         {authCtx.isLoggedIn && <MainMenuPage />}
+        {!authCtx.isLoggedIn && <Redirect to="/" />}
+      </Route>
+      <Route path="/help">
+        {authCtx.isLoggedIn && <HelpPage />}
         {!authCtx.isLoggedIn && <Redirect to="/" />}
       </Route>
       <Route path="/myInfo">

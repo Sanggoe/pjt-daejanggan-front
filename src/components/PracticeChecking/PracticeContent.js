@@ -42,13 +42,19 @@ const PracticeContent = (props) => {
 
       <div className={styles.label}>
         <label // 소분류
-          className={props.subhead ? styles.labelHeadBottomWithSub : styles.labelHeadBottom}
+          className={
+            props.subhead
+              ? styles.labelHeadBottomWithSub
+              : styles.labelHeadBottom
+          }
           type="text"
         >
           {props.head}
         </label>
         <label // 소분류 부제
-          className={props.subhead ? styles.labelSubHeadBottom : styles.labelNoneSubHead}
+          className={
+            props.subhead ? styles.labelSubHeadBottom : styles.labelNoneSubHead
+          }
           type="text"
         >
           {props.subhead}

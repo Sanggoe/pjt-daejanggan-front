@@ -7,6 +7,7 @@ import TypeContent from "./TypeContent";
 import Button from "../UI/Button";
 
 import styles from "./TypeContentsList.module.css";
+import { Link } from "react-router-dom";
 
 const types = [
   { label: "출석 통계" },
@@ -14,9 +15,9 @@ const types = [
   { label: "월별 통계" },
 ];
 
-const TypeContentsList = () => {
+const TypeContentsList = (props) => {
   const verseCtx = useContext(VerseContext);
-  const API_URL = "http://192.168.5.40:8080/api/result";
+  const API_URL = "/api/result";
   const [select, setToggle] = useState("");
 
   const onSelectHandler = (selected) => {
@@ -36,40 +37,42 @@ const TypeContentsList = () => {
         // console.log("\n" + JSON.stringify(response.statusText));
 
         if (response.status === 200) {
-          console.log("내 점검 기록 수신!");
+          // console.log("내 점검 기록 수신!");
           return response;
         }
       })
       .catch((err) => {
         /***********************/
-        alert("ResultPage 에서 오류! 로그아웃 후 다시 이용해주세요.");
+        alert("서버 오류 발생, 로그아웃 후 다시 이용해주세요.");
         console.log("\nerror : " + JSON.stringify(err));
       });
   };
 
   /* test code */
-  const showHeadHandler = () => {
-    getMyRecordsRequest();
-  };
+  // const showHeadHandler = () => {
+  //   getMyRecordsRequest();
+  // };
   /************/
 
   return (
     <>
       <div className={styles.contents}>
         {types.map((type) => (
-          <TypeContent
-            key={type.label}
-            label={type.label}
-            onSelect={onSelectHandler}
-            select={select}
-          />
+          <Link key={type.label+""+type.label} to={props.path1}>
+            <TypeContent
+              key={type.label}
+              label={type.label}
+              onSelect={onSelectHandler}
+              select={select}
+            />
+          </Link>
         ))}
       </div>
 
       {/* Test code */}
-      <Button type="button" onClick={showHeadHandler}>
-        show head
-      </Button>
+      {/* <Button type="button" onClick={showHeadHandler}>
+        헤드출력
+      </Button> */}
       {/***************/}
     </>
   );

@@ -44,7 +44,7 @@ const MainMenuPage = () => {
   
   return (
     <>
-      <MenuHeader onClick={verseCtx.clearMyRecord}/>
+      <MenuHeader onClick={verseCtx.clearMyRecord} />
       <MenuNav navLabel={navLabel} contentsSelect={changeContents} />
       {contents === navLabel[0] && (
         <>
@@ -60,7 +60,7 @@ const MainMenuPage = () => {
       )}
       {contents === navLabel[1] && (
         <>
-          <TypeContentsList />
+          <TypeContentsList path1={"/statistics"} />
           <MenuFooter1 len={1} labels={["보러 가기"]} path1={"/statistics"} />
         </>
       )}

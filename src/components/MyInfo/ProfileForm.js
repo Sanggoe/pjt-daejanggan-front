@@ -6,7 +6,7 @@ import AuthContext from "../../store/auth-context";
 import styles from "./ProfileForm.module.css";
 
 const ProfileForm = () => {
-  const API_URL = "http://192.168.5.40:8080/api/user";
+  const API_URL = "/api/user";
   const authCtx = useContext(AuthContext);
   const history = useHistory();
   const newPasswordInputRef = useRef();
@@ -48,14 +48,13 @@ const ProfileForm = () => {
         if (response.status === 200) {
           alert("비밀번호 변경 성공!");
           history.replace("/menu");
-
           return response;
         }
       })
       .catch((err) => {
         /***********************/
         console.log(JSON.stringify(err));
-        alert("비밀번호 변경은 아직 에러가 남\n서버에서 DB 저장 쪽 문제인듯. 해결중!!");
+        alert("서버 오류 발생, 로그아웃 후 다시 이용해주세요.");
       });
   };
 
@@ -89,7 +88,7 @@ const ProfileForm = () => {
         />
       </div>
       <div className={styles.action}>
-        <button>Change Password</button>
+        <button>비밀번호 변경</button>
       </div>
     </form>
   );
